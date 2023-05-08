@@ -24,7 +24,7 @@ class Decore_base(Decore_object):
 
     def start_worker(self):
         for i_function in self.function_s:
-            if not globals.dry_mode and i_function.type == 'worker':
+            if i_function.type == 'worker':
                 self.worker = Thread(target=self.work, daemon=True, name=self.__class__.__name__)
                 self.worker.start()
 

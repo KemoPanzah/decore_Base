@@ -5,26 +5,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Decore_sample_prep",
+            "name": "decore_sample",
             "type": "python",
             "request": "launch",
             "program": "app.py",
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "decore create",
-            "type": "python",
-            "request": "launch",
-            "program": "app.py",
-            "args": ["prepare"],
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "decore help",
-            "type": "python",
-            "request": "launch",
-            "program": "app.py",
-            "args": ["create", "-h"],
+            "args": ["dev"],
             "console": "integratedTerminal"
         }
     ]

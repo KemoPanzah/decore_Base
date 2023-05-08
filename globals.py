@@ -1,11 +1,16 @@
-from .classes import Global_prompt
+from .classes.global_prompt import Global_prompt
 
 from pathlib import Path
 from pykeepass import create_database, PyKeePass
 from uuid import uuid4
 import json,logging
+from dirsync import sync
 
 logging.basicConfig(format='[%(levelname)s] | %(message)s', level=logging.INFO)
+
+class Global_flags(object):
+    def __init__(self):
+        self.purge_unused_database_cols = None
 
 class Global_config(object):
     def __init__(self):
@@ -45,12 +50,24 @@ class Global_config(object):
 
 class Globals(object):
     def __init__(self):
-        #self.prompt = Global_prompt()
-        self.render_docs = False
-        self.dry_mode = False
-        self.purge_unused_database_cols = False
+        self.flags = Global_flags()
         self.config = Global_config()
+        self.prompt = Global_prompt()
+        #TODO - move to model
         self.kdb = self.get_kdb()
+
+        if self.prompt.args.cmd == 'dev':
+            self.flags.purge_unused_database_cols = False
+            self.sync_spa()
+        else:
+            self.flags.purge_unused_database_cols = True
+
+    def sync_spa(self):
+        t_prepare_path = Path(__file__).parent.joinpath('prepare')
+        t_spa_source = t_prepare_path.joinpath('spa')
+        t_spa_destination = Path('spa')
+        sync(str(t_spa_source.absolute()), str(t_spa_destination.absolute()), 'sync', purge=True)
+        
 
     #TODO - move to model
     def get_kdb(self):

@@ -171,7 +171,7 @@ class Decore_model(Model):
             if not b_cls_field_found:
                 migrate(cls._meta.migrator.add_column(cls._meta.table_name, cls_field.column_name, cls_field))
         
-        if globals.purge_unused_database_cols:
+        if globals.flags.purge_unused_database_cols:
             for db_field in t_database_model._meta.fields.values():
                 b_db_field_found = False
                 for cls_field in cls._meta.fields.values():
