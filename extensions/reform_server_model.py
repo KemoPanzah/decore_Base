@@ -1,5 +1,5 @@
 from ..globals import globals
-from ..classes.uniform_model import *
+from ..classes.decore_model import *
 
 import Pyro5.api
 from pathlib import Path
@@ -17,14 +17,14 @@ print('SSL enabled (2-way).')
 
 
 @Pyro5.api.expose
-class Reform_server_model(Uniform_model):
+class Reform_server_model(Decore_model):
 
     daemon = Pyro5.api.Daemon(host='0.0.0.0', port=globals.config.server_port)
 
     client_id = CharField(verbose_name='Client ID')
 
     def __init__(self, p_id=None, *args, **kwargs):
-        Uniform_model.__init__(self, p_id, *args, **kwargs)
+        Decore_model.__init__(self, p_id, *args, **kwargs)
 
     class Meta:
         database = SqliteDatabase('state/database.db')

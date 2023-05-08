@@ -1,4 +1,4 @@
-from ...classes import Uniform_base, Uniform_model
+from ...classes import Decore_base, Decore_model
 from ...library import Particl_market
 
 from datetime import datetime
@@ -50,13 +50,13 @@ class Particl_market_objects(object):
                 r_value = i_template
         return r_value
 
-class Askform_model(Uniform_model):
+class Askform_model(Decore_model):
     def __init__(self, p_particl_market=None):
         self.particl_market = p_particl_market
         self.template:dict = None
         self.template_id = None
         self._focus = None
-        Uniform_model.__init__(self)
+        Decore_model.__init__(self)
     
     @property
     def focus(self):
@@ -153,11 +153,11 @@ class Askform_model(Uniform_model):
             return False
 
 #TODO - das ist eigentlich die Bidform_base | Alter wieder alles umbenennen!
-class Askform_base(Uniform_base):
+class Askform_base(Decore_base):
     def __init__(self, model):
         self.particl_market = Particl_market()
         self._version_s = ['fhan']
-        Uniform_base.__init__(self, model)
+        Decore_base.__init__(self, model)
   
     def add_item(self, p_item):
         r_value = p_item.validate()

@@ -1,5 +1,5 @@
 from .globals import globals
-from .uniform import uniform
+from .decore import decore
 #from .library import *
 
 from importlib import util

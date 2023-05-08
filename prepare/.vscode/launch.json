@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "uniform_sample",
+            "name": "Decore_sample_prep",
             "type": "python",
             "request": "launch",
             "program": "app.py",

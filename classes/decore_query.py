@@ -1,6 +1,6 @@
 from peewee import *
 
-class Uniform_query(Model):
+class Decore_query(Model):
     id = CharField(primary_key=True, unique=True, verbose_name="ID")
     parent = ForeignKeyField('self', backref='children', null=True, verbose_name='Parent')
     base_id = CharField(verbose_name='Base id')

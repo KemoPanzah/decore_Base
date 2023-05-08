@@ -4,12 +4,12 @@ import json
 import logging
 
 from ..globals import globals
-from ..classes.uniform_model import *
+from ..classes.decore_model import *
 
 
-class Perform_model(Uniform_model):
+class Perform_model(Decore_model):
     def __init__(self, p_id=None, *args, **kwargs):
-        Uniform_model.__init__(self, p_id, *args, **kwargs)
+        Decore_model.__init__(self, p_id, *args, **kwargs)
         # TODO - entfernen und in save_json direkt auf config .state_path
         self.json_path = Path(globals.config.state_path).joinpath('jsonbase').joinpath(self.__class__.__name__)
 

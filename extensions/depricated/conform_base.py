@@ -1,17 +1,17 @@
-from ...classes import Uniform_base, Uniform_model
+from ...classes import Decore_base, Decore_model
 from ...library import Particl_market
 
 from pathlib import Path
 from datetime import datetime
 import json
 
-class Conform_base(Uniform_base, Particl_market):
+class Conform_base(Decore_base, Particl_market):
     def __init__(self, scope, caption, model, mode):
-        Uniform_base.__init__(self, scope, caption, model)
+        Decore_base.__init__(self, scope, caption, model)
         Particl_market.__init__(self)
         self.mode = mode
         
-    def add_item(self, p_item: Uniform_model):
+    def add_item(self, p_item: Decore_model):
         r_value = p_item.validate()
         if r_value == True:
             t_title = {'id': p_item.id, 'scope': self.scope}

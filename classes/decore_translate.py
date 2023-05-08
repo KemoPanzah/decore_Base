@@ -2,7 +2,7 @@ import json
 from translate import Translator
 
 
-class Uniform_translate(object):
+class Decore_translate(object):
     __source_language__ = 'en'
     __output_language__ = 'de'
     __trans_language_s__ = ['de']

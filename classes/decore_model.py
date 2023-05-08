@@ -1,5 +1,5 @@
 from ..globals import globals
-from .uniform_translate import Uniform_translate as t
+from .decore_translate import Decore_translate as t
 
 from cerberus import Validator
 from pathlib import Path, WindowsPath, PosixPath
@@ -126,7 +126,7 @@ class BackRefMetaField(MetaField):
     def python_value(self, value):
         return None
 
-class Uniform_model(Model):
+class Decore_model(Model):
     id = CharField(primary_key=True, unique=True, verbose_name="ID")
     title = CharField(verbose_name=t('Title'))
     desc = CharField(verbose_name=t('Description'), null=True)
@@ -360,7 +360,7 @@ class Uniform_model(Model):
         if self.validate():
             t_item = self.__class__.get_or_none(self.__class__.id == self.id)
             if not t_item:
-                if super(Uniform_model,self).save(force_insert=True):
+                if super(Decore_model,self).save(force_insert=True):
                     return True
                 else:
                     logging.error('%s > %s' % ('save_item', 'Insert error'))
@@ -381,7 +381,7 @@ class Uniform_model(Model):
 
     #TODO - return values prüfen; werden die eigentlich benötigt? > delete_instance
     def delete_instance(self):
-        if self(Uniform_model, self).delete_instance():
+        if self(Decore_model, self).delete_instance():
             return True
         else:
             logging.error('%s > %s' % ('remove_item', 'Remove error'))

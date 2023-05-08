@@ -1,5 +1,5 @@
 from ..globals import globals
-from .uniform_object import Uniform_object
+from .decore_object import Decore_object
 
 import secrets
 from uuid import uuid1
@@ -7,9 +7,9 @@ from pathlib import Path
 from threading import Thread
 
 
-class Uniform_base(Uniform_object):
+class Decore_base(Decore_object):
     def __init__(self):
-        Uniform_object.__init__(self, p_id=None, p_parent_id='app', p_source_id=None, p_icon=None, p_title=None, p_desc=None, p_doc=None)
+        Decore_object.__init__(self, p_id=None, p_parent_id='app', p_source_id=None, p_icon=None, p_title=None, p_desc=None, p_doc=None)
         self.model = None
         self.through_model = None
         self.field_s = None

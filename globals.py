@@ -1,5 +1,3 @@
-#from .classes.global_prompt import Global_prompt
-
 from pathlib import Path
 from pykeepass import create_database, PyKeePass
 from uuid import uuid4
@@ -60,7 +58,4 @@ class Globals(object):
             create_database(str(t_kdp_path.absolute()), password='12345678')
         return PyKeePass(str(t_kdp_path.absolute()), password='12345678')
     
-    def pus_spa(self):
-        pass
-
 globals = Globals()

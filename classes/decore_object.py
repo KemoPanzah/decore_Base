@@ -1,4 +1,4 @@
-class Uniform_object(object):
+class Decore_object(object):
     def __init__(self, p_id, p_parent_id, p_source_id, p_icon, p_title, p_desc, p_doc):
         self.id = p_id
         self.parent_id = p_parent_id

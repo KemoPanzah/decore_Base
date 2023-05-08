@@ -1,4 +1,4 @@
-from ...classes import Uniform_base, Uniform_model
+from ...classes import Decore_base, Decore_model
 from ...library import Particl_market
 
 from datetime import datetime
@@ -30,17 +30,17 @@ class Market_object_extender(object):
             r_value.append(i_item)
         return r_value
     
-class Buyform_model(Uniform_model):
+class Buyform_model(Decore_model):
     def __init__(self):
         self.listingitem:dict = None
         self.listingitem_id = None
-        Uniform_model.__init__(self)
+        Decore_model.__init__(self)
         
-class Buyform_base(Uniform_base):
+class Buyform_base(Decore_base):
     def __init__(self, model):
         self.particl_market = Particl_market()
         self._version_s = ['fhan']
-        Uniform_base.__init__(self, model)
+        Decore_base.__init__(self, model)
 
     def get_all(self, p_mode = 'all'):
         t_item_s = []

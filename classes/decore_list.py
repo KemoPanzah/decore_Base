@@ -1,22 +1,22 @@
-class Uniform_list(list):
+class Decore_list(list):
     def __init__(self, p_i_s=[]):
         list.__init__(self)
         for i in p_i_s:
             self.append(i)
-    #OUT - Kann nach übernahme der Uniform_pools entfernt werden
+    #OUT - Kann nach übernahme der Decore_pools entfernt werden
     def get_by_id(self, p_id):
         for i in self:
             if i.id == p_id:
                 return i
-    #OUT - Kann nach übernahme der Uniform_pools entfernt werden
+    #OUT - Kann nach übernahme der Decore_pools entfernt werden
     def get_s_by_parent_id(self, p_parent_id):
-        r_s = Uniform_list()
+        r_s = Decore_list()
         for i in self:
             if i.parent_id == p_parent_id:
                 r_s.append(i)
         return r_s
 
-    #OUT - Kann nach übernahme der Uniform_pools entfernt werden
+    #OUT - Kann nach übernahme der Decore_pools entfernt werden
     def export(self):
         r_value = []
         for i in self:
@@ -26,7 +26,7 @@ class Uniform_list(list):
                     t_dict[key] = value.export()
                 elif type(value) is dict or type(value) is str or type(value) is bool or type(value) is int:
                     t_dict[key] = value
-                # elif type(value) is Uniform_translate:
+                # elif type(value) is Decore_translate:
                 #     t_dict[key] = value.output
                 elif key == 'choices':
                     t_dict[key] = []

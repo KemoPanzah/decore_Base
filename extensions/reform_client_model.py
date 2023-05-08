@@ -2,7 +2,7 @@ import Pyro5.api
 import logging
 
 from ..globals import globals
-from ..classes.uniform_model import *
+from ..classes.decore_model import *
 
 Pyro5.config.SSL = True
 Pyro5.config.SSL_CACERTS = "./cert/ca.crt"
@@ -11,12 +11,12 @@ Pyro5.config.SSL_CLIENTKEY = "./cert/client.key"
 print("SSL enabled (2-way).")
 
 
-class Reform_client_model(Uniform_model):
+class Reform_client_model(Decore_model):
 
     client_id = CharField(verbose_name='Client ID', default=globals.config.app_id)
 
     def __init__(self, p_id=None, *args, **kwargs):
-        Uniform_model.__init__(self, p_id, *args, **kwargs)
+        Decore_model.__init__(self, p_id, *args, **kwargs)
         self.remote_model = self.connect()
 
     class Meta:

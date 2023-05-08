@@ -14,11 +14,11 @@ from pathlib import Path
 from collections import OrderedDict
 
 
-class Uniform(object):
+class Decore(object):
     def __init__(self):
-        self.pool = Uniform_pool()
+        self.pool = Decore_pool()
         self.api = self.get_api()
-        Uniform_query.create_table(safe=True)
+        Decore_query.create_table(safe=True)
         
     def get_api(self):
         t_static_folder = Path('spa/static')
@@ -61,7 +61,7 @@ class Uniform(object):
 
     def app(self, p_title):
         def wrapper(func):
-            self.pool.register(Uniform_app('app', None, None, None, p_title, None, func.__doc__))
+            self.pool.register(Decore_app('app', None, None, None, p_title, None, func.__doc__))
             self.pool.extend()
             for i_base in self.pool.base_s:
                 i_base.start_inits()
@@ -69,9 +69,9 @@ class Uniform(object):
             self.start_api()
         return wrapper
 
-    def base(self, p_icon=None, p_title=None, p_desc=None, p_model=Uniform_model):
+    def base(self, p_icon=None, p_title=None, p_desc=None, p_model=Decore_model):
         def wrapper(cls):
-            t_base: Uniform_base = cls()
+            t_base: Decore_base = cls()
             t_base.id = cls.__name__
             t_base.icon = p_icon
             t_base.title = p_title
@@ -95,7 +95,7 @@ class Uniform(object):
             else:
                 t_parent_id = p_parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Uniform_view(func.__name__, t_parent_id, t_source_id, p_icon, p_title, p_desc, func.__doc__, p_type, p_active_s, p_filter_s, p_query, p_pag_type, p_pag_recs))
+            self.pool.register(Decore_view(func.__name__, t_parent_id, t_source_id, p_icon, p_title, p_desc, func.__doc__, p_type, p_active_s, p_filter_s, p_query, p_pag_type, p_pag_recs))
             func()
         return wrapper
 
@@ -112,7 +112,7 @@ class Uniform(object):
             else:
                 t_parent_id = p_parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Uniform_dialog(func.__name__, t_parent_id, t_source_id, p_icon, p_title, p_desc, func.__doc__, p_type, p_display, p_activator))
+            self.pool.register(Decore_dialog(func.__name__, t_parent_id, t_source_id, p_icon, p_title, p_desc, func.__doc__, p_type, p_display, p_activator))
             func()
         return wrapper
 
@@ -126,7 +126,7 @@ class Uniform(object):
             else:
                 t_parent_id = p_parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Uniform_widget(func.__name__, t_parent_id, t_source_id, p_icon, p_title, p_desc, func.__doc__, p_type, p_layout, p_active_s))
+            self.pool.register(Decore_widget(func.__name__, t_parent_id, t_source_id, p_icon, p_title, p_desc, func.__doc__, p_type, p_layout, p_active_s))
             func()
         return wrapper
 
@@ -140,7 +140,7 @@ class Uniform(object):
             else:
                 t_parent_id = p_parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Uniform_element(func.__name__, t_parent_id, t_source_id, p_icon, p_title, p_desc, p_type, p_default, p_disable, p_schema, func))
+            self.pool.register(Decore_element(func.__name__, t_parent_id, t_source_id, p_icon, p_title, p_desc, p_type, p_default, p_disable, p_schema, func))
         return wrapper
 
     l_action_type = Literal['standard', 'check', 'response', 'file'] #TODO - check, response > activators
@@ -154,7 +154,7 @@ class Uniform(object):
             else:
                 t_parent_id = p_parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Uniform_action(func.__name__, t_parent_id, t_source_id, p_icon, p_title, p_desc, func.__doc__, p_type, p_activator, func))
+            self.pool.register(Decore_action(func.__name__, t_parent_id, t_source_id, p_icon, p_title, p_desc, func.__doc__, p_type, p_activator, func))
         return wrapper
 
     l_function_type = Literal['init', 'worker']
@@ -164,23 +164,23 @@ class Uniform(object):
             t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
             t_parent_id = t_parent_s[-2]
             t_source_id = t_parent_s[0]
-            self.pool.register(Uniform_function(func.__name__, t_parent_id, t_source_id, None, None, None, func.__doc__, p_type, func))
+            self.pool.register(Decore_function(func.__name__, t_parent_id, t_source_id, None, None, None, func.__doc__, p_type, func))
         return wrapper
 
     def get_base_by_id(self, p_id):
-        i_base: Uniform_base
+        i_base: Decore_base
         for i_base in self.pool.base_s:
             if i_base.id == p_id:
                 return i_base
 
-    def get_base_by_model(self, p_model) -> Uniform_base:
-        i_base: Uniform_base
+    def get_base_by_model(self, p_model) -> Decore_base:
+        i_base: Decore_base
         for i_base in self.pool.base_s:
             if i_base.model == p_model:
                 return i_base
 
     def get_base_by_module(self, p_module):
-        i_base: Uniform_base
+        i_base: Decore_base
         for i_base in self.pool.base_s:
             if i_base.__module__ == p_module:
                 return i_base
@@ -261,7 +261,7 @@ class Uniform(object):
                         i_query['children'].append(i2_query)
 
         t_query_s = []
-        for i_query in Uniform_query.select():
+        for i_query in Decore_query.select():
             t_query_s.append(model_to_dict(i_query))
 
         expand()
@@ -285,7 +285,7 @@ class Uniform(object):
         #     t_title_key = ''
         #     t_title_value = i_query_value
 
-        #     i_view: Uniform_view
+        #     i_view: Decore_view
         #     for i_view in self.view_s:
         #         if p_view_id == i_view.id:
         #             t_model = self.get_base_by_id(i_view.source_id).model
@@ -298,13 +298,13 @@ class Uniform(object):
 
         #     return t_title_key+"="+t_title_value
 
-        t_parent = Uniform_query()
+        t_parent = Decore_query()
 
         for i_query_key, i_query_value in p_query.items():
-            # TODO - t_item = Uniform_query.get_or_none(Uniform_query.parent_id == t_parent.id and Uniform_query.base_id == p_base_id and Uniform_query.view_id == p_view_id and Uniform_query.key == key and Uniform_query.value == value)
+            # TODO - t_item = Decore_query.get_or_none(Decore_query.parent_id == t_parent.id and Decore_query.base_id == p_base_id and Decore_query.view_id == p_view_id and Decore_query.key == key and Decore_query.value == value)
             t_item = None
-            i_item: Uniform_query
-            for i_item in Uniform_query.select():
+            i_item: Decore_query
+            for i_item in Decore_query.select():
                 if i_item.base_id == p_base_id:
                     if i_item.view_id == p_view_id:
                         if i_item.key == i_query_key:
@@ -313,7 +313,7 @@ class Uniform(object):
                                     t_item = i_item
 
             if not t_item:
-                t_item = Uniform_query()
+                t_item = Decore_query()
                 t_item.id = str(uuid1())
                 t_item.parent = t_parent
                 t_item.base_id = p_base_id
@@ -334,14 +334,14 @@ class Uniform(object):
 
 
     def get_remove_query(self, p_id):
-        t_query_item = Uniform_query.get_or_none(Uniform_query.id == p_id)
+        t_query_item = Decore_query.get_or_none(Decore_query.id == p_id)
         if t_query_item:
             t_query_item.delete_instance(recursive=True, delete_nullable=True)
             return 'success', 200
         else:
             return 'error', 200
         
-uniform = Uniform()
+decore = Decore()
 
 # @api.route('/get_uniform')
 # def get_uniform():

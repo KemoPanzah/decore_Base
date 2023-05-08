@@ -2,7 +2,7 @@ import logging, inspect
 
 from pathlib import Path
 
-class Uniform_return(object):
+class Decore_return(object):
     def __init__(self, p_success:bool, p_result, p_logging=True):
         self.__data__ = {'success': p_success, 'result': p_result, 'type': 'default'}
 

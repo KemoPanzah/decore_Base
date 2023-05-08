@@ -1,11 +1,11 @@
-from ...classes import Uniform_base, Uniform_model
+from ...classes import Decore_base, Decore_model
 
 from pysyncobj import SyncObj, SyncObjConf, replicated
 from pathlib import Path
 
-class Deform_base(Uniform_base, SyncObj):
+class Deform_base(Decore_base, SyncObj):
     def __init__(self, scope, caption, model):
-        Uniform_base.__init__(self, scope, caption, model)
+        Decore_base.__init__(self, scope, caption, model)
         SyncObj.__init__(self,self.get_server_address(), self.get_node_address_s(), self.get_sync_config())
         self.item_s = []
 
@@ -24,7 +24,7 @@ class Deform_base(Uniform_base, SyncObj):
         return r_value
 
     @replicated
-    def add_item(self, p_item: Uniform_model):
+    def add_item(self, p_item: Decore_model):
         r_value = p_item.validate()
         if r_value == True:
             self.item_s.append(p_item)
