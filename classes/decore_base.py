@@ -2,7 +2,6 @@ from ..globals import globals
 from .decore_object import Decore_object
 
 import secrets
-from uuid import uuid1
 from pathlib import Path
 from threading import Thread
 
@@ -35,17 +34,12 @@ class Decore_base(Decore_object):
                     i_function.func(self)
 
 
-    # TODO - folgendes ins Modelverschieben
+    # def create_secret(self):
+    #     return (secrets.token_hex(2))
 
-    def create_secret(self):
-        return (secrets.token_hex(2))
-
-    def create_id(self):
-        return str(uuid1())
-
-    def create_path(self, p_id, mkdir=False):
-        t_root_path = globals.config['default']['data_path']
-        r_value: Path = Path(t_root_path).joinpath(self.id, p_id)
-        if mkdir == True:
-            r_value.mkdir(parents=True)
-        return r_value.as_posix()
+    # def create_path(self, p_id, mkdir=False):
+    #     t_root_path = globals.config['default']['data_path']
+    #     r_value: Path = Path(t_root_path).joinpath(self.id, p_id)
+    #     if mkdir == True:
+    #         r_value.mkdir(parents=True)
+    #     return r_value.as_posix()

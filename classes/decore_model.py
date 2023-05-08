@@ -2,18 +2,19 @@ from ..globals import globals
 from .decore_translate import Decore_translate as t
 
 from cerberus import Validator
+from functools import reduce
 from pathlib import Path, WindowsPath, PosixPath
 from peewee import *
 from peewee import MetaField, FieldAccessor
-from playhouse.shortcuts import model_to_dict
 from playhouse.migrate import *
 from playhouse.reflection import Introspector
+from playhouse.shortcuts import model_to_dict
 from pykeepass.entry import Entry
 from shutil import move
-import logging
-from functools import reduce
-import operator
+from uuid import uuid1
 import inspect
+import logging
+import operator
 
 class PasswordFieldAccessor(object):
     def __init__(self, model, field, name):
@@ -386,3 +387,6 @@ class Decore_model(Model):
         else:
             logging.error('%s > %s' % ('remove_item', 'Remove error'))
             return False
+    
+    def create_id(self):
+        return str(uuid1())
