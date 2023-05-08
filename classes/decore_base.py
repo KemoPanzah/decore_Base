@@ -33,7 +33,6 @@ class Decore_base(Decore_object):
                 if i_function.type == 'worker':
                     i_function.func(self)
 
-
     # def create_secret(self):
     #     return (secrets.token_hex(2))
 
