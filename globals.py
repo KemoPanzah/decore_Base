@@ -1,3 +1,5 @@
+from .classes import Global_prompt
+
 from pathlib import Path
 from pykeepass import create_database, PyKeePass
 from uuid import uuid4
