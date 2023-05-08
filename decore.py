@@ -1,4 +1,17 @@
-from .classes import *
+from .classes.decore_action import Decore_action
+from .classes.decore_app import Decore_app
+from .classes.decore_base import Decore_base
+from .classes.decore_dialog import Decore_dialog
+from .classes.decore_element import Decore_element
+from .classes.decore_function import Decore_function
+from .classes.decore_model import Decore_model
+from .classes.decore_pool import Decore_pool
+from .classes.decore_query import Decore_query
+from .classes.decore_view import Decore_view
+from .classes.decore_widget import Decore_widget
+
+from . import globals
+
 from playhouse.shortcuts import model_to_dict
 from uuid import uuid1
 from typing import Literal

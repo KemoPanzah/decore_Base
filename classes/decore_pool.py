@@ -1,5 +1,16 @@
+from .decore_base import Decore_base
+from .decore_object import Decore_object
+from .decore_view import Decore_view
+from .decore_dialog import Decore_dialog
+from .decore_widget import Decore_widget
+from .decore_action import Decore_action
+from .decore_element import Decore_element
+from .decore_function import Decore_function
+from .decore_list import Decore_list
+
+
+
 import inspect
-from . import *
 from peewee import Field
 
 
