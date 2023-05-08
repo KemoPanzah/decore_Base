@@ -1,0 +1,31 @@
+{
+    // Verwendet IntelliSense zum Ermitteln möglicher Attribute.
+    // Zeigen Sie auf vorhandene Attribute, um die zugehörigen Beschreibungen anzuzeigen.
+    // Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "uniform_sample",
+            "type": "python",
+            "request": "launch",
+            "program": "app.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "decore create",
+            "type": "python",
+            "request": "launch",
+            "program": "app.py",
+            "args": ["prepare"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "decore help",
+            "type": "python",
+            "request": "launch",
+            "program": "app.py",
+            "args": ["create", "-h"],
+            "console": "integratedTerminal"
+        }
+    ]
+}

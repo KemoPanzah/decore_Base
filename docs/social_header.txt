@@ -1,0 +1,49 @@
+### DE
+
+Howdy an alle Python-Programmierer, die schnell zum Ziel kommen müssen.
+
+Decore-base ist ein "Python to Vue.js" Open-Source-Framework, welches Dir hilft, in wenigen Schritten von der Idee zur Ansicht zu gelangen. Es ist Zielgerichtet an jene, die sich auf die Ergebnisse ihrer Algorithmen konzentrieren wollen, wissenschaftliche Arbeit betreiben, fördernde lehrende oder lernende Funktionen ausüben.
+
+Ich begann mit der Arbeit an diesem Projekt 2020, da ich für meine Ideen und Projekte immer wieder neue Anwendungen schrieb, aber nicht immer wieder mit der GUI kämpfen wollte.
+Die Generalisierung meiner Ideen wurde aber für mich der ideale Kopfsport und faszinierte mich nun mehr als die ursprünglichen Projekte.
+
+<<<<<<< HEAD
+Nun warf ich den Ursprung über Bord und konzentriere mich seit einem halben Jahr auf die wachsenden Features des eigentlichen Frameworks und ja ich glaube es wird allmählich erwachsen...
+=======
+Nun werfe ich die einstigen Bestrebungen über Bord und konzentriere mich, seit einem halben Jahr, auf die wachsenden Features des eigentlichen Frameworks.
+>>>>>>> d7a1ea8bde6f24fb62344459d7c721d0596765ba
+
+... und ja ich glaube, es wird allmählich Erwachsen ...
+
+Alles steht derzeit noch in der Entwicklung und ist noch weit von einer Beta-Version entfernt. Ich denke aber, dass es reif genug ist, meine jetzigen Fortschritte stetig mit Euch zu teilen.
+
+Ich hoffe hier bei KOFI auf Unterstützung jeglicher Art, nicht nur finanziell, da ich massiv viel Zeit in meine 2 Kinder, 2 Jobs und die Weiterentwicklung von Decore_base investiere.
+
+### EN
+
+Howdy to all Python programmers who need to get to the finish line fast.
+
+Decore-base is a "Python to Vue.js" open source framework that helps you go from idea to view in a few steps. It is targeted to those who want to focus on the results of their algorithms, do scientific work, perform promotional teaching or learning functions.
+
+<<<<<<< HEAD
+I started working on this project in 2020, because I kept writing new applications for my ideas and projects but didn't want to keep struggling with the GUI.
+However, the genaralization process itself became the ideal head sport for me and now fascinated me more than the original projects.
+
+Now I threw the origin overboard and concentrate since half a year on the growing features of the actual framework.
+And yes I think it's starting to grow up....
+=======
+I started working on this project in 2020 because I kept writing new applications for my ideas and projects, but didn't want to keep struggling with the GUI.
+However, generalizing my ideas became the ideal head sport for me and now fascinated me more than the original projects.
+
+Now I throw the former aspirations overboard and concentrate, since half a year, on the growing features of the actual framework.
+>>>>>>> d7a1ea8bde6f24fb62344459d7c721d0596765ba
+
+... and yes I think it's starting to grow up ...
+
+<<<<<<< HEAD
+I'm hoping for support here at KO-FI as I invest a massive amount of time in my 2 kids, 2 jobs and the further development of Decore_base.
+=======
+Everything is still under development at the moment and far from a beta version. But I think it's mature enough to steadily share my current progress with you.
+
+I hope here at KOFI for support of any kind, not only financial, as I invest a massive amount of time in my 2 children, 2 jobs and the further development of Decore_base.
+>>>>>>> d7a1ea8bde6f24fb62344459d7c721d0596765ba
