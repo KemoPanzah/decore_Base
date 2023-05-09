@@ -9,6 +9,7 @@ from .classes.decore_pool import Decore_pool
 from .classes.decore_query import Decore_query
 from .classes.decore_view import Decore_view
 from .classes.decore_widget import Decore_widget
+from .classes.decore_prompt import Decore_prompt
 
 from . import globals
 
@@ -29,6 +30,7 @@ from collections import OrderedDict
 
 class Decore(object):
     def __init__(self):
+        self.prompt = Decore_prompt()
         self.pool = Decore_pool()
         self.api = self.get_api()
         Decore_query.create_table(safe=True)
