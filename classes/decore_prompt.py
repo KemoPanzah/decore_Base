@@ -18,6 +18,7 @@ class Decore_prompt(object):
 
         if self.args.cmd == 'prepare':
             self.copy_launch()
+            self.copy_gitignore()
             self.sync_spa()
             exit()
         elif self.args.cmd == 'dev':
@@ -31,6 +32,12 @@ class Decore_prompt(object):
         t_launch_destination = Path('.vscode').joinpath('launch.json')
         t_launch_destination.parent.mkdir(parents=True, exist_ok=True)
         copyfile(str(t_launch_source.absolute()), str(t_launch_destination.absolute()))
+
+    def copy_gitignore(self):
+        t_prepare_path = Path(__file__).parent.parent.joinpath('prepare')
+        t_gitignore_source = t_prepare_path.joinpath('.gitignore')
+        t_gitignore_destination = Path('.gitignore')
+        copyfile(str(t_gitignore_source.absolute()), str(t_gitignore_destination.absolute()))
             
     def sync_spa(self):
         t_prepare_path = Path(__file__).parent.parent.joinpath('prepare')
