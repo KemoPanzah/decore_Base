@@ -3,12 +3,12 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "example_package_YOUR_USERNAME_HERE"
+name = "decore_base_KemoPanzah"
 version = "0.0.1"
 authors = [
-  { name="Example Author", email="author@example.com" },
+  { name="Kemo Panzah" },
 ]
-description = "A small example package"
+description = "decore Base is a Python to Vue.js open source package that helps you get from idea to view in a few simple steps."
 readme = "README.md"
 requires-python = ">=3.9"
 classifiers = [
@@ -18,7 +18,7 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/pypa/sampleproject"
-"Bug Tracker" = "https://github.com/pypa/sampleproject/issues"
+"Homepage" = "https://ko-fi.com/decore_base"
+# "Bug Tracker" = "https://github.com/pypa/sampleproject/issues"
 
 
