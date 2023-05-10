@@ -1,49 +1,37 @@
-# Dokumentation
-## **Allgemeines**
-## Datenkontext
-Der Datenkontext ist ein Eigenschaftswert der Dialogkomponente im Frontend. Dieser Wert wird bei der Widget-Initialisierung übernommen und bestimmt welcher Item-Typ weiterverarbeitet oder generiert wird. Im Allgemeinen wird dieser generisch durch die Quellcode im Frontend gesetzt.
+# Documentation
+## Get started
+### Installation
+To install Decore base package run:
 
-Es gibt folgende Typen:
+```
+pip install decore_base
+````
 
-#### **default**
-Es wird ein neues Default-Item erstellt, also ein neuer Datensatz.
-#### **item**
-Es wird das derzeit gewählte Item einer View übernommen.
-#### **last**
-Es wird der letzte Datenbankeintrag vom Backend abgerufen und übernommen.
+### Usage
+Create a new file named ```app.py``` in your project root directory.
 
-## **Metabausteine (Funktionsdekoratoren)**
-## App
-## Metabasis (metabase)
-## View (uniform.view)
-Die View Funktionen (uniform.view) wird in der Metabasis angewendet.
-Der Dekorator ist @uniform.view
-### Parameter
-<!-- TODO Beispielcode -->
-### Ereignisfunktionen
-#### **onMounted**
-#### **onItemClick**
-### Beispiele
-#### Dialog (uniform.dialog)
-#### Widget (iniform.widget)
 
-activator
+To use Decore base package import it in your project:
 
-Activatoren werden für Aktionen und Dialoge benötigt damit das Backend sie an den  gewünschten positionen oder zu ereignissen darstellen kann und den richtigen Item-Kontext benutzt. 
+```
+from decore_base import decore
+```
 
-Activatoren-Hinweise bestehen aus 2 Teilen dem context und dem event Hinweis.
+To create a new Decore application instance use a ```decore``` decoratorated function in app.py file after the ```if __name__ == '__main__':``` line.	
 
-context gibt nur auskunft wie das backend die das item behandelt.
+```
+if __name__ == '__main__':
+    @decore.app(p_title='My App')
+    def main():
+        pass
+```
 
-last - das letzte item das der tabelle
-default - das standard item aus dem model
-item - das zu weiterverarbeitung bereitgestellte item. Zum Beispiel aus einer selection in einer view
+To prepare your application run ``` python.exe app.py prepare ``` in your project root directory. Use Terminal in vscode or any other IDE.
 
-z.b last-onload 
+To run your application run ``` python.exe app.py ``` in your project root directory. Use Terminal in vscode or any other IDE.
 
-```mermaid
-graph
-A[A Square Rect] -- Link text --> B((Circle))
-A --> C(Round Rect)
-B --> D{Rhombus}
-C --> D
+to develop your application run ``` python.exe app.py dev ``` in your project root directory. Use Terminal in vscode or any other IDE.
+
+or 
+
+use your debugger with profile ``` Decore app dev ``` in vscode.
