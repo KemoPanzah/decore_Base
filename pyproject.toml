@@ -20,5 +20,3 @@ classifiers = [
 [project.urls]
 "Homepage" = "https://ko-fi.com/decore_base"
 # "Bug Tracker" = "https://github.com/pypa/sampleproject/issues"
-
-

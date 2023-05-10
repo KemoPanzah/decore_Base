@@ -5,6 +5,8 @@ decore is still under development and only available for Windows at the moment. 
 
 The recommended IDE is Visual Studio Code.
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P5P2JCC5B)
+
 ## Get started
 ### Installation
 To install decore Base run the following command in your terminal in the project root directory:
