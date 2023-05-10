@@ -46,7 +46,7 @@ vscode.
 The base is the carrier for views. it can be carry views from same base or views from other bases. The base is also linked with one model.  
 
 #### Model
-The model is the data carrier for the base. It can be a simple data model or a complex data model. Every model is linked with one base and is based on peewee ORM. to find out more about peewee ORM visit [peewee](http://docs.peewee-orm.com/en/latest/).
+Das Model definiert die Daten mit denen gearbeitet wird. Es kann ein einfaches Datenmodell oder ein komplexes Datenmodell sein. Jedes Model ist mit einer Base verknüpft und basiert auf peewee ORM. Um mehr über peewee ORM zu erfahren, besuchen Sie [peewee](http://docs.peewee-orm.com/en/latest/).
 
 ### Build
 to build your application use your debugger with profile ``` Decore app build ``` in vscode.
@@ -55,8 +55,8 @@ to build your application use your debugger with profile ``` Decore app build ``
 
 ## Api reference
 
-## Model reference
-to simplify the work with the model the following methods where monkey patched to the origin peewee model class.
+## Model Referenz
+Um die Arbeit mit dem originalen Peewee-Model noch weiter zu vereinfachen, wurde das Model um einige funktionen erweitert.
 
 ## Examples
 Um die Funktionsweise von Decore base zu verstehen, ist es am besten, sich ein Beispiel anzusehen. Das folgende Beispiel zeigt, wie Sie eine einfache Anwendung erstellen, die eine Liste von Personen anzeigt. Die Anwendung besteht aus einer Ansicht, die eine Liste von Personen anzeigt, und einer Ansicht, die die Details einer Person anzeigt.
@@ -65,8 +65,9 @@ Um die Funktionsweise von Decore base zu verstehen, ist es am besten, sich ein B
 
 ```mermaid 
 graph
-A[Base]  --> B((Circle))
-A --> C(Round Rect)
-B --> D{Rhombus}
-C --> D
+A[Base]  --> B[View]
+B --> F[Action]
+B --> C[Dialog]
+C --> D[Widget]
+D --> F[Action]
 
