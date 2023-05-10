@@ -52,7 +52,7 @@ to build your application use your debugger with profile ``` Decore app build ``
 
 ## Api reference
 
-## Model Referenz
+## Model reference
 To further simplify working with the original peewee model, the model has been extended with some functions.
 
 ## Examples
