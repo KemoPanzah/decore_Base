@@ -1,3 +1,4 @@
+'git comment: improve redme.md'
 # Documentation
 decore Base is a "Python to Vue.js" open source package that helps you get from idea to view in a few simple steps. It is aimed at those who want to focus on the results of their algorithms, work scientifically, perform teaching or learning functions.
 
