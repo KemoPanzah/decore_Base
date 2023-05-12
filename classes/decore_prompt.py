@@ -20,11 +20,12 @@ class Decore_prompt(object):
             self.copy_launch()
             self.copy_gitignore()
             self.sync_spa()
+            self.create_bases()
             exit()
         elif self.args.cmd == 'dev':
             globals.flags.purge_unused_database_cols = False
         else:
-            globals.flags.purge_unused_database_cols = True
+            exit()
 
     def copy_launch(self):
         t_prepare_path = Path(__file__).parent.parent.joinpath('prepare')
@@ -45,3 +46,9 @@ class Decore_prompt(object):
         t_spa_destination = Path('spa')
         t_spa_destination.mkdir(parents=True, exist_ok=True)
         sync(str(t_spa_source.absolute()), str(t_spa_destination.absolute()), 'sync', purge=True)
+    
+    def create_bases(self):
+        t_bases_init_path = Path('bases').joinpath('__init__.py')
+        if not t_bases_init_path.exists():
+            t_bases_init_path.parent.mkdir(parents=True, exist_ok=True)
+            with open(t_bases_init_path, 'w'): pass

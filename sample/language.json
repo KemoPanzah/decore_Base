@@ -1,0 +1,18 @@
+{
+    "Title": {
+        "en": "Title",
+        "de": "Titel"
+    },
+    "Description": {
+        "en": "Description",
+        "de": "Beschreibung"
+    },
+    "Item type": {
+        "en": "Item type",
+        "de": "Element-Typ"
+    },
+    "Parent path": {
+        "en": "Parent path",
+        "de": "\u00fcbergeordneter Pfad"
+    }
+}

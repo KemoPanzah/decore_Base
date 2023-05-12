@@ -1,0 +1,26 @@
+{
+    // Verwendet IntelliSense zum Ermitteln möglicher Attribute.
+    // Zeigen Sie auf vorhandene Attribute, um die zugehörigen Beschreibungen anzuzeigen.
+    // Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Sample app dev",
+            "type": "python",
+            "request": "launch",
+            "program": "app.py",
+            "args": ["dev"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/sample"
+        },
+        {
+            "name": "Sample app prepare",
+            "type": "python",
+            "request": "launch",
+            "program": "app.py",
+            "args": ["prepare"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/sample"
+        }
+    ]
+}

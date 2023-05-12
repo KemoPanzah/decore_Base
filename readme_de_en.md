@@ -33,7 +33,7 @@ if __name__ == '__main__':
 ### Preperation
 Der Vorbereitungsbefehl erstellt alle benötigten Hilfsdateien in Ihrem App-Stammverzeichnis.
 
-Um Ihre Anwendung vorzubereiten, führen Sie ``` python.exe app.py prepare ``` in Ihrem Projektstammverzeichnis aus. Verwenden Sie Terminal in vscode oder einer anderen IDE.
+Um Ihre Anwendung vorzubereiten, führen Sie ``` python app.py prepare ``` in Ihrem Projektstammverzeichnis aus. Verwenden Sie Terminal in vscode oder einer anderen IDE.
 
 ### Development
 Um Ihre Anwendung zu entwickeln, verwenden Sie Ihren Debugger mit dem Profil ``` Decore app dev ``` in vscode.
@@ -50,7 +50,7 @@ Um Ihre Anwendung zu erstellen, verwenden Sie Ihren Debugger mit dem Profil ``` 
 ### Run
 
 ## Sample
-Um die Funktionsweise von Decore base zu verstehen, ist es am besten, sich die Sample-Anwendung anzuschaueh. Die anwendung repräsentiert meine ständige Weiterentwicklung con decore Base. 
+Um die Funktionsweise von Decore base zu verstehen, ist es am besten, sich die Sample-Anwendung anzuschauen. Die Anwendung repräsentiert meine ständige Weiterentwicklung von decore Base.
 
 Um die Sample-Anwenundung zu starten, verwenden Sie Ihren Debugger mit dem Profil ``` Decore app sample ``` in vscode.
 
@@ -63,10 +63,14 @@ Um die Arbeit mit dem originalen Peewee-Model noch weiter zu vereinfachen, wurde
 ```mermaid 
 graph
 A[Base]  --> B[View]
-B --> F[Action]
+B --> Z[Action]
 B --> C[Dialog]
 C --> D[Widget]
-D --> F[Action]
+D --> F[Sub Dialog]
+D --> G[Sub Widget]
+F --> G[Sub Widget]
+G --> Z[Action]
+D --> Z[Action]
 ```
 
 # Anmerkungen
@@ -108,7 +112,7 @@ if __name__ == '__main__':
 ### Preperation
 The preparation command creates all the necessary helper files in your app root directory.
 
-To prepare your application run ``` python.exe app.py prepare ``` in your project root directory. Use Terminal in vscode or any other IDE.
+To prepare your application run ``` python app.py prepare ``` in your project root directory. Use Terminal in vscode or any other IDE.
 
 ### Development
 to develop your application use your debugger with profile ``` Decore app dev ``` in vscode.
@@ -138,10 +142,14 @@ To further simplify working with the original peewee model, the model has been e
 ```mermaid 
 graph
 A[Base]  --> B[View]
-B --> F[Action]
+B --> Z[Action]
 B --> C[Dialog]
 C --> D[Widget]
-D --> F[Action]
+D --> F[Sub Dialog]
+D --> G[Sub Widget]
+F --> G[Sub Widget]
+G --> Z[Action]
+D --> Z[Action]
 ```
 
 # Notes

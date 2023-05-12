@@ -7,7 +7,7 @@ logging.basicConfig(format='[%(levelname)s] | %(message)s', level=logging.INFO)
 
 class Global_flags(object):
     def __init__(self):
-        self.purge_unused_database_cols = None
+        self.purge_unused_database_cols = False
 
 class Global_config(object):
     def __init__(self):
