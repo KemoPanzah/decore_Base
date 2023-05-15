@@ -11,14 +11,6 @@
             "program": "app.py",
             "args": ["dev"],
             "console": "integratedTerminal"
-        },
-        {
-            "name": "Decore app prepare",
-            "type": "python",
-            "request": "launch",
-            "program": "app.py",
-            "args": ["prepare"],
-            "console": "integratedTerminal"
         }
     ]
 }

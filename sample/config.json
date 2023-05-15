@@ -1,7 +1,7 @@
 {
     "default": {
         "app_id": "364871e4-6727-4e1f-80a2-acc9c83ace92",
-        "app_port": 5555,
+        "app_port": 6666,
         "state_path": "state"
     },
     "remote": {

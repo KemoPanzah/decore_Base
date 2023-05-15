@@ -5,19 +5,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Decore app dev",
+            "name": "Sample app dev",
             "type": "python",
             "request": "launch",
             "program": "app.py",
             "args": ["dev"],
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Decore app prepare",
-            "type": "python",
-            "request": "launch",
-            "program": "app.py",
-            "args": ["prepare"],
             "console": "integratedTerminal"
         }
     ]
