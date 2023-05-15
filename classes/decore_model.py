@@ -138,16 +138,14 @@ class Decore_model(Model):
         # tbase = SqliteDatabase('state/database.db', pragmas=(('cache_size', -1024 * 64),('journal_mode', 'wal')))
         tbase = SqliteDatabase('state/database.db')
 
-    def __init__(self, p_id, *args, **kwargs):
+    def __init__(self, p_known_id=None, *args, **kwargs):
         Model.__init__(self, *args, **kwargs)
         self.kdb_group = self.get_kdb_group()
 
         # TODO - den Weg über get_or_create testen
-        if p_id:
-            if self.get_or_none(self.__class__.id == p_id):
-                self.__data__.update(self.get_by_id(p_id).__data__)
-            else:
-                self.id = p_id
+        if p_known_id:
+            if self.get_or_none(self.__class__.id == p_known_id):
+                self.__data__.update(self.get_by_id(p_known_id).__data__)
 
     @classmethod
     def register(cls):
@@ -388,5 +386,5 @@ class Decore_model(Model):
             logging.error('%s > %s' % ('remove_item', 'Remove error'))
             return False
     
-    def create_id(self):
+    def create_uuid(self):
         return str(uuid1())
