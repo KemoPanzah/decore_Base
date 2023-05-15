@@ -2,13 +2,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Sample app dev",
+      "name": "Sample App dev",
       "type": "python",
       "request": "launch",
       "program": "app.py",
-      "args": [
-        "dev"
-      ],
+      "args": ["dev"],
       "console": "integratedTerminal",
       "cwd": "${workspaceFolder}/sample"
     }
