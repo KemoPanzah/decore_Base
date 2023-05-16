@@ -4,6 +4,11 @@ from models.person_model import Person_model as Model
 
 @decore.base(p_title='Person', p_model=Model)
 class Person_base(Base):
+    
+    @decore.widget(p_parent_id='com_vi1_di1', p_title='Persons', p_type='table', p_active_s=Model.field_s)
+    def com_vi1_di1_wi1():
+        pass
+
     @decore.view(p_parent_id='Global_management_base', p_title='Persons', p_icon='mdi-account-group-outline', p_type='table', p_active_s=Model.field_s, p_filter_s=[Model.academic_degree, Model.br_companies, Model.br_accounts])
     def per_vi1():
         @decore.dialog(p_title='Person', p_type='standard', p_display='drawer', p_activator='item-click')
