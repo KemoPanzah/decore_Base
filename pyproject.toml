@@ -3,4 +3,5 @@ requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools_scm]
-packages = ['', 'classes', 'extensions', 'library', 'prepare', 'sample']
+packages = ['classes', 'extensions', 'library', 'prepare', 'sample']
+package-dir = {'classes': 'classes', 'extensions': 'extensions', 'library': 'library', 'prepare': 'prepare', 'sample': 'sample'}
