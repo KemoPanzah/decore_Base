@@ -1,22 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
-[project]
-name = "decore_base_KemoPanzah"
-version = "0.0.1"
-authors = [
-  { name="Kemo Panzah" },
-]
-description = "decore Base is a Python to Vue.js open source package that helps you get from idea to view in a few simple steps."
-readme = "README.md"
-requires-python = ">=3.9"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: Windows",
-]
-
-[project.urls]
-"Homepage" = "https://ko-fi.com/decore_base"
-# "Bug Tracker" = "https://github.com/pypa/sampleproject/issues"
+[tool.setuptools_scm]
