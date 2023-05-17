@@ -2,14 +2,4 @@
 requires = ["setuptools>=45", "setuptools_scm[toml]>=7.1"]
 build-backend = "setuptools.build_meta"
 
-[project]
-dynamic = ["version"]
-name = "decore-base"
-description = 'decore Base is a "Python to Vue.js" open source package that helps you go from idea to view in a few simple steps. It is targeted to those who want to focus on the results of their algorithms, do scientific work, perform promotional teaching or learning functions.'
-authors = [
-    { name = "Kemo Panzah"}
-]
-license = "GPL-3.0-or-later"
-readme = "README.md"
-
 [tool.setuptools_scm]
