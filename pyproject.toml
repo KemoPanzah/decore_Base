@@ -2,8 +2,6 @@
 requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-py_modules = ['decore_base', 'decore_base.classes', 'decore_base.extensions', 'decore_base.library', 'decore_base.prepare', 'decore_base.sample']
+[tool.setuptools_scm]
 # packages = ['decore_base', 'decore_base.classes', 'decore_base.extensions', 'decore_base.library', 'decore_base.prepare', 'decore_base.sample']
 
-[tool.setuptools_scm]
