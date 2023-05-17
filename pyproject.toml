@@ -6,6 +6,9 @@ build-backend = "setuptools.build_meta"
 dynamic = ["version"]
 name = "decore_base"
 description = 'decore Base is a "Python to Vue.js" open source package that helps you go from idea to view in a few simple steps. It is targeted to those who want to focus on the results of their algorithms, do scientific work, perform promotional teaching or learning functions.'
+authors = [
+    { name = "Kemo Panzah"}
+]
 readme = "README.md"
 
 [tool.setuptools_scm]
