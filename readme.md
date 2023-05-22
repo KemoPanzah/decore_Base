@@ -1,26 +1,27 @@
 # Documentation
-decore Base is a "Python to Vue.js" open source package that helps you get from idea to view in a few simple steps. It is aimed at those who want to focus on the results of their algorithms, work scientifically, perform teaching or learning functions.
+decore Base is a "Python to Vue.js" open source package that helps you go from idea to view in a few simple steps. It is aimed at those who want to focus on the results of their algorithms, do scientific work, perform teaching or learning functions.
 
-decore is still under development and only available for Windows at the moment. It is not yet ready for production.
+decore is currently a work in progress and is only available for Windows. It is not yet ready for production.
 
-The recommended IDE is Visual Studio Code.
+The recommended IDE is Visual Studio Code and also all my comments and documentation here will refer to vscode only.
 
 ## Get started
 ### Installation
-To install decore Base run the following command in your terminal in the project root directory:
+To install decore Base run the following command, in your terminal, in the project root directory:
 
 ```
-pip install decore_base
-````
-### Usage
-Create a new file named ```app.py``` in your project root directory.
+pip install decore-Base
+```
 
-To use decore Base import it in your project:
+### Usage
+Create a new file named ``app.py`` in your project root directory.
+
+To use decore Base, import it into your project:
 
 ```
 from decore_base import decore
 ```
-To create a new decore application instance use a ```decore``` decorated function in app.py file after the ```if __name__ == '__main__':``` line.
+To create a new decore application instance, use a ``@decore.app`` decorated function in the app.py file after the line ``if __name__ == '__main__':```.
 
 ```
 if __name__ == '__main__':
@@ -30,33 +31,52 @@ if __name__ == '__main__':
 ```
 
 ### Preperation
-The preparation command creates all the necessary helper files in your app root directory.
+The preparation command creates all the needed auxiliary files in your app root directory.
 
-To prepare your application run ``` python.exe app.py prepare ``` in your project root directory. Use Terminal in vscode or any other IDE.
+To prepare your app, run ``` python app.py prepare ``` in your project root directory. Use the terminal in vscode.
 
 ### Development
-to develop your application use your debugger with profile ``` Decore app dev ``` in vscode.
-
-#### Base
-The base is the carrier for views. it can be carry views from same base or views from other bases. The base is also linked with one model.
-
-#### Model
-The model defines the data to work with. It can be a simple data model or a complex data model. Each model is linked to a base and is based on peewee ORM. To learn more about peewee ORM visit [peewee](http://docs.peewee-orm.com/en/latest/).
+To develop your application, use your debugger with the ``` [dev] decore base development ``` profile in vscode.
 
 ### Build
-to build your application use your debugger with profile ``` Decore app build ``` in vscode.
+To build your application, use your debugger with the ``` [bld] decore Base build ``` profile in vscode.
 
 ### Run
+To run your application, run ``` python app.py ``` in your project root directory. Use the terminal in vscode.
 
 ## Sample
-To understand how decore Base works, it is best to look at the sample application. The application represents my constant development of decore Base.
+To understand how Decore base works, it is best to look at the Sample application. The application represents my ongoing development of decore base.
 
-To start the sample application use your debugger with profile ``` Decore app sample ``` in vscode.
+To synchronize the sample application to its root directory run ``python app.py sample`` in your project root directory. Use the terminal in vscode or another IDE.
+
+To run the sample application after synchronization, use your debugger with the profile ``[smp] decore base sample ``` in vscode.
+
+## Explanations
+
+#### Base
+The base is basically the carrier element for views. It can get views from the same base or views from other bases. The Base is always linked to a Model.
+
+#### Model
+The model defines the data to work with. It can be a simple data model or a complex data model. Each model is linked to a Base and is based on peewee ORM. To learn more about peewee ORM, visit [peewee](http://docs.peewee-orm.com/en/latest/).
 
 ## Api reference
+To create a GUI with decore Base, you decorate functions in the source code according to the default of the execution process. which must be imported before with ``from decore_base import decore``.
 
-## Model Referenz
-To further simplify working with the original peewee model, the model has been extended with some functions.
+The decore module contains those functions that are needed when creating the metadata for the decore front application.
+
+To understand the general approach, synchronize the sample application with the command ``python app.py sample`` in your project root directory.
+
+### @decor.app()
+### @decor.base()
+### @decor.view()
+### @decor.dialog()
+### @decor.widget()
+### @decor.action()
+
+## Model reference
+To make working with the original Peewee model even easier, some functions have been added to the model.
+
+!DESCRIPTION FOLLOWS!
 
 ## Component processing
 ```mermaid 

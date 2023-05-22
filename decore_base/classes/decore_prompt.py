@@ -30,7 +30,7 @@ class Decore_prompt(object):
         elif self.args.cmd == 'dev':
             globals.flags.purge_unused_database_cols = False
         else:
-            exit()
+            pass
 
     def copy_launch(self):
         t_prepare_path = Path(__file__).parent.parent.joinpath('prepare')
