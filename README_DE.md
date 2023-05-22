@@ -1,17 +1,23 @@
 # Documentation
-decore Base ist ein "Python to Vue.js"-Open-Source-Paket, das Ihnen hilft, in wenigen einfachen Schritten von der Idee zur Ansicht zu gelangen. Es richtet sich an diejenigen, die sich auf die Ergebnisse ihrer Algorithmen konzentrieren wollen, wissenschaftlich arbeiten, Lehr- oder Lernfunktionen durchführen wollen.
+decore Base ist ein "Python to Vue.js"-Open-Source-Paket, das Ihnen hilft, in wenigen einfachen Schritten von der Idee zur Ansicht zu gelangen. Es richtet sich an diejenigen, die sich auf die Ergebnisse ihrer Algorithmen konzentrieren , wissenschaftlich arbeiten wollen, oder Lehr- oder Lernfunktionen ausüben.
 
-decore ist im Moment noch in Arbeit und nur für Windows verfügbar. Es ist noch nicht bereit für die Produktion.
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P5P2JCC5B)
 
-Die empfohlene IDE ist Visual Studio Code und auch alle meine Ausführungen und Dokumentationen werden sich hier nur auf vscode beziehen.
+decore ist im Moment noch in Arbeit, nur für Windows verfügbar und noch nicht bereit für die Produktion.
+
+Die empfohlene IDE ist Visual Studio Code und alle meine Ausführungen und Dokumentationen werden sich hier auch nur auf vscode beziehen.
 
 ## Get started
 ### Installation
-Um decore Base zu installieren führen Sie folgenden Befehl, in Ihrem Terminal, im Projektstammverzeichnis aus:
+Erstellen Sie ein leerers Python-Projekt in Ihrem gewünschten Verzeichnis. Dieses Verzeichn is bezeichne ich im Verlauf dieser Dokumentation als Projektstammverzeichnis.
+
+Um decore Base zu installieren führen Sie folgenden Befehl in ihrem Projektstammverzeichnis aus. Verwenden Sie das Terminal in vscode.
 
 ```
 pip install decore-Base
 ```
+
+Dazu wird ein aktivierter Python Interpreter benötigt! Um mehr über Python Interpreter zu erfahren, besuchen Sie [Python Interpreter](https://code.visualstudio.com/docs/python/environments).
 
 ### Usage
 Erstellen Sie eine neue Datei mit dem Namen ```app.py``` in Ihrem Projektstammverzeichnis.
@@ -21,6 +27,11 @@ Um decore Base zu verwenden, importieren Sie es in Ihr Projekt:
 ```
 from decore_base import decore
 ```
+
+Üblicherweise enthält ein Python Main-Modul eine Abfrage, die prüft, ob es sich um das Hauptmodul handelt, und dann die Funktion ```main()``` aufruft.
+
+Wir erstellen als nächstes eine Zeile ```if __name__ == '__main__':``` in der Datei app.py.
+
 Um eine neue Decore-Anwendungsinstanz zu erstellen, verwenden Sie eine ```@decore.app``` dekorierte Funktion in der Datei app.py nach der Zeile ```if __name__ == '__main__':```.
 
 ```
@@ -29,6 +40,10 @@ if __name__ == '__main__':
     def main():
         pass
 ```
+
+Ein Beispiel dafür finden Sie hier:
+
+https://github.com/KemoPanzah/decore_Base/blob/master/decore_base/sample/app.py
 
 ### Preperation
 Der Vorbereitungsbefehl erstellt alle benötigten Hilfsdateien in Ihrem App-Stammverzeichnis.

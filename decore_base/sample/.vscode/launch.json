@@ -8,6 +8,14 @@
             "program": "app.py",
             "args": ["dev"],
             "console": "integratedTerminal"
+        },
+        {
+            "name": "[smp] decore Base sample",
+            "type": "python",
+            "request": "launch",
+            "program": "app.py",
+            "console": "integratedTerminal",
+            "cwd":"${workspaceFolder}/sample"
         }
     ]
 }
