@@ -11,6 +11,8 @@ class Decore_prompt(object):
         self.prepare = self.cmd.add_parser('prepare', help='Prepare decore App with helping files to get startet')
         if not globals.config.app_id == '364871e4-6727-4e1f-80a2-acc9c83ace92':
             self.sample = self.cmd.add_parser('sample', help='Copy the "decore Base" sample application to project root folder')
+        else: 
+            raise Exception('You can not use the "sample" command in the "decore Base sampe" root folder.')
         self.dev = self.cmd.add_parser('dev', help='Run decore App in Development mode')
         # self.create = self.cmd.add_parser('create', help='create')
         # self.create.add_argument('-t', '--type', type=str, choices=['base', 'model'], required=True, help='choose your type')
