@@ -28,11 +28,11 @@ To use decore Base, import it into your project:
 from decore_base import decore
 ```
 
-Typically, a Python main module contains a query that checks if it is the main module, and then calls the ``main()``` function.
+Typically, a Python main module contains a query that checks if it is the main module, and then calls the ``main()`` function.
 
-We next create a line ``if __name__ == '__main__':``` in the app.py file.
+We next create a line ``if __name__ == '__main__':`` in the app.py file.
 
-To create a new Decore application instance, use a ``@decore.app`` decorated function in the app.py file after the line ``if __name__ == '__main__':```.
+To create a new Decore application instance, use a ``@decore.app`` decorated function in the app.py file after the line ``if __name__ == '__main__':``.
 
 ```
 if __name__ == '__main__':
@@ -48,13 +48,13 @@ https://github.com/KemoPanzah/decore_Base/blob/master/decore_base/sample/app.py
 ### Preperation
 The preparation command creates all the needed auxiliary files in your app root directory.
 
-To prepare your app, run `` python app.py prepare ``` in your project root directory. Use the terminal in vscode.
+To prepare your app, run `` python app.py prepare `` in your project root directory. Use the terminal in vscode.
 
 ### Development
-To develop your application, use your debugger with the ``` [dev] decore base development ``` profile in vscode.
+To develop your application, use your debugger with the `` [dev] decore base development `` profile in vscode.
 
 ### Build
-To build your application, use your debugger with the ``` [bld] decore Base build ``` profile in vscode.
+To build your application, use your debugger with the `[bld] decore Base build` profile in vscode.
 
 ### Run
 To run your application, run ``` python app.py ``` in your project root directory. Use the terminal in vscode.
