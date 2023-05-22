@@ -12,29 +12,28 @@ Die empfohlene IDE ist Visual Studio Code und alle meine Ausführungen und Dokum
 Erstellen Sie ein leerers Python-Projekt in Ihrem gewünschten Verzeichnis. Dieses Verzeichnis bezeichne ich im weitern Verlauf dieser Dokumentation als **Projektstammverzeichnis**.
 
 Um decore Base zu installieren führen Sie folgenden Befehl in ihrem Projektstammverzeichnis aus. Verwenden Sie das Terminal in vscode.
-
-```
+```python
 pip install decore-Base
 ```
 
 Dazu wird ein aktivierter Python Interpreter benötigt! Um mehr über Python Interpreter zu erfahren, besuchen Sie [Python Interpreter](https://code.visualstudio.com/docs/python/environments).
 
 ### Usage
-Erstellen Sie eine neue Datei mit dem Namen ```app.py``` in Ihrem Projektstammverzeichnis.
+Erstellen Sie eine neue Datei mit dem Namen `app.py` in Ihrem Projektstammverzeichnis.
 
 Um decore Base zu verwenden, importieren Sie es in Ihr Projekt:
-
+python
 ```
 from decore_base import decore
 ```
 
-Üblicherweise enthält ein Python Main-Modul eine Abfrage, die prüft, ob es sich um das Hauptmodul handelt, und dann die Funktion ```main()``` aufruft.
+Üblicherweise enthält ein Python Main-Modul eine Abfrage, die prüft, ob es sich um das Hauptmodul handelt, und dann die Funktion `main()` aufruft.
 
-Wir erstellen als nächstes eine Zeile ```if __name__ == '__main__':``` in der Datei app.py.
+Wir erstellen als nächstes eine Zeile `if __name__ == '__main__':` in der Datei app.py.
 
-Um eine neue Decore-Anwendungsinstanz zu erstellen, verwenden Sie eine ```@decore.app``` dekorierte Funktion in der Datei app.py nach der Zeile ```if __name__ == '__main__':```.
+Um eine neue Decore-Anwendungsinstanz zu erstellen, verwenden Sie eine `@decore.app` dekorierte Funktion in der Datei app.py nach der Zeile `if __name__ == '__main__':`.
 
-```
+```python
 if __name__ == '__main__':
     @decore.app(p_title='My App')
     def main():
@@ -48,23 +47,23 @@ https://github.com/KemoPanzah/decore_Base/blob/master/decore_base/sample/app.py
 ### Preperation
 Der Vorbereitungsbefehl erstellt alle benötigten Hilfsdateien in Ihrem App-Stammverzeichnis.
 
-Um Ihre Anwendung vorzubereiten, führen Sie ``` python app.py prepare ``` in Ihrem Projektstammverzeichnis aus. Verwenden Sie das Terminal in vscode.
+Um Ihre Anwendung vorzubereiten, führen Sie `python app.py prepare` in Ihrem Projektstammverzeichnis aus. Verwenden Sie das Terminal in vscode.
 
 ### Development
-Um Ihre Anwendung zu entwickeln, verwenden Sie Ihren Debugger mit dem Profil ``` [dev] decore Base development ``` in vscode.
+Um Ihre Anwendung zu entwickeln, verwenden Sie Ihren Debugger mit dem Profil `[dev] decore Base development` in vscode.
 
 ### Build
-Um Ihre Anwendung zu erstellen, verwenden Sie Ihren Debugger mit dem Profil ``` [bld] decore Base build ``` in vscode.
+Um Ihre Anwendung zu erstellen, verwenden Sie Ihren Debugger mit dem Profil `[bld] decore Base build` in vscode.
 
 ### Run
-Um Ihre Anwendung zu starten, führen Sie ``` python app.py ``` in Ihrem Projektstammverzeichnis aus. Verwenden Sie das Terminal in vscode.
+Um Ihre Anwendung zu starten, führen Sie `python app.py` in Ihrem Projektstammverzeichnis aus. Verwenden Sie das Terminal in vscode.
 
 ## Sample
 Um die Funktionsweise von Decore base zu verstehen, ist es am besten, sich die Sample-Anwendung anzuschauen. Die Anwendung repräsentiert meine ständige Weiterentwicklung von decore Base.
 
-Um die Sample-Anwenundung in ihr Stammverzeichnis zu synchronisieren führen Sie ```python app.py sample``` in Ihrem Projektstammverzeichnis aus. Verwenden Sie das Terminal in vscode oder einer anderen IDE.
+Um die Sample-Anwenundung in ihr Stammverzeichnis zu synchronisieren führen Sie `python app.py sample` in Ihrem Projektstammverzeichnis aus. Verwenden Sie das Terminal in vscode oder einer anderen IDE.
 
-Um die Sample-Anwendung nach dem Synchronisieren zu starten, verwenden Sie Ihren Debugger mit dem Profil ``` [smp] decore Base sample ``` in vscode.
+Um die Sample-Anwendung nach dem Synchronisieren zu starten, verwenden Sie Ihren Debugger mit dem Profil `[smp] decore Base sample` in vscode.
 
 ## Erläuterungen
 
@@ -75,18 +74,18 @@ Die Base ist im prinzip das Trägerelement für Views. Sie kann Views von dersel
 Das Model definiert die Daten mit denen gearbeitet wird. Es kann ein einfaches Datenmodell oder ein komplexes Datenmodell sein. Jedes Model ist mit einer Base verknüpft und basiert auf peewee ORM. Um mehr über peewee ORM zu erfahren, besuchen Sie [peewee](http://docs.peewee-orm.com/en/latest/).
 
 ## Api reference
-Um eine GUI mit decore Base zu erstellen, dekoriert man Funktionen im Quellcode nach der Vorgabe des Abarbeitungsprozesses. welches vorher mit ```from decore_base import decore``` importiert werden muss.
+Um eine GUI mit decore Base zu erstellen, dekoriert man Funktionen im Quellcode nach der Vorgabe des Abarbeitungsprozesses. welches vorher mit `from decore_base import decore` importiert werden muss.
 
 Das decore Modul enthält jene Funktionen die bei der Erstellung der Metadaten für die decore Front Applikation benötigt werden.
 
-Um die allgemeine Herangehensweise zu verstehen synchronisieren Sie sich die Sample Applikation mit dem Befehl ```python app.py sample``` in Ihrem Projektstammverzeichnis.
+Um die allgemeine Herangehensweise zu verstehen synchronisieren Sie sich die Sample Applikation mit dem Befehl `python app.py sample` in Ihrem Projektstammverzeichnis.
 
-### @decor.app()
-### @decor.base()
-### @decor.view()
-### @decor.dialog()
-### @decor.widget()
-### @decor.action()
+### @decore.app()
+### @decore.base()
+### @decore.view()
+### @decore.dialog()
+### @decore.widget()
+### @decore.action()
 
 ## Model reference
 Um die Arbeit mit dem originalen Peewee-Model noch weiter zu vereinfachen, wurde das Model um einige funktionen erweitert.
