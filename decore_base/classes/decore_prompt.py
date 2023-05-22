@@ -30,6 +30,7 @@ class Decore_prompt(object):
             self.sync_sample()
             exit()
         elif self.args.cmd == 'dev':
+            self.sync_spa()
             globals.flags.purge_unused_database_cols = False
         else:
             pass
