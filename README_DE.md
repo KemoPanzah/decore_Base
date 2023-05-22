@@ -9,7 +9,7 @@ Die empfohlene IDE ist Visual Studio Code und alle meine Ausführungen und Dokum
 
 ## Get started
 ### Installation
-Erstellen Sie ein leerers Python-Projekt in Ihrem gewünschten Verzeichnis. Dieses Verzeichn is bezeichne ich im Verlauf dieser Dokumentation als Projektstammverzeichnis.
+Erstellen Sie ein leerers Python-Projekt in Ihrem gewünschten Verzeichnis. Dieses Verzeichnis bezeichne ich im weitern Verlauf dieser Dokumentation als **Projektstammverzeichnis**.
 
 Um decore Base zu installieren führen Sie folgenden Befehl in ihrem Projektstammverzeichnis aus. Verwenden Sie das Terminal in vscode.
 
