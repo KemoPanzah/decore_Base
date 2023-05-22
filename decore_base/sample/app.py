@@ -1,6 +1,6 @@
 # fmt: off
 import sys, os
-sys.path.append(os.path.abspath('../'))
+sys.path.append(os.path.abspath('../../'))
 from decore_base import decore
 # fmt: on
 

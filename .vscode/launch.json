@@ -8,7 +8,7 @@
       "program": "app.py",
       "args": ["dev"],
       "console": "integratedTerminal",
-      "cwd": "${workspaceFolder}/sample"
+      "cwd": "${workspaceFolder}/decore_base/sample"
     }
   ]
 }
