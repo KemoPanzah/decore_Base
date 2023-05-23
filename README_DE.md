@@ -22,8 +22,7 @@ Dazu wird ein aktivierter Python Interpreter benötigt! Um mehr über Python Int
 Erstellen Sie eine neue Datei mit dem Namen `app.py` in Ihrem Projektstammverzeichnis.
 
 Um decore Base zu verwenden, importieren Sie es in Ihr Projekt:
-python
-```
+```python
 from decore_base import decore
 ```
 
@@ -52,28 +51,34 @@ Um Ihre Anwendung vorzubereiten, führen Sie `python app.py prepare` in Ihrem Pr
 ### Development
 Um Ihre Anwendung zu entwickeln, verwenden Sie Ihren Debugger mit dem Profil `[dev] decore Base development` in vscode.
 
-### Build
-Um Ihre Anwendung zu erstellen, verwenden Sie Ihren Debugger mit dem Profil `[bld] decore Base build` in vscode.
+Öffnen Sie den Browser und geben Sie `http://localhost:5555` ein.
 
 ### Run
 Um Ihre Anwendung zu starten, führen Sie `python app.py` in Ihrem Projektstammverzeichnis aus. Verwenden Sie das Terminal in vscode.
 
+Öffnen Sie den Browser und geben Sie `http://localhost:5555` ein.
+
+<!-- ### Build
+Um Ihre Anwendung zu erstellen, verwenden Sie Ihren Debugger mit dem Profil `[bld] decore Base build` in vscode. -->
+
 ## Sample
 Um die Funktionsweise von Decore base zu verstehen, ist es am besten, sich die Sample-Anwendung anzuschauen. Die Anwendung repräsentiert meine ständige Weiterentwicklung von decore Base.
 
-Um die Sample-Anwenundung in ihr Stammverzeichnis zu synchronisieren führen Sie `python app.py sample` in Ihrem Projektstammverzeichnis aus. Verwenden Sie das Terminal in vscode oder einer anderen IDE.
+https://github.com/KemoPanzah/decore_Base/tree/master/decore_base/sample
+
+Um die Sample-Anwenundung in einen Unterordner des Projektstammverzeichnis zu synchronisieren, führen Sie `python app.py sample` in Ihrem Projektstammverzeichnis aus. Verwenden Sie das Terminal in vscode.
 
 Um die Sample-Anwendung nach dem Synchronisieren zu starten, verwenden Sie Ihren Debugger mit dem Profil `[smp] decore Base sample` in vscode.
 
 ## Erläuterungen
 
 #### Base
-Die Base ist im prinzip das Trägerelement für Views. Sie kann Views von derselben Base oder Views von anderen Bases bekommen. Die Base ist immer mit einem Model verknüpft.
+Die Base ist im prinzip das Trägerelement für Views. Sie kann Views von derselben Base oder Views von anderen Base aufnehmen. Die Base ist immer mit einem Model verknüpft.
 
 #### Model
-Das Model definiert die Daten mit denen gearbeitet wird. Es kann ein einfaches Datenmodell oder ein komplexes Datenmodell sein. Jedes Model ist mit einer Base verknüpft und basiert auf peewee ORM. Um mehr über peewee ORM zu erfahren, besuchen Sie [peewee](http://docs.peewee-orm.com/en/latest/).
+Das Model definiert die Daten mit denen gearbeitet wird. Jedes Model ist mit einer Base verknüpft und basiert auf peewee ORM. Um mehr über peewee ORM zu erfahren, besuchen Sie [peewee](http://docs.peewee-orm.com/en/latest/).
 
-## Api reference
+## Api Refernez
 Um eine GUI mit decore Base zu erstellen, dekoriert man Funktionen im Quellcode nach der Vorgabe des Abarbeitungsprozesses. welches vorher mit `from decore_base import decore` importiert werden muss.
 
 Das decore Modul enthält jene Funktionen die bei der Erstellung der Metadaten für die decore Front Applikation benötigt werden.
