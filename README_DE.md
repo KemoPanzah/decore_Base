@@ -3,7 +3,7 @@ decore Base ist ein "Python to Vue.js"-Open-Source-Paket, das Ihnen hilft, in we
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P5P2JCC5B)
 
-decore ist im Moment noch in Arbeit, nur für Windows verfügbar und noch nicht bereit für die Produktion.
+decore Base ist im Moment noch in Arbeit, nur für Windows verfügbar und noch nicht bereit für die Produktion.
 
 Die empfohlene IDE ist Visual Studio Code und alle meine Ausführungen und Dokumentationen werden sich hier auch nur auf vscode beziehen.
 
@@ -12,6 +12,7 @@ Die empfohlene IDE ist Visual Studio Code und alle meine Ausführungen und Dokum
 Erstellen Sie ein leerers Python-Projekt in Ihrem gewünschten Verzeichnis. Dieses Verzeichnis bezeichne ich im weitern Verlauf dieser Dokumentation als **Projektstammverzeichnis**.
 
 Um decore Base zu installieren führen Sie folgenden Befehl in ihrem Projektstammverzeichnis aus. Verwenden Sie das Terminal in vscode.
+
 ```python
 pip install decore-Base
 ```
@@ -22,6 +23,7 @@ Dazu wird ein aktivierter Python Interpreter benötigt! Um mehr über Python Int
 Erstellen Sie eine neue Datei mit dem Namen `app.py` in Ihrem Projektstammverzeichnis.
 
 Um decore Base zu verwenden, importieren Sie es in Ihr Projekt:
+
 ```python
 from decore_base import decore
 ```
@@ -44,7 +46,7 @@ Ein Beispiel dafür finden Sie hier:
 https://github.com/KemoPanzah/decore_Base/blob/master/decore_base/sample/app.py
 
 ### Preperation
-Der Vorbereitungsbefehl erstellt alle benötigten Hilfsdateien in Ihrem App-Stammverzeichnis.
+Der Vorbereitungsbefehl erstellt alle benötigten Hilfsdateien in Ihrem Projektstammverzeichnis.
 
 Um Ihre Anwendung vorzubereiten, führen Sie `python app.py prepare` in Ihrem Projektstammverzeichnis aus. Verwenden Sie das Terminal in vscode.
 
@@ -78,7 +80,7 @@ Die Base ist im prinzip das Trägerelement für Views. Sie kann Views von dersel
 #### Model
 Das Model definiert die Daten mit denen gearbeitet wird. Jedes Model ist mit einer Base verknüpft und basiert auf peewee ORM. Um mehr über peewee ORM zu erfahren, besuchen Sie [peewee](http://docs.peewee-orm.com/en/latest/).
 
-## Api Refernez
+## Api reference
 Um eine GUI mit decore Base zu erstellen, dekoriert man Funktionen im Quellcode nach der Vorgabe des Abarbeitungsprozesses. welches vorher mit `from decore_base import decore` importiert werden muss.
 
 Das decore Modul enthält jene Funktionen die bei der Erstellung der Metadaten für die decore Front Applikation benötigt werden.

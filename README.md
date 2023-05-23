@@ -3,36 +3,36 @@ decore Base is a "Python to Vue.js" open source package that helps you go from i
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P5P2JCC5B)
 
-decore is currently a work in progress, available only for Windows and not yet ready for production.
+decore Base is currently a work in progress, available only for Windows and not yet ready for production.
 
 The recommended IDE is Visual Studio Code and all my comments and documentation here will also refer to vscode only.
 
 ## Get started
 ### Installation
-Create an empty Python project in your desired directory. I will refer to this directory as **project root** in the rest of this documentation.
+Create an empty Python project in your desired directory. I will refer to this directory as **project root directory** in the following course of this documentation.
 
-To install decore Base run the following command in your project root directory. Use the terminal in vscode.
+To install decore Base, run the following command in your project root directory. Use the terminal in vscode.
 
 ```python
-pip install decore-base
+pip install decore-Base
 ```
 
-This requires an enabled Python interpreter! To learn more about Python Interpreter, visit [Python Interpreter](https://code.visualstudio.com/docs/python/environments).
+This requires an activated Python Interpreter! To learn more about Python Interpreters, visit [Python Interpreter](https://code.visualstudio.com/docs/python/environments).
 
 ### Usage
 Create a new file named `app.py` in your project root directory.
 
-To use decore base, import it into your project:
+To use decore Base, import it into your project:
 
 ```python
 from decore_base import decore
 ```
 
-Typically, a Python main module contains a query that checks if it is the main module, and then calls the `main()` function.
+Typically, a Python main module contains a query that checks whether it is the main module and then calls the `main()` function.
 
-We next create a line `if __name__ == '__main__':` in the app.py file.
+Next, we create a line `if __name__ == '__main__':` in the file app.py.
 
-To create a new Decore application instance, use a `@decore.app` decorated function in the app.py file after the line `if __name__ == '__main__':`.
+To create a new decore application instance, use a `@decore.app` decorated function in the file app.py after the line `if __name__ == '__main__':`.
 
 ```python
 if __name__ == '__main__':
@@ -41,14 +41,14 @@ if __name__ == '__main__':
         pass
 ```
 
-An example of this can be found here:
+You can find an example here:
 
 https://github.com/KemoPanzah/decore_Base/blob/master/decore_base/sample/app.py
 
 ### Preperation
-The preparation command creates all the needed auxiliary files in your app root directory.
+The preparation command creates all the necessary auxiliary files in your project root directory.
 
-To prepare your app, run `python app.py prepare` in your project root directory. Use the terminal in vscode.
+To prepare your application, run `python app.py prepare` in your project root directory. Use the terminal in vscode.
 
 ### Development
 To develop your application, use your debugger with the `[dev] decore base development` profile in vscode.
@@ -80,8 +80,8 @@ The base is basically the carrier element for views. It can contain views from t
 #### Model
 The model defines the data to work with. Each model is linked to a Base and is based on peewee ORM. To learn more about peewee ORM, visit [peewee](http://docs.peewee-orm.com/en/latest/).
 
-## Api Refernez
-To create a GUI with decore Base, one decorates functions in the source code according to the default of the processing process. which must be imported beforehand with 'from decore_base import decore'.
+## Api reference
+To create a GUI with decore Base, you decorate functions in the source code according to the default of the processing process. which must be imported beforehand with 'from decore_base import decore'.
 
 The decore module contains those functions that are needed to create the metadata for the decore front application.
 
@@ -100,9 +100,9 @@ To make working with the original Peewee model even easier, some functions have 
 !DESCRIPTION FOLLOWS!
 
 ## Component processing
-```mermaid
+``ˋmermaid
 graph
-A[Base]  --> B[View]
+A[Base] --> B[View]
 B --> Z[Action]
 B --> C[Dialog]
 C --> D[Widget]
@@ -114,4 +114,4 @@ D --> Z[Action]
 ```
 
 # Notes
-Diese Dokumentation wurde mit Deepl aus dem deustchen ins englische übersetzt.
+This documentation was translated from German into English using Deepl.
