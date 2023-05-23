@@ -102,7 +102,7 @@ Um die Arbeit mit dem originalen Peewee-Model noch weiter zu vereinfachen, wurde
 ## Component processing
 ```mermaid
 graph
-A[Base]  --> B[View]
+A[Base] --> B[View]
 B --> Z[Action]
 B --> C[Dialog]
 C --> D[Widget]

@@ -100,7 +100,7 @@ To make working with the original Peewee model even easier, some functions have 
 !DESCRIPTION FOLLOWS!
 
 ## Component processing
-``ˋmermaid
+```mermaid
 graph
 A[Base] --> B[View]
 B --> Z[Action]
