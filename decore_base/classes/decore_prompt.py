@@ -9,10 +9,7 @@ class Decore_prompt(object):
         self.parser = ArgumentParser()
         self.cmd = self.parser.add_subparsers(dest='cmd')
         self.prepare = self.cmd.add_parser('prepare', help='Prepare decore App with helping files to get startet')
-        if not globals.config.app_id == '364871e4-6727-4e1f-80a2-acc9c83ace92':
-            self.sample = self.cmd.add_parser('sample', help='Copy the "decore Base" sample application to project root folder')
-        else: 
-            raise Exception('You can not use the "sample" command in the "decore Base sampe" root folder.')
+        self.sample = self.cmd.add_parser('sample', help='Copy the "decore Base" sample application to project root folder')
         self.dev = self.cmd.add_parser('dev', help='Run decore App in Development mode')
         # self.create = self.cmd.add_parser('create', help='create')
         # self.create.add_argument('-t', '--type', type=str, choices=['base', 'model'], required=True, help='choose your type')
@@ -27,8 +24,11 @@ class Decore_prompt(object):
             self.create_bases()
             exit()
         elif self.args.cmd == 'sample':
-            self.sync_sample()
-            exit()
+            if not globals.config.app_id == '364871e4-6727-4e1f-80a2-acc9c83ace92':
+                self.sync_sample()
+                exit()
+            else:
+                raise Exception('You can not use the "sample" command in sample project context')
         elif self.args.cmd == 'dev':
             self.sync_spa()
             globals.flags.purge_unused_database_cols = False
