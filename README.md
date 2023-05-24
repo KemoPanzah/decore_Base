@@ -3,9 +3,20 @@ decore Base is a "Python to Vue.js" open source package that helps you go from i
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P5P2JCC5B)
 
-decore Base is currently a work in progress, available only for Windows and not yet ready for production.
+**decore Base is still under development, only available for Windows and not yet ready for production.**
 
 The recommended IDE is Visual Studio Code and all my comments and documentation here will also refer to vscode only.
+
+[Insight into the current progress of the decore project](https://github.com/users/KemoPanzah/projects/1/views/1)
+
+## Contribution
+The biggest help I can get right now is if you take a look at the project and tell me what you think. I am grateful for any criticism.
+
+My current sample project is included directly in the Python package. To install the sample application, please see the documentation under **Sample**. Please read **Installation**, **Usage** and **Preperation** first.
+
+Everything that is found in features, bugs or unclear in the documentation, I ask you to let me know.
+
+[Please use the Issues area in the repository for this.](https://github.com/KemoPanzah/decore_Base/issues)
 
 ## Get started
 ### Installation
@@ -114,4 +125,4 @@ D --> Z[Action]
 ```
 
 # Notes
-This documentation was translated from German into English using Deepl.
+This documentation was translated from German to english by Github Copilot.
