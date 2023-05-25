@@ -86,7 +86,8 @@ class Decore(object):
 
     def base(self, p_icon=None, p_title=None, p_desc=None, p_model=Decore_model):
         def wrapper(cls):
-            t_base: Decore_base = cls()
+            Base = type(cls.__name__, (cls, Decore_base), {})
+            t_base = Base()
             t_base.id = cls.__name__
             t_base.icon = p_icon
             t_base.title = p_title

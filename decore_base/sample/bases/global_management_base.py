@@ -1,5 +1,4 @@
 from decore_base import decore
-from decore_base.classes.decore_base import Decore_base as Base
 from models.person_model import Person_model
 from models.account_model import Account_model
 from models.company_model import Company_model
@@ -9,7 +8,7 @@ from mimesis import Person, Finance
 from random import randrange
 
 @decore.base(p_title='Global Management', p_icon='mdi-account-supervisor-circle-outline')
-class Global_management_base(Base):
+class Global_management_base(object):
     
     # @decore.function(p_type='init')
     # def query_tester(self):

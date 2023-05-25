@@ -10,7 +10,7 @@ class Decore_base(Decore_object):
     def __init__(self):
         Decore_object.__init__(self, p_id=None, p_parent_id='app', p_source_id=None, p_icon=None, p_title=None, p_desc=None, p_doc=None)
         self.model = None
-        self.through_model = None
+        # self.through_model = None
         self.field_s = None
         self.rel_field_s = None
         self.schema = None
