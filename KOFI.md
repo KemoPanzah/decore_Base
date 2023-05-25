@@ -22,3 +22,10 @@ For the project status I use the project view of github.
 
 Projects: 
 https://github.com/users/KemoPanzah/projects/1
+
+# decore Base | Twitter sponsoring
+In order to move my milestones forward with Twitter sponsorship, I desperately need support on Ko-fi.
+
+Twitter sponsorship helps me as a newbie to get a social reach.
+
+I hope to get feature requests or problem sets quickly to improve decore base.
