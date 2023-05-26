@@ -6,6 +6,8 @@ from shutil import copyfile
 import PyInstaller.__main__
 import sys
 
+
+#TODO reprogramm this class > method for every condition in arg switch > classmethod for every helper function
 class Decore_prompt(object):
     def __init__(self):
         self.parser = ArgumentParser()
