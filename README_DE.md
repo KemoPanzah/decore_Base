@@ -30,13 +30,23 @@ pip install decore-Base
 
 Dazu wird ein aktivierter Python Interpreter benötigt! Um mehr über Python Interpreter zu erfahren, besuchen Sie [Python Interpreter](https://code.visualstudio.com/docs/python/environments).
 
-### Usage
+### Preperation
 Erstellen Sie eine neue Datei mit dem Namen `app.py` in Ihrem Projektstammverzeichnis.
 
-Um decore Base zu verwenden, importieren Sie es in Ihr Projekt. Damit der Python-Interpreter die Basisklassen abarbeiten kann importieren sie diese noch alle, in der `__init__.py` des `bases` Ordner, deklarierten Klassen.
+Um decore Base zu verwenden, importieren Sie es in Ihr Projekt. 
 
 ```python
 from decore_base import decore
+```
+
+Mit dem Vorbereitungsbefehl erstellen Sie dann alle benötigten Hilfsdateien in Ihrem Projektstammverzeichnis.
+
+Um Ihre Anwendung vorzubereiten, führen Sie `python app.py --prepare` in Ihrem Projektstammverzeichnis aus. Verwenden Sie das Terminal in vscode.
+
+### Usage
+Damit der Python-Interpreter die zukünftigen Basisklassen abarbeiten kann, fügen Sie noch folgenden import hinzu.
+
+```python
 from bases import *
 ```
 
@@ -59,11 +69,6 @@ if __name__ == '__main__':
 Ein Beispiel dafür finden Sie hier:
 
 https://github.com/KemoPanzah/decore_Base/blob/master/decore_base/sample/app.py
-
-### Preperation
-Der Vorbereitungsbefehl erstellt alle benötigten Hilfsdateien in Ihrem Projektstammverzeichnis.
-
-Um Ihre Anwendung vorzubereiten, führen Sie `python app.py --prepare` in Ihrem Projektstammverzeichnis aus. Verwenden Sie das Terminal in vscode.
 
 ### Development
 Um Ihre Anwendung zu entwickeln, verwenden Sie Ihren Debugger mit dem Profil `[dev] decore Base development` in vscode.
