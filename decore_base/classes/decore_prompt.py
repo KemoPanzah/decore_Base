@@ -16,17 +16,6 @@ class Decore_prompt(object):
         self.parser.add_argument('--sample', action='store_true', help='Copy the "decore Base" sample application to project root folder')
         self.parser.add_argument('--dev', action='store_true', help='Run decore Base application in development mode')
         self.parser.add_argument('--build', action='store_true', help='Build decore Base application for production')
-        
-        # self.cmd = self.parser.add_subparsers(dest='cmd')
-        # self.prepare = self.cmd.add_parser('prepare', help='Prepare decore Base application with helper files to get startet')
-        # self.sample = self.cmd.add_parser('sample', help='Copy the "decore Base" sample application to project root folder')
-        # self.dev = self.cmd.add_parser('dev', help='Run decore Base application in development mode')
-        # self.build = self.cmd.add_parser('build', help='Build decore Base application for production')
-        # self.create = self.cmd.add_parser('create', help='create')
-        # self.create.add_argument('-t', '--type', type=str, choices=['base', 'model'], required=True, help='choose your type')
-        # self.create.add_argument('-i', '--id', type=str, required=True)
-        # self.create.add_argument('-p', '--parent', type=str, required=False)
-
         self.args, t_unknown_args = self.parser.parse_known_args()
 
         if not t_unknown_args:
@@ -55,7 +44,7 @@ class Decore_prompt(object):
             else:
                 pass
         else:
-            pass
+            print ('Unknown arguments: ' + str(t_unknown_args))
 
     def copy_launch(self):
         t_prepare_path = Path(__file__).parent.parent.joinpath('prepare')
