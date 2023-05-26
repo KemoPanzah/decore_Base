@@ -10,6 +10,15 @@
       "cwd": "${workspaceFolder}/decore_base/sample"
     },
     {
+      "name": "Sample App prepare",
+      "type": "python",
+      "request": "launch",
+      "program": "app.py",
+      "args": ["--prepare"],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/decore_base/sample"
+    },
+    {
       "name": "Sample App dev",
       "type": "python",
       "request": "launch",
