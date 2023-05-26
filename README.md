@@ -33,20 +33,23 @@ This requires an activated Python Interpreter! To learn more about Python Interp
 ### Usage
 Create a new file named `app.py` in your project root directory.
 
-To use decore Base, import it into your project. To allow the Python interpreter to capture the base classes, import all the classes declared in the `__init__.py` in the `bases` folder.
+To use decore Base, import it into your project. To allow the Python interpreter to process the base classes, import all the classes declared in the `__init__.py` of the `bases` folder.
 
 ```python
 from decore_base import decore
 from bases import *
 ```
 
-Typically, a Python main module contains a query that checks whether it is the main module and then calls the `main()` function.
+Typically, a Python main module contains a query that checks whether it is the main module, and then calls the `main` function.
 
-Next, we create a line `if __name__ == '__main__':` in the file app.py.
+We next create a line `if __name__ == '__main__':` in the app.py file.
 
-To create a new decore application instance, use a `@decore.app` decorated function in the file app.py after the line `if __name__ == '__main__':`.
+To create a new Decore application instance, use a `@decore.app` decorated ˋmainˋ function in the app.py file after the line `if __name__ == '__main__':`.
 
 ```python
+from decore_base import decore
+from bases import *
+
 if __name__ == '__main__':
     @decore.app(p_title='My App')
     def main():

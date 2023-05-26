@@ -33,20 +33,23 @@ Dazu wird ein aktivierter Python Interpreter benötigt! Um mehr über Python Int
 ### Usage
 Erstellen Sie eine neue Datei mit dem Namen `app.py` in Ihrem Projektstammverzeichnis.
 
-Um decore Base zu verwenden, importieren Sie es in Ihr Projekt. Damit der Python-Interpreter die Basisklassen erfassen kann importieren sie zusätzlich noch alle in der `__init__.py`, im `bases` Ordner, deklarierten Klassen.
+Um decore Base zu verwenden, importieren Sie es in Ihr Projekt. Damit der Python-Interpreter die Basisklassen abarbeiten kann importieren sie diese noch alle, in der `__init__.py` des `bases` Ordner, deklarierten Klassen.
 
 ```python
 from decore_base import decore
 from bases import *
 ```
 
-Üblicherweise enthält ein Python Main-Modul eine Abfrage, die prüft, ob es sich um das Hauptmodul handelt, und dann die Funktion `main()` aufruft.
+Üblicherweise enthält ein Python Main-Modul eine Abfrage, die prüft, ob es sich um das Hauptmodul handelt, um danach dann die Funktion `main` aufzurufen.
 
 Wir erstellen als nächstes eine Zeile `if __name__ == '__main__':` in der Datei app.py.
 
-Um eine neue Decore-Anwendungsinstanz zu erstellen, verwenden Sie eine `@decore.app` dekorierte Funktion in der Datei app.py nach der Zeile `if __name__ == '__main__':`.
+Um eine neue Decore-Anwendungsinstanz zu erstellen, verwenden Sie eine `@decore.app` dekorierte `main` Funktion in der Datei app.py nach der Zeile `if __name__ == '__main__':`.
 
 ```python
+from decore_base import decore
+from bases import *
+
 if __name__ == '__main__':
     @decore.app(p_title='My App')
     def main():
