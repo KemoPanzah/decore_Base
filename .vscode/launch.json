@@ -2,11 +2,37 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Sample App run",
+      "type": "python",
+      "request": "launch",
+      "program": "app.py",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/decore_base/sample"
+    },
+    {
       "name": "Sample App dev",
       "type": "python",
       "request": "launch",
       "program": "app.py",
-      "args": ["dev"],
+      "args": ["--dev"],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/decore_base/sample"
+    },
+    {
+      "name": "Sample App build",
+      "type": "python",
+      "request": "launch",
+      "program": "app.py",
+      "args": ["--build"],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}/decore_base/sample"
+    },
+    {
+      "name": "Sample App unknown",
+      "type": "python",
+      "request": "launch",
+      "program": "app.py",
+      "args": ["unknown"],
       "console": "integratedTerminal",
       "cwd": "${workspaceFolder}/decore_base/sample"
     }

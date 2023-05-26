@@ -6,7 +6,7 @@
             "type": "python",
             "request": "launch",
             "program": "app.py",
-            "args": ["dev"],
+            "args": ["--dev"],
             "console": "integratedTerminal"
         },
         {

@@ -33,10 +33,11 @@ This requires an activated Python Interpreter! To learn more about Python Interp
 ### Usage
 Create a new file named `app.py` in your project root directory.
 
-To use decore Base, import it into your project:
+To use decore Base, import it into your project. To allow the Python interpreter to capture the base classes, import all the classes declared in the `__init__.py` in the `bases` folder.
 
 ```python
 from decore_base import decore
+from bases import *
 ```
 
 Typically, a Python main module contains a query that checks whether it is the main module and then calls the `main()` function.
@@ -59,7 +60,7 @@ https://github.com/KemoPanzah/decore_Base/blob/master/decore_base/sample/app.py
 ### Preperation
 The preparation command creates all the necessary auxiliary files in your project root directory.
 
-To prepare your application, run `python app.py prepare` in your project root directory. Use the terminal in vscode.
+To prepare your application, run `python app.py --prepare` in your project root directory. Use the terminal in vscode.
 
 ### Development
 To develop your application, use your debugger with the `[dev] decore base development` profile in vscode.
@@ -71,15 +72,15 @@ To start your application, run `python app.py` in your project root directory. U
 
 Open the browser and type `http://localhost:5555`.
 
-<!-- ### Build
-To build your application, use your debugger with the profile `[bld] decore base build` in vscode. -->
+### Build
+To build your application, run `python app.py --build` in your project root directory. Use the terminal in vscode.
 
 ## Sample
 To understand how decore base works, it is best to look at the sample application. The application represents my continuous development of decore base.
 
 https://github.com/KemoPanzah/decore_Base/tree/master/decore_base/sample
 
-To sync the sample application to a subfolder of the project root directory, run `python app.py sample` in your project root directory. Use the terminal in vscode.
+To sync the sample application to a subfolder of the project root directory, run `python app.py --sample` in your project root directory. Use the terminal in vscode.
 
 To run the sample application after synchronization, use your debugger with the profile `[smp] decore base sample` in vscode.
 
@@ -92,11 +93,11 @@ The base is basically the carrier element for views. It can contain views from t
 The model defines the data to work with. Each model is linked to a Base and is based on peewee ORM. To learn more about peewee ORM, visit [peewee](http://docs.peewee-orm.com/en/latest/).
 
 ## Api reference
-To create a GUI with decore Base, you decorate functions in the source code according to the default of the processing process. which must be imported beforehand with 'from decore_base import decore'.
+To create a GUI with decore Base, you decorate functions in the source code according to the default of the execution process.
 
 The decore module contains those functions that are needed to create the metadata for the decore front application.
 
-To understand the general approach, synchronize the sample application with the command `python app.py sample` in your project root directory.
+To understand the general approach, synchronize the sample application with the command `python app.py --sample` in your project root directory.
 
 ### @decore.app()
 ### @decore.base()

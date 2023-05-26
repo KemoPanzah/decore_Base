@@ -3,35 +3,55 @@ from argparse import ArgumentParser
 from pathlib import Path
 from dirsync import sync
 from shutil import copyfile
+import PyInstaller.__main__
+import sys
 
 class Decore_prompt(object):
     def __init__(self):
         self.parser = ArgumentParser()
-        self.cmd = self.parser.add_subparsers(dest='cmd')
-        self.prepare = self.cmd.add_parser('prepare', help='Prepare decore App with helping files to get startet')
-        self.sample = self.cmd.add_parser('sample', help='Copy the "decore Base" sample application to project root folder')
-        self.dev = self.cmd.add_parser('dev', help='Run decore App in Development mode')
+        
+        self.parser.add_argument('--prepare', action='store_true', help='Prepare decore Base application with helper files to get startet')
+        self.parser.add_argument('--sample', action='store_true', help='Copy the "decore Base" sample application to project root folder')
+        self.parser.add_argument('--dev', action='store_true', help='Run decore Base application in development mode')
+        self.parser.add_argument('--build', action='store_true', help='Build decore Base application for production')
+        
+        # self.cmd = self.parser.add_subparsers(dest='cmd')
+        # self.prepare = self.cmd.add_parser('prepare', help='Prepare decore Base application with helper files to get startet')
+        # self.sample = self.cmd.add_parser('sample', help='Copy the "decore Base" sample application to project root folder')
+        # self.dev = self.cmd.add_parser('dev', help='Run decore Base application in development mode')
+        # self.build = self.cmd.add_parser('build', help='Build decore Base application for production')
         # self.create = self.cmd.add_parser('create', help='create')
         # self.create.add_argument('-t', '--type', type=str, choices=['base', 'model'], required=True, help='choose your type')
         # self.create.add_argument('-i', '--id', type=str, required=True)
         # self.create.add_argument('-p', '--parent', type=str, required=False)
-        self.args = self.parser.parse_args()
 
-        if self.args.cmd == 'prepare':
-            self.copy_launch()
-            self.copy_gitignore()
-            self.sync_spa()
-            self.create_bases()
-            exit()
-        elif self.args.cmd == 'sample':
-            if not globals.config.app_id == '364871e4-6727-4e1f-80a2-acc9c83ace92':
-                self.sync_sample()
+        self.args, t_unknown_args = self.parser.parse_known_args()
+
+        if not t_unknown_args:
+            if self.args.prepare:
+                self.copy_launch()
+                self.copy_gitignore()
+                self.sync_spa()
+                self.create_bases()
                 exit()
+            elif self.args.sample:
+                if not globals.config.app_id == '364871e4-6727-4e1f-80a2-acc9c83ace92':
+                    self.sync_sample()
+                    exit()
+                else:
+                    raise Exception('You can not use the "sample" command in sample project context')
+            elif self.args.dev:
+                self.sync_spa()
+                globals.flags.purge_unused_database_cols = False
+            elif self.args.build:
+                PyInstaller.__main__.run([
+                    '--paths="."',
+                    '--add-data=spa;spa',
+                    '--collect-data=pykeepass',
+                    'app.py'
+                ])
             else:
-                raise Exception('You can not use the "sample" command in sample project context')
-        elif self.args.cmd == 'dev':
-            self.sync_spa()
-            globals.flags.purge_unused_database_cols = False
+                pass
         else:
             pass
 
