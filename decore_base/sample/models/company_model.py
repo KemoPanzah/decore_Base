@@ -1,4 +1,4 @@
-from decore_base.extensions.conform_model import *
+from decore_base.uniform import *
 from .person_model import Person_model
 
 class Company_model(Conform_model):

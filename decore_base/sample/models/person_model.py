@@ -1,4 +1,4 @@
-from decore_base.extensions.conform_model import *
+from decore_base.uniform import *
 
 class Person_model(Conform_model):
     br_companies = BackRefMetaField(ref_name='companies', verbose_name='Companies')
