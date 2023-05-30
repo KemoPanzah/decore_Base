@@ -9,7 +9,6 @@ from .decore_function import Decore_function
 from .decore_list import Decore_list
 
 
-
 import inspect
 from peewee import Field
 
