@@ -1,13 +1,21 @@
 from pathlib import Path
 from pykeepass import create_database, PyKeePass
 from uuid import uuid4
-import json,logging
+import json,logging,sys
 
 logging.basicConfig(format='[%(levelname)s] | %(message)s', level=logging.INFO)
 
 class Global_flags(object):
     def __init__(self):
+        self.build_mode = self.set_build_mode()
+        self.dev_mode = False
         self.purge_unused_database_cols = False
+    
+    def set_build_mode(self):
+        if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+            return True
+        else:
+            return False
 
 class Global_config(object):
     def __init__(self):

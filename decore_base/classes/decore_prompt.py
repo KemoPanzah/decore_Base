@@ -32,8 +32,10 @@ class Decore_prompt(object):
                 else:
                     raise Exception('You can not use the "sample" command in sample project context')
             elif self.args.dev:
-                self.sync_spa()
                 globals.flags.purge_unused_database_cols = False
+                globals.flags.dev_mode = True
+                self.sync_spa()
+                
             elif self.args.build:
                 PyInstaller.__main__.run([
                     '--paths="."',

@@ -30,7 +30,7 @@ from collections import OrderedDict
 
 class Decore(object):
     def __init__(self):
-        self.prompt = Decore_prompt()
+        if not globals.flags.build_mode: self.prompt = Decore_prompt()
         self.pool = Decore_pool()
         self.api = self.get_api()
         Decore_query.create_table(safe=True)
@@ -44,9 +44,9 @@ class Decore(object):
         wsgi_app = api.wsgi_app
         api.config['SECRET_KEY'] = '325245hkhf486axcv5719bf9397cbn69xv'
         api.config['WTF_CSRF_ENABLED'] = False  # TODO - csrf enebled when not cors
-        print('APP_ROOT_FOLDER >> ' + str(api.root_path))
-        print('STATIC_FOLDER >> ' + str(api.static_folder))
-        print('TEMPLATE_FOLDER >> ' + str(api.template_folder))
+        # print('APP_ROOT_FOLDER >> ' + str(api.root_path))
+        # print('STATIC_FOLDER >> ' + str(api.static_folder))
+        # print('TEMPLATE_FOLDER >> ' + str(api.template_folder))
         api.add_url_rule('/', 'index', self.index, defaults={'p_path': ''})
         api.add_url_rule('/<path:p_path>', 'index', self.index)
         api.add_url_rule('/get_meta', 'get_meta', self.get_meta)
@@ -69,7 +69,7 @@ class Decore(object):
         except ValueError:
             PORT = globals.config.app_port
         
-        if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+        if not globals.flags.dev_mode:
             serve(self.api, host=HOST, port=PORT)
         else:
             self.api.run(HOST, PORT)
