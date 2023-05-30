@@ -1,9 +1,9 @@
 # Documentation
-decore Base ist ein "Python to Vue.js"-Open-Source-Paket, das Ihnen hilft, in wenigen einfachen Schritten von der Idee zur Ansicht zu gelangen. Es richtet sich an diejenigen, die sich auf die Ergebnisse ihrer Algorithmen konzentrieren , wissenschaftlich arbeiten wollen, oder Lehr- bzw. Lernfunktionen ausüben.
+decore Base ist ein Out-Of-The-Box "Python to Vue.js" Daten-Anwendungs-Dashboard, das Ihnen hilft, in wenigen einfachen Schritten von der Idee zur Ansicht zu gelangen. Es richtet sich an diejenigen, die sich auf die Ergebnisse ihrer Algorithmen konzentrieren , wissenschaftlich arbeiten wollen, oder Lehr- bzw. Lernfunktionen ausüben.
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/P5P2JCC5B)
 
-**decore Base ist im Moment noch in Arbeit, nur für Windows verfügbar und noch nicht bereit für die Produktion.**
+**decore Base ist im Moment noch in Arbeit, nur lokal einsetzbar, nur für Windows verfügbar und noch nicht bereit für die Produktion.**
 
 Die empfohlene IDE ist Visual Studio Code und alle meine Ausführungen und Dokumentationen werden sich hier auch nur auf vscode beziehen.
 
