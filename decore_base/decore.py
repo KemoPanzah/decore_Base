@@ -30,7 +30,8 @@ from collections import OrderedDict
 
 class Decore(object):
     def __init__(self):
-        if not globals.flags.build_mode: self.prompt = Decore_prompt()
+        if not globals.flags.build_mode:
+            self.prompt = Decore_prompt()
         self.pool = Decore_pool()
         self.api = self.get_api()
         Decore_query.create_table(safe=True)
@@ -39,11 +40,14 @@ class Decore(object):
         t_static_folder = Path('spa/static')
         t_template_folder = Path('spa/templates')
         api = Flask(__name__, static_folder=t_static_folder.absolute(), template_folder=t_template_folder.absolute())
-        CORS(api, expose_headers=["Content-Disposition"])
-        # Make the WSGI interface available at the top level so wfastcgi can get it.
-        wsgi_app = api.wsgi_app
-        api.config['SECRET_KEY'] = '325245hkhf486axcv5719bf9397cbn69xv'
-        api.config['WTF_CSRF_ENABLED'] = False  # TODO - csrf enebled when not cors
+        
+        if globals.flags.dev_mode:
+            CORS(api, expose_headers=["Content-Disposition"])
+            
+        elif not globals.flags.dev_mode: 
+            api.config['SECRET_KEY'] = '325245hkhf486axcv5719bf9397cbn69xv'
+            api.config['WTF_CSRF_ENABLED'] = False  # TODO - csrf enable when not cors
+        
         # print('APP_ROOT_FOLDER >> ' + str(api.root_path))
         # print('STATIC_FOLDER >> ' + str(api.static_folder))
         # print('TEMPLATE_FOLDER >> ' + str(api.template_folder))
