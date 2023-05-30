@@ -1,3 +1,5 @@
+# decore Base | crafting UI simply
+
 # decore Base | open source on github
 
 decore Base is now available on github. 

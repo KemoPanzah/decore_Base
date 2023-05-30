@@ -114,9 +114,18 @@ To understand the general approach, synchronize the sample application with the 
 ### @decore.action()
 
 ## Model reference
-To make working with the original Peewee model even easier, some functions have been added to the model.
+To simplify the work with the original Peewee model even more, the model was extended by some functions.
 
-!DESCRIPTION FOLLOWS!
+### Fields
+The following fields are currently usable in decore Base and are evaluated by the frontend.
+
+#### CharField
+#### TextField
+#### IntegerField
+#### PasswordField
+#### ManyToManyField
+#### ForeignKeyField
+#### BackRefMetaField
 
 ## Component processing
 ```mermaid

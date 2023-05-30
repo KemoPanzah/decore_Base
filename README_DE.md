@@ -107,17 +107,26 @@ Das decore Modul enthält jene Funktionen die bei der Erstellung der Metadaten f
 
 Um die allgemeine Herangehensweise zu verstehen synchronisieren Sie sich die Sample Applikation mit dem Befehl `python app.py --sample` in Ihrem Projektstammverzeichnis.
 
-### @decore.app()
-### @decore.base()
-### @decore.view()
-### @decore.dialog()
-### @decore.widget()
-### @decore.action()
+#### @decore.app()
+#### @decore.base()
+#### @decore.view()
+#### @decore.dialog()
+#### @decore.widget()
+#### @decore.action()
 
 ## Model reference
 Um die Arbeit mit dem originalen Peewee-Model noch weiter zu vereinfachen, wurde das Model um einige funktionen erweitert.
 
-!BESCHREIBUNG FOLGT!
+### Fields
+Folgende Felder sind derzeit in decore Base nutzbar und werden vom Frontend ausgewertet.
+
+#### CharField
+#### TextField
+#### IntegerField
+#### PasswordField
+#### ManyToManyField
+#### ForeignKeyField
+#### BackRefMetaField
 
 ## Component processing
 ```mermaid
