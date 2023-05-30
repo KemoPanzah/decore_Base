@@ -120,13 +120,13 @@ Um die Arbeit mit dem originalen Peewee-Model noch weiter zu vereinfachen, wurde
 ### Fields
 Folgende Felder sind derzeit in decore Base nutzbar und werden vom Frontend ausgewertet.
 
-#### CharField
-#### TextField
-#### IntegerField
-#### PasswordField
-#### ManyToManyField
-#### ForeignKeyField
 #### BackRefMetaField
+#### CharField
+#### ForeignKeyField
+#### IntegerField
+#### ManyToManyField
+#### PasswordField
+#### TextField
 
 ## Component processing
 ```mermaid
