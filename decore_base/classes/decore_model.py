@@ -184,7 +184,7 @@ class Decore_model(Model):
     @property
     def field_s(cls):
         return list(cls._meta.fields.values())
-    
+
     @classmethod
     @property
     def rel_field_s(cls):

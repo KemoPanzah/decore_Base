@@ -159,8 +159,8 @@ class Decore(object):
             self.pool.register(Decore_element(func.__name__, t_parent_id, t_source_id, p_icon, p_title, p_desc, p_type, p_default, p_disable, p_schema, func))
         return wrapper
 
-    l_action_type = Literal['standard', 'check', 'response', 'file'] #TODO - check, response > activators
-    l_action_activator = Literal['none', 'default-menu', 'item-submit', 'item-menu', 'item-click']
+    l_action_type = Literal['standard', 'submit', 'check', 'response', 'file', 'download'] #TODO - check, response > activators
+    l_action_activator = Literal['none', 'default-menu', 'item-menu', 'item-click']
 
     def action(self, p_parent_id=None, p_icon=None, p_title=None, p_desc=None, p_type: l_action_type = 'standard', p_activator: l_action_activator = 'none'):
         def wrapper(func):
@@ -216,8 +216,11 @@ class Decore(object):
     
     def get_last(self, p_source_id):
         t_source = self.pool.__data__[p_source_id]
-        t_item = t_source.model.select()[0].__data__
-        return jsonify(t_item), 200
+        if not len(t_source.model.select()) == 0:
+            t_item = t_source.model.select()[-1].__data__
+            return jsonify(t_item), 200
+        else:
+            return self.get_default(p_source_id)
 
     def post_item_s(self, p_source_id):
         t_start = perf_counter()
@@ -259,6 +262,9 @@ class Decore(object):
         t_return = t_action.func(self.pool.__data__[t_action.source_id], t_data)
 
         if t_action.type == 'standard':
+            return {'success': t_return[0], 'result': str(t_return[1])}, 200
+        
+        if t_action.type == 'submit':
             return {'success': t_return[0], 'result': str(t_return[1])}, 200
 
         elif t_action.type == 'check':
