@@ -76,6 +76,8 @@ class Decore(object):
         if not globals.flags.dev_mode:
             logger = logging.getLogger('waitress')
             logger.info(self.pool.app.title + ' now running on: http://' + str(HOST) + ':' + str(PORT))
+            logger.info('Press CTRL+C to quit.')
+            logger.setLevel(logging.WARNING)
             serve(self.api, host=HOST, port=PORT)
             
         else:
