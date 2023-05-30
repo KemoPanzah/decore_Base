@@ -24,6 +24,10 @@ class Decore_pool(object):
         self.action_s = []
         self.element_s = []
 
+    @property
+    def app(self):
+        return self.__data__['app']
+
     def register(self, p_instance):
         if not p_instance.id in self.__data__:
             self.__data__[p_instance.id] = p_instance

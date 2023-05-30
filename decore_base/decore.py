@@ -74,7 +74,10 @@ class Decore(object):
             PORT = globals.config.app_port
         
         if not globals.flags.dev_mode:
+            logger = logging.getLogger('waitress')
+            logger.info(self.pool.app.title + ' now running on: http://' + str(HOST) + ':' + str(PORT))
             serve(self.api, host=HOST, port=PORT)
+            
         else:
             self.api.run(HOST, PORT)
 
