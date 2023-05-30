@@ -106,12 +106,12 @@ The decore module contains those functions that are needed to create the metadat
 
 To understand the general approach, synchronize the sample application with the command `python app.py --sample` in your project root directory.
 
-### @decore.app()
-### @decore.base()
-### @decore.view()
-### @decore.dialog()
-### @decore.widget()
-### @decore.action()
+#### @decore.app()
+#### @decore.base()
+#### @decore.view()
+#### @decore.dialog()
+#### @decore.widget()
+#### @decore.action()
 
 ## Model reference
 To simplify the work with the original Peewee model even more, the model was extended by some functions.
