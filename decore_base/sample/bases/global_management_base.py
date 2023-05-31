@@ -10,19 +10,10 @@ from random import randrange
 @decore.base(p_title='Global Management', p_icon='mdi-account-supervisor-circle-outline')
 class Global_management_base(object):
     
-    # @decore.function(p_type='init')
-    # def query_tester(self):
-    #     from peewee import DQ
-    #     t_person_s = list(Person_model.select())
-    #     t_companie_s = list(Company_model.select())
-    #     t_account_s = list(Account_model.select())
-    #     t_item_s = Person_model.query({'last_name':'Glover', 'companies__title__eq':'CNA', 'accounts__title__eq':'upper2074@example.com'})
-    #     t_or_chain = None
-    #     t_or_key = 'academic_degree'
-    #     t_or_chain |= DQ(**{t_or_key: 'Master'})
-    #     # t_or_chain |= DQ(**{t_or_key: 'Master'})
-    #     t_or_test = Person_model.filter(t_or_chain)
-    #     pass
+    @decore.function(p_type='init')
+    def query_tester(self):
+        t_item_s = Person_model.query({'companies__title__eq':'NetApp'})
+        pass
 
     @decore.function(p_type='init')
     def create_company_s(self):

@@ -1,20 +1,22 @@
-from ..globals import globals
-from .decore_translate import Decore_translate as t
+import inspect
+import logging
+import operator
+from functools import reduce
+from pathlib import Path, PosixPath, WindowsPath
+from shutil import move
+from uuid import uuid1
 
 from cerberus import Validator
-from functools import reduce
-from pathlib import Path, WindowsPath, PosixPath
 from peewee import *
-from peewee import MetaField, FieldAccessor
+from peewee import FieldAccessor, MetaField
 from playhouse.migrate import *
 from playhouse.reflection import Introspector
 from playhouse.shortcuts import model_to_dict
 from pykeepass.entry import Entry
-from shutil import move
-from uuid import uuid1
-import inspect
-import logging
-import operator
+
+from ..globals import globals
+from .decore_translate import Decore_translate as t
+
 
 class PasswordFieldAccessor(object):
     def __init__(self, model, field, name):
@@ -102,30 +104,15 @@ class ManyToManyField(ManyToManyField):
         self.help_text = help_text
         self.filter_fields = filter_fields
     
-    def bind(self, model, name, set_attribute=True):
-        super().bind(model, name, set_attribute)
-        self.ref_name = name
-
 class BackRefMetaField(MetaField):
-    def __init__(self, ref_name=None ,verbose_name=None, help_text=None, filter_fields=None):
+    def __init__(self,verbose_name=None, help_text=None, filter_fields=None):
         super().__init__(False, False, False, None, None, False, None, None, None, False, None, help_text, verbose_name, None, None, False)
-        if ref_name:
-            self.ref_name = ref_name
-            self.filter_fields = filter_fields
-        else:
-            raise Exception('ref_name must be set to same name as backref from ManyToManyField or ForeignKeyField in ralated model')
-
-    def bind(self, model, name, set_attribute=True):
-        if name.startswith('br_'):
-            super().bind(model, name, set_attribute)
-        else:
-            raise Exception('Attribute name for BackRefMetaField must start with br_ e.g. br_users')
-
-    def db_value(self, value):
-        return None
+        self.filter_fields = filter_fields
     
-    def python_value(self, value):
-        return None
+    def bind(self, model, name, set_attribute):
+        super().bind(model, name, set_attribute)
+        setattr(model,'br_'+name, getattr(model, name)) 
+        delattr(model, name)
 
 class Decore_model(Model):
     id = CharField(primary_key=True, unique=True, verbose_name="ID")
@@ -141,7 +128,7 @@ class Decore_model(Model):
     def __init__(self, p_known_id=None, *args, **kwargs):
         Model.__init__(self, *args, **kwargs)
         self.kdb_group = self.get_kdb_group()
-
+        
         # TODO - den Weg über get_or_create testen
         if p_known_id:
             if self.get_or_none(self.__class__.id == p_known_id):

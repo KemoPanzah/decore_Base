@@ -9,7 +9,7 @@ class Person_base(Base):
     def com_vi1_di1_wi1():
         pass
 
-    @decore.view(p_parent_id='Global_management_base', p_title='Persons', p_icon='mdi-account-group-outline', p_type='table', p_active_s=Model.field_s, p_filter_s=[Model.academic_degree, Model.br_companies, Model.br_accounts])
+    @decore.view(p_parent_id='Global_management_base', p_title='Persons', p_icon='mdi-account-group-outline', p_type='table', p_active_s=Model.field_s, p_filter_s=[Model.academic_degree, Model.lalacompanies, Model.accounts])
     def per_vi1():
         
         @decore.dialog(p_title='Person', p_type='standard', p_display='drawer', p_activator='item-click')
@@ -26,7 +26,7 @@ class Person_base(Base):
         
         @decore.dialog(p_title='Edit Person', p_icon='mdi-pencil', p_type='standard', p_display='drawer', p_activator='item-menu')
         def per_vi1_di2():
-            @decore.widget(p_type='form', p_active_s=[Model.first_name, Model.last_name, Model.br_companies, Model.br_accounts])
+            @decore.widget(p_type='form', p_active_s=[Model.first_name, Model.last_name, Model.lalacompanies, Model.accounts])
             def per_vi1_di2_wi1():
                 @decore.action(p_type='submit')
                 def per_vie_di2_wi1_ac1(self, p_data):
