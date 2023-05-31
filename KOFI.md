@@ -36,3 +36,7 @@ I hope to get feature requests or problem sets quickly to improve decore base.
 Main customization in this release is the improvement of the metafield for the back references.
 
 https://github.com/KemoPanzah/decore_Base/compare/0.0.13...0.0.14
+
+# decore Base | Application
+Here is a first image of the rendered sample application (0.0.14) with a table as the selected view.
+#Python #Vue #Dashboard 
