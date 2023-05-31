@@ -4,8 +4,8 @@ from translate import Translator
 
 class Decore_translate(object):
     __source_language__ = 'en'
-    __output_language__ = 'de'
-    __trans_language_s__ = ['de']
+    __output_language__ = 'en'
+    __translate_language_s__ = ['de']
 
     __data__ = None
     __file_data__ = {}
@@ -22,9 +22,9 @@ class Decore_translate(object):
         return self.__data__[self.id][self.__output_language__]
 
     def translate(self):
-        for trans_language in self.__trans_language_s__:
-            if not trans_language in self.__data__[self.id]:
-                self.__data__[self.id][trans_language] = Translator(from_lang=self.__source_language__, to_lang=trans_language).translate(self.id)
+        for language in self.__translate_language_s__:
+            if not language in self.__data__[self.id]:
+                self.__data__[self.id][language] = Translator(from_lang=self.__source_language__, to_lang=language).translate(self.id)
 
     @property
     def output(self):
