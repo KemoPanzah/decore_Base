@@ -7,11 +7,11 @@ logging.basicConfig(format='[%(levelname)s] | %(message)s', level=logging.INFO)
 
 class Global_flags(object):
     def __init__(self):
-        self.build_mode = self.set_build_mode()
+        self.production_mode = self.set_production_mode()
         self.dev_mode = False
         self.purge_unused_database_cols = False
     
-    def set_build_mode(self):
+    def set_production_mode(self):
         if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
             return True
         else:

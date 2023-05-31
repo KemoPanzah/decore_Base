@@ -46,7 +46,9 @@ class Decore_prompt(object):
             else:
                 pass
         else:
-            print ('Unknown arguments: ' + str(t_unknown_args))
+            print('Unknown arguments: ' + str(t_unknown_args) + ' Use --help for more information')
+            exit()
+
 
     def copy_launch(self):
         t_prepare_path = Path(__file__).parent.parent.joinpath('prepare')

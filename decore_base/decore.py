@@ -30,7 +30,7 @@ from collections import OrderedDict
 
 class Decore(object):
     def __init__(self):
-        if not globals.flags.build_mode:
+        if not globals.flags.production_mode:
             self.prompt = Decore_prompt()
         self.pool = Decore_pool()
         self.api = self.get_api()
