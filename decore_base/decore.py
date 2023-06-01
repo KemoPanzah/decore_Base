@@ -97,7 +97,7 @@ class Decore(object):
         def wrapper(cls):
             class Base(cls, Decore_base):
                 def __init__(self):
-                    # cls.__init__(self)
+                    #cls.__init__(self)
                     Decore_base.__init__(self)
                     #TODO doppelt gemoppelte attribute aus decore_base oder decore_object entfernen
                     self.id = cls.__name__
