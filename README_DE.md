@@ -132,6 +132,7 @@ Folgende Felder sind derzeit in decore Base nutzbar und werden vom Frontend ausg
 ```mermaid
 graph
 A[Base] --> B[View]
+A --> Y[Function]
 B --> Z[Action]
 B --> C[Dialog]
 C --> D[Widget]
