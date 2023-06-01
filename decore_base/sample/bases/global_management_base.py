@@ -9,7 +9,6 @@ from random import randrange
 
 @decore.base(p_title='Global Management', p_icon='mdi-account-supervisor-circle-outline')
 class Global_management_base:
-    supertest = 'supertest'
     
     @decore.function(p_type='init')
     def query_tester(self):
