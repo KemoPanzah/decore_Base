@@ -9,13 +9,15 @@ from random import randrange
 
 @decore.base(p_title='Global Management', p_icon='mdi-account-supervisor-circle-outline')
 class Global_management_base:
+    def __init__(self):
+        self.create_company_s()
+        self.create_person_s()
+        self.set_company_person()
     
-    @decore.function(p_type='init')
     def query_tester(self):
         t_item_s = Person_model.query({'companies__title__eq':'NetApp'})
         pass
 
-    @decore.function(p_type='init')
     def create_company_s(self):
         while len(Company_model.select()) < 32:
             t_finance = Finance()
@@ -25,7 +27,6 @@ class Global_management_base:
             t_item.capacity = randrange(16, 128)
             t_item.save()
 
-    @decore.function(p_type='init')
     def create_person_s(self):        
         while len(Person_model.select()) < 4096:
             t_person = Person()
@@ -39,7 +40,6 @@ class Global_management_base:
             t_item.capacity = randrange(1, 2)
             t_item.save()
 
-    @decore.function(p_type='init')
     def set_company_person(self):
         for company in Company_model.select():
             while company.persons.count() < company.capacity:
