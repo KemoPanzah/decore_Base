@@ -99,17 +99,17 @@ class Decore(object):
                 def __init__(self):
                     cls.__init__(self)
                     Decore_base.__init__(self)
-                    #TODO doppelt gemoppelte attribute aus decore_base oder decore_object entfernen
-                    self.id = cls.__name__
-                    self.icon = p_icon
-                    self.title = p_title
-                    self.desc = p_desc
-                    self.doc = cls.__doc__
-                    self.model = p_model.register()
-                    self.field_s = p_model.field_s
-                    self.rel_field_s = p_model.rel_field_s
-                    self.schema = p_model.build_schema()
+                   
             t_base = type(cls.__name__, (Base,), {})()
+            t_base.id = cls.__name__
+            t_base.icon = p_icon
+            t_base.title = p_title
+            t_base.desc = p_desc
+            t_base.doc = cls.__doc__
+            t_base.model = p_model.register()
+            t_base.field_s = p_model.field_s
+            t_base.rel_field_s = p_model.rel_field_s
+            t_base.schema = p_model.build_schema()
             self.pool.register(t_base)
         return wrapper
 
