@@ -5,6 +5,6 @@ class Person_model(Conform_model):
     accounts = BackRefMetaField(verbose_name='Accounts')
     first_name = CharField(verbose_name='First name')
     last_name = CharField(verbose_name='Last name')
-    academic_degree = CharField(verbose_name='Academic degree')
+    academic_degree = CharField(verbose_name='Academic degree', default='PhD')
     age = IntegerField(verbose_name='Age')
     capacity = IntegerField(verbose_name='Capacity', default=1)
