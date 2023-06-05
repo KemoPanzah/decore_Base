@@ -10,7 +10,7 @@ from random import randrange
 @decore.base(p_title='Global Management', p_icon='mdi-account-supervisor-circle-outline')
 class Global_management_base:
     def __init__(self):
-        self.query_tester()
+        # self.query_tester()
         self.create_company_s()
         self.create_person_s()
         self.set_company_person()

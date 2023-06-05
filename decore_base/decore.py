@@ -87,9 +87,10 @@ class Decore(object):
         def wrapper(func):
             self.pool.register(Decore_app('app', None, None, None, p_title, None, func.__doc__))
             self.pool.extend()
+            i_base: Decore_base
             for i_base in self.pool.base_s:
-                i_base.start_inits()
-                i_base.start_worker()
+                i_base.start_shot()
+                i_base.start_work()
             self.start_api()
         return wrapper
 
@@ -186,9 +187,9 @@ class Decore(object):
             self.pool.register(Decore_action(func.__name__, t_parent_id, t_source_id, p_icon, p_title, p_desc, func.__doc__, p_type, p_activator, func))
         return wrapper
 
-    l_function_type = Literal['init', 'worker']
+    l_function_type = Literal['shot', 'work']
   
-    def function(self, p_type:l_function_type = 'init'):
+    def function(self, p_type:l_function_type = 'shot'):
         def wrapper(func):
             t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
             t_parent_id = t_parent_s[-2]

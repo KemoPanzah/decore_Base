@@ -15,14 +15,14 @@ class Decore_base(Decore_object):
         self.schema = None
         self.function_s = []
 
-    def start_inits(self):
+    def start_shot(self):
         for i_function in self.function_s:
-            if i_function.type == 'init':
+            if i_function.type == 'shot':
                 i_function.func(self)
 
-    def start_worker(self):
+    def start_work(self):
         for i_function in self.function_s:
-            if i_function.type == 'worker':
+            if i_function.type == 'work':
                 self.worker = Thread(target=self.work, daemon=True, name=self.__class__.__name__)
                 self.worker.start()
 
