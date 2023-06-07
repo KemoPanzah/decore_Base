@@ -32,16 +32,10 @@ class Global_management_base:
 
     # Create 4096 persons with capacity 1-2 of companies
     def create_person_s(self):        
-        while len(Person_model.select()) < 4096:
-            t_person = Person()
+        while len(Person_model.select()) < 4500:
             t_item = Person_model()
             t_item.id = t_item.create_uuid()
-            t_item.first_name = t_person.first_name()
-            t_item.last_name = t_person.last_name()
             t_item.title = t_item.first_name + ' ' + t_item.last_name
-            t_item.academic_degree = t_person.academic_degree()
-            t_item.age = t_person.age(minimum=16, maximum=64)
-            t_item.capacity = randrange(1, 2)
             t_item.save()
 
     # Set persons to companies
