@@ -22,7 +22,7 @@ class Person_base(Base):
         
         @decore.action(p_title='Test action', p_icon='mdi-test-tube', p_type='standard', p_activator='default-menu')
         def per_vi1_ac1(self, p_data):
-            pass
+            return True, 'Success!'
 
         @decore.dialog(p_title='Person', p_type='standard', p_display='drawer', p_activator='item-click')
         def per_vi1_di1():

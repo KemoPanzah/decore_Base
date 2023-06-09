@@ -7,7 +7,7 @@ class Test_base:
     def tst_vi1():
         @decore.dialog(p_title='Formtest', p_icon='mdi-test-tube', p_type='standard', p_display='drawer', p_activator='none')
         def tst_vi1_di1():
-            @decore.widget(p_title='Formtest', p_icon='mdi-test-tube', p_type='form', p_active_s=[Test_model.title,Test_model.desc, Test_model.charfield, Test_model.intfield, Test_model.textfield])
+            @decore.widget(p_title='Formtest', p_icon='mdi-test-tube', p_type='form', p_active_s=[Test_model.title,Test_model.desc, Test_model.charfield, Test_model.intfield, Test_model.textfield, Test_model.booleanfield , Test_model.passwordfield])
             def tst_vi1_di1_wi1():
                 @decore.action(p_title='Submit', p_type='submit', p_icon='mdi-test-tube')
                 def tst_vi1_di1_wi1_ac1(self, t_data):
