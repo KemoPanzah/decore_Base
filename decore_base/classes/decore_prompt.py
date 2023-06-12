@@ -47,7 +47,6 @@ class Decore_prompt(object):
                 pass
         else:
             print('Unknown arguments: ' + str(t_unknown_args) + ' Use --help for more information')
-            exit()
 
 
     def copy_launch(self):
