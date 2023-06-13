@@ -10,7 +10,13 @@ Welcome to decore Base's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   decore
+Api Reference
+=============
+
+.. automodule:: decore_base.decore
+   :members:
+   :inherited-members:
+   :undoc-members: False
 
 Indices and tables
 ==================

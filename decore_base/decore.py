@@ -84,6 +84,7 @@ class Decore(object):
             self.api.run(HOST, PORT)
 
     def app(self, p_title):
+        '''Decorator for app registration'''
         def wrapper(func):
             self.pool.register(Decore_app('app', None, None, None, p_title, None, func.__doc__))
             self.pool.extend()
