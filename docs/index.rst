@@ -6,7 +6,7 @@
 Welcome to decore Base's documentation!
 =======================================
 
-Hello World 4
+Hello World 5
 
 .. toctree::
    :maxdepth: 2
