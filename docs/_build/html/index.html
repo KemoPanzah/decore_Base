@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Welcome to decore Base’s documentation! &#8212; decore Base 0.0.17 documentation</title>
+    <title>Welcome to decore Base | crafting UI simply &#8212; decore Base 0.0.17 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/basic_mod.css?v=0.7.0-1" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -15,7 +15,8 @@
     <script src="_static/js/theme.js"></script>
     <script src="_static/js/petite-vue.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Api Reference" href="decore.html" /> 
   </head><body data-dark_mode_code_blocks="true">
 
 <div id="top_nav">
@@ -117,7 +118,11 @@
 
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
+        <div class="sphinxsidebarwrapper"><p class="caption" role="heading"><span class="caption-text">Further content and information:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="decore.html">Api Reference</a></li>
+</ul>
+
         </div>
       </div>
 
@@ -127,195 +132,113 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="welcome-to-decore-base-s-documentation">
-<h1>Welcome to decore Base’s documentation!<a class="headerlink" href="#welcome-to-decore-base-s-documentation" title="Permalink to this heading">¶</a></h1>
-<p>Hello World 6</p>
+  <section id="welcome-to-decore-base-crafting-ui-simply">
+<h1>Welcome to decore Base | crafting UI simply<a class="headerlink" href="#welcome-to-decore-base-crafting-ui-simply" title="Permalink to this heading">¶</a></h1>
+<p>decore Base is an out-of-the-box “Python to Vue.js” data application dashboard that helps you go from idea to view in a few simple steps. It is aimed at those who want to focus on the results of their algorithms , do scientific work, or perform teaching or learning functions.</p>
+<a class="reference external image-reference" href="https://ko-fi.com/P5P2JCC5B"><img alt="Buy me a coffee" src="https://ko-fi.com/img/githubbutton_sm.svg" /></a>
+<p><strong>decore Base is currently a work in progress, only locally deployable, only available for Windows and not yet ready for production.</strong></p>
+<p>The recommended IDE is Visual Studio Code and all my comments and documentation here will also refer to vscode only.</p>
+<p><a class="reference external" href="https://github.com/users/KemoPanzah/projects/1/views/1">Insight into the current progress of the decore project</a></p>
+<section id="contribution">
+<h2>Contribution<a class="headerlink" href="#contribution" title="Permalink to this heading">¶</a></h2>
+<p>The biggest help I can get right now is if you take a look at the project and tell me what you think. I am grateful for any criticism.</p>
+<p>My current sample project is included directly in the Python package. To install the sample application, please see the documentation under <strong>Sample</strong>. Please read <strong>Installation</strong>, <strong>Usage</strong> and <strong>Preperation</strong> first.</p>
+<p>Everything that is found in features, bugs or unclear in the documentation, I ask you to let me know.</p>
+<p><a class="reference external" href="https://github.com/KemoPanzah/decore_Base/issues">Please use the Issues area in the repository for this.</a></p>
+</section>
+<section id="get-started">
+<h2>Get started<a class="headerlink" href="#get-started" title="Permalink to this heading">¶</a></h2>
+<section id="installation">
+<h3>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h3>
+<p>Create an empty Python project in your desired directory. I will refer to this directory as <strong>project root directory</strong> in the following course of this documentation.</p>
+<p>To install decore Base, run the following command in your project root directory. Use the terminal in vscode.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">decore</span><span class="o">-</span><span class="n">Base</span>
+</pre></div>
+</div>
+<p>This requires an activated Python Interpreter! To learn more about Python Interpreters, visit <a class="reference external" href="https://code.visualstudio.com/docs/python/environments">Python Interpreter</a>.</p>
+</section>
+<section id="preperation">
+<h3>Preperation<a class="headerlink" href="#preperation" title="Permalink to this heading">¶</a></h3>
+<p>Create a new file named <cite>app.py</cite> in your project root directory.</p>
+</section>
+<section id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h3>
+<p>To allow the Python interpreter to process the future base classes, add the following import.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bases</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>Typically, a Python main module contains a query that checks whether it is the main module, and then calls the <cite>main</cite> function.</p>
+<p>We next create a line <cite>if __name__ == ‘__main__’:</cite> in the app.py file.</p>
+<p>To create a new Decore application instance, use a <cite>&#64;decore.app</cite> decorated <cite>main</cite> function in the app.py file after the line <cite>if __name__ == ‘__main__’:</cite>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">decore_base</span> <span class="kn">import</span> <span class="n">decore</span>
+<span class="kn">from</span> <span class="nn">bases</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="nd">@decore</span><span class="o">.</span><span class="n">app</span><span class="p">(</span><span class="n">p_title</span><span class="o">=</span><span class="s1">&#39;My App&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+<p>You can find an example here:</p>
+<p><a class="reference external" href="https://github.com/KemoPanzah/decore_Base/blob/master/decore_base/sample/app.py">https://github.com/KemoPanzah/decore_Base/blob/master/decore_base/sample/app.py</a></p>
+</section>
+<section id="development">
+<h3>Development<a class="headerlink" href="#development" title="Permalink to this heading">¶</a></h3>
+<p>To develop your application, use your debugger with the <cite>[dev] decore base development</cite> profile in vscode.</p>
+<p>Open the browser and type <cite>http://localhost:5555</cite>.</p>
+</section>
+<section id="run">
+<h3>Run<a class="headerlink" href="#run" title="Permalink to this heading">¶</a></h3>
+<p>To start your application, run <cite>python app.py</cite> in your project root directory. Use the terminal in vscode.</p>
+<p>Open the browser and type <cite>http://localhost:5555</cite>.</p>
+</section>
+<section id="build">
+<h3>Build<a class="headerlink" href="#build" title="Permalink to this heading">¶</a></h3>
+<p>To build your application, run <cite>python app.py –build</cite> in your project root directory. Use the terminal in vscode.</p>
+</section>
+</section>
+<section id="sample">
+<h2>Sample<a class="headerlink" href="#sample" title="Permalink to this heading">¶</a></h2>
+<p>To understand how decore base works, it is best to look at the sample application. The application represents my continuous development of decore base.</p>
+<p><a class="reference external" href="https://github.com/KemoPanzah/decore_Base/tree/master/decore_base/sample">https://github.com/KemoPanzah/decore_Base/tree/master/decore_base/sample</a></p>
+<p>To sync the sample application to a subfolder of the project root directory, run <cite>python app.py –sample</cite> in your project root directory. Use the terminal in vscode.</p>
+<p>To run the sample application after synchronization, use your debugger with the profile <cite>[smp] decore base sample</cite> in vscode.</p>
+</section>
+<section id="explanations">
+<h2>Explanations<a class="headerlink" href="#explanations" title="Permalink to this heading">¶</a></h2>
+<section id="base">
+<h3>Base<a class="headerlink" href="#base" title="Permalink to this heading">¶</a></h3>
+<p>The base is basically the carrier element for views. It can contain views from the same base or views from other bases. The Base is always linked to a Model.</p>
+</section>
+<section id="model">
+<h3>Model<a class="headerlink" href="#model" title="Permalink to this heading">¶</a></h3>
+<p>The model defines the data to work with. Each model is linked to a Base and is based on peewee ORM. To learn more about peewee ORM, visit <a class="reference external" href="http://docs.peewee-orm.com/en/latest/">peewee</a>.</p>
+</section>
+</section>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">¶</a></h2>
+<p>To create a GUI with decore Base, you decorate functions in the source code according to the default of the execution process.</p>
+<p>The decore module contains those functions that are needed to create the metadata for the decore front application.</p>
+<p>To understand the general approach, synchronize the sample application with the command <cite>python app.py –sample</cite> in your project root directory.</p>
+</section>
+<section id="model-reference">
+<h2>Model Reference<a class="headerlink" href="#model-reference" title="Permalink to this heading">¶</a></h2>
+<p>To simplify the work with the original Peewee model even more, the model was extended by some functions.</p>
+</section>
+<section id="field-reference">
+<h2>Field Reference<a class="headerlink" href="#field-reference" title="Permalink to this heading">¶</a></h2>
+<p>The following fields are currently usable in decore Base and are evaluated by the frontend.</p>
+</section>
+<section id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
+<p>This documentation was translated from German to English by GitHub Copilot.</p>
 <div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Further content and information:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="decore.html">Api Reference</a></li>
+</ul>
 </div>
 </section>
-<section id="module-decore_base.decore">
-<span id="api-reference"></span><h1>Api Reference<a class="headerlink" href="#module-decore_base.decore" title="Permalink to this heading">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="decore_base.decore.Decore">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">decore_base.decore.</span></span><span class="sig-name descname"><span class="pre">Decore</span></span><a class="headerlink" href="#decore_base.decore.Decore" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.action">
-<span class="sig-name descname"><span class="pre">action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_icon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'standard'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'submit'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'check'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'response'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'file'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'download'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'standard'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_activator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'none'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'default-menu'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'item-menu'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'item-click'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'none'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.action" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.app">
-<span class="sig-name descname"><span class="pre">app</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_title</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.app" title="Permalink to this definition">¶</a></dt>
-<dd><p>Decorator for app registration</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.base">
-<span class="sig-name descname"><span class="pre">base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_icon=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_title=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_desc=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_model=&lt;Model:</span> <span class="pre">Decore_model&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.base" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.dialog">
-<span class="sig-name descname"><span class="pre">dialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_icon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'standard'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'tabs'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'stepper'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'standard'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_display</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'modal'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'drawer'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'drawer'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_activator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'none'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'default-menu'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'item-menu'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'item-click'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'none'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.dialog" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.element">
-<span class="sig-name descname"><span class="pre">element</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_icon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'p'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'checkbox'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'text'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_disable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.element" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.function">
-<span class="sig-name descname"><span class="pre">function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'shot'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'work'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'shot'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.function" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.get_api">
-<span class="sig-name descname"><span class="pre">get_api</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.get_api" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.get_base_by_id">
-<span class="sig-name descname"><span class="pre">get_base_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.get_base_by_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.get_base_by_model">
-<span class="sig-name descname"><span class="pre">get_base_by_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_model</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Decore_base</span></span></span><a class="headerlink" href="#decore_base.decore.Decore.get_base_by_model" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.get_base_by_module">
-<span class="sig-name descname"><span class="pre">get_base_by_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_module</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.get_base_by_module" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.get_default">
-<span class="sig-name descname"><span class="pre">get_default</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_source_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.get_default" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.get_last">
-<span class="sig-name descname"><span class="pre">get_last</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_source_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.get_last" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.get_meta">
-<span class="sig-name descname"><span class="pre">get_meta</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.get_meta" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.get_query_s">
-<span class="sig-name descname"><span class="pre">get_query_s</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.get_query_s" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.get_remove_query">
-<span class="sig-name descname"><span class="pre">get_remove_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.get_remove_query" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.index">
-<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.index" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.l_action_activator">
-<span class="sig-name descname"><span class="pre">l_action_activator</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_action_activator" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘none’, ‘default-menu’, ‘item-menu’, ‘item-click’]</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.l_action_type">
-<span class="sig-name descname"><span class="pre">l_action_type</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_action_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘standard’, ‘submit’, ‘check’, ‘response’, ‘file’, ‘download’]</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.l_dialog_activator">
-<span class="sig-name descname"><span class="pre">l_dialog_activator</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_dialog_activator" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘none’, ‘default-menu’, ‘item-menu’, ‘item-click’]</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.l_dialog_display">
-<span class="sig-name descname"><span class="pre">l_dialog_display</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_dialog_display" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘modal’, ‘drawer’]</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.l_dialog_type">
-<span class="sig-name descname"><span class="pre">l_dialog_type</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_dialog_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘standard’, ‘tabs’, ‘stepper’]</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.l_element_type">
-<span class="sig-name descname"><span class="pre">l_element_type</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_element_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘p’, ‘checkbox’]</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.l_function_type">
-<span class="sig-name descname"><span class="pre">l_function_type</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_function_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘shot’, ‘work’]</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.l_view_pag_type">
-<span class="sig-name descname"><span class="pre">l_view_pag_type</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_view_pag_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘client’]</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.l_view_type">
-<span class="sig-name descname"><span class="pre">l_view_type</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_view_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘table’]</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.l_widget_type">
-<span class="sig-name descname"><span class="pre">l_widget_type</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_widget_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘default’, ‘info’, ‘form’, ‘table’]</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.post_action">
-<span class="sig-name descname"><span class="pre">post_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_action_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.post_action" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.post_item_s">
-<span class="sig-name descname"><span class="pre">post_item_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_source_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.post_item_s" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.post_option_s">
-<span class="sig-name descname"><span class="pre">post_option_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_source_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.post_option_s" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.post_save_query">
-<span class="sig-name descname"><span class="pre">post_save_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_base_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_view_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.post_save_query" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.start_api">
-<span class="sig-name descname"><span class="pre">start_api</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.start_api" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.view">
-<span class="sig-name descname"><span class="pre">view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_icon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'table'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'table'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_active_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_filter_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_pag_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'client'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'client'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_pag_recs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.view" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="decore_base.decore.Decore.widget">
-<span class="sig-name descname"><span class="pre">widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_icon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'default'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'info'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'form'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'table'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cera'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_active_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.widget" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 </section>
 <section id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
@@ -340,44 +263,27 @@
             <p><a class="toggle_right_sidebar" href="#"><span class="icon">&gt;</span><span>Page contents:<span></a></p>
             <div class="page_toc">
                 <ul>
-<li><a class="reference internal" href="#">Welcome to decore Base’s documentation!</a></li>
-<li><a class="reference internal" href="#module-decore_base.decore">Api Reference</a><ul>
-<li><a class="reference internal" href="#decore_base.decore.Decore"><code class="docutils literal notranslate"><span class="pre">Decore</span></code></a><ul>
-<li><a class="reference internal" href="#decore_base.decore.Decore.action"><code class="docutils literal notranslate"><span class="pre">Decore.action()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.app"><code class="docutils literal notranslate"><span class="pre">Decore.app()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.base"><code class="docutils literal notranslate"><span class="pre">Decore.base()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.dialog"><code class="docutils literal notranslate"><span class="pre">Decore.dialog()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.element"><code class="docutils literal notranslate"><span class="pre">Decore.element()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.function"><code class="docutils literal notranslate"><span class="pre">Decore.function()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.get_api"><code class="docutils literal notranslate"><span class="pre">Decore.get_api()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.get_base_by_id"><code class="docutils literal notranslate"><span class="pre">Decore.get_base_by_id()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.get_base_by_model"><code class="docutils literal notranslate"><span class="pre">Decore.get_base_by_model()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.get_base_by_module"><code class="docutils literal notranslate"><span class="pre">Decore.get_base_by_module()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.get_default"><code class="docutils literal notranslate"><span class="pre">Decore.get_default()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.get_last"><code class="docutils literal notranslate"><span class="pre">Decore.get_last()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.get_meta"><code class="docutils literal notranslate"><span class="pre">Decore.get_meta()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.get_query_s"><code class="docutils literal notranslate"><span class="pre">Decore.get_query_s()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.get_remove_query"><code class="docutils literal notranslate"><span class="pre">Decore.get_remove_query()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.index"><code class="docutils literal notranslate"><span class="pre">Decore.index()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.l_action_activator"><code class="docutils literal notranslate"><span class="pre">Decore.l_action_activator</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.l_action_type"><code class="docutils literal notranslate"><span class="pre">Decore.l_action_type</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.l_dialog_activator"><code class="docutils literal notranslate"><span class="pre">Decore.l_dialog_activator</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.l_dialog_display"><code class="docutils literal notranslate"><span class="pre">Decore.l_dialog_display</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.l_dialog_type"><code class="docutils literal notranslate"><span class="pre">Decore.l_dialog_type</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.l_element_type"><code class="docutils literal notranslate"><span class="pre">Decore.l_element_type</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.l_function_type"><code class="docutils literal notranslate"><span class="pre">Decore.l_function_type</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.l_view_pag_type"><code class="docutils literal notranslate"><span class="pre">Decore.l_view_pag_type</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.l_view_type"><code class="docutils literal notranslate"><span class="pre">Decore.l_view_type</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.l_widget_type"><code class="docutils literal notranslate"><span class="pre">Decore.l_widget_type</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.post_action"><code class="docutils literal notranslate"><span class="pre">Decore.post_action()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.post_item_s"><code class="docutils literal notranslate"><span class="pre">Decore.post_item_s()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.post_option_s"><code class="docutils literal notranslate"><span class="pre">Decore.post_option_s()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.post_save_query"><code class="docutils literal notranslate"><span class="pre">Decore.post_save_query()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.start_api"><code class="docutils literal notranslate"><span class="pre">Decore.start_api()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.view"><code class="docutils literal notranslate"><span class="pre">Decore.view()</span></code></a></li>
-<li><a class="reference internal" href="#decore_base.decore.Decore.widget"><code class="docutils literal notranslate"><span class="pre">Decore.widget()</span></code></a></li>
+<li><a class="reference internal" href="#">Welcome to decore Base | crafting UI simply</a><ul>
+<li><a class="reference internal" href="#contribution">Contribution</a></li>
+<li><a class="reference internal" href="#get-started">Get started</a><ul>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#preperation">Preperation</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#development">Development</a></li>
+<li><a class="reference internal" href="#run">Run</a></li>
+<li><a class="reference internal" href="#build">Build</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#sample">Sample</a></li>
+<li><a class="reference internal" href="#explanations">Explanations</a><ul>
+<li><a class="reference internal" href="#base">Base</a></li>
+<li><a class="reference internal" href="#model">Model</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api-reference">API Reference</a></li>
+<li><a class="reference internal" href="#model-reference">Model Reference</a></li>
+<li><a class="reference internal" href="#field-reference">Field Reference</a></li>
+<li><a class="reference internal" href="#notes">Notes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
@@ -396,6 +302,8 @@
             </div>
 
             <div class="right">
+                
+                    <a href="decore.html"><span>Api Reference</span><span class="icon">&gt;</span></a>
                 
             </div>
         </div>

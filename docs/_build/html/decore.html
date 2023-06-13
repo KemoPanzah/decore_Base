@@ -1,0 +1,404 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Api Reference &#8212; decore Base 0.0.17 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/basic_mod.css?v=0.7.0-1" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <script src="_static/js/petite-vue.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to decore Base | crafting UI simply" href="index.html" /> 
+  </head><body data-dark_mode_code_blocks="true">
+
+<div id="top_nav">
+    
+
+    <nav>
+        
+            
+        
+
+        <p id="toggle_sidebar">
+            <a href="#" title="Toggle sidebar">|||</a>
+        </p>
+        <h1><a href="index.html" title="Go to homepage">decore Base 0.0.17 documentation</a></h1>
+
+        <a id="mode_toggle" href="#" @click.prevent="handleClick" :title="mode">
+    <template v-if="mode == 'light'">
+        <svg width="100%" height="100%" viewBox="0 0 79 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="mode_light"><rect id="Bounds" x="0" y="-0" width="78.623" height="79.049" style="fill:none;"/><circle cx="39.311" cy="39.524" r="15.734" style="fill:#fff;"/><g id="beams"><g id="beam"><path id="beam1" serif:id="beam" d="M44.212,4.901c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.9,2.196 -4.9,4.901l-0,9.614c-0,2.705 2.196,4.901 4.9,4.901c2.705,0 4.901,-2.196 4.901,-4.901l0,-9.614Z" style="fill:#fff;"/></g><g id="beam2" serif:id="beam"><path id="beam3" serif:id="beam" d="M67.48,18.073c1.913,-1.912 1.913,-5.018 0,-6.931c-1.912,-1.912 -5.018,-1.912 -6.931,0l-6.798,6.799c-1.912,1.912 -1.912,5.018 0,6.931c1.913,1.912 5.018,1.912 6.931,-0l6.798,-6.799Z" style="fill:#fff;"/></g><g id="beam4" serif:id="beam"><path id="beam5" serif:id="beam" d="M25.728,61.108c1.912,-1.913 1.912,-5.018 -0,-6.931c-1.913,-1.913 -5.019,-1.913 -6.931,-0l-6.799,6.798c-1.912,1.913 -1.912,5.019 0,6.931c1.913,1.913 5.019,1.913 6.931,0l6.799,-6.798Z" style="fill:#fff;"/></g><g id="beam6" serif:id="beam"><path id="beam7" serif:id="beam" d="M60.682,54.177c-1.913,-1.913 -5.018,-1.913 -6.931,-0c-1.912,1.913 -1.912,5.018 0,6.931l6.798,6.798c1.913,1.913 5.019,1.913 6.931,0c1.913,-1.912 1.913,-5.018 0,-6.931l-6.798,-6.798Z" style="fill:#fff;"/></g><g id="beam8" serif:id="beam"><path id="beam9" serif:id="beam" d="M4.901,34.623c-2.705,0 -4.901,2.196 -4.901,4.901c0,2.705 2.196,4.901 4.901,4.901l9.614,0c2.705,0 4.901,-2.196 4.901,-4.901c0,-2.705 -2.196,-4.901 -4.901,-4.901l-9.614,0Z" style="fill:#fff;"/></g><g id="beam10" serif:id="beam"><path id="beam11" serif:id="beam" d="M44.212,64.534c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.9,2.196 -4.9,4.901l-0,9.614c-0,2.705 2.196,4.901 4.9,4.901c2.705,-0 4.901,-2.196 4.901,-4.901l0,-9.614Z" style="fill:#fff;"/></g><g id="beam12" serif:id="beam"><path id="beam13" serif:id="beam" d="M18.929,11.142c-1.912,-1.912 -5.018,-1.912 -6.931,0c-1.912,1.913 -1.912,5.019 0,6.931l6.799,6.799c1.912,1.912 5.018,1.912 6.931,-0c1.912,-1.913 1.912,-5.019 -0,-6.931l-6.799,-6.799Z" style="fill:#fff;"/></g><g id="beam14" serif:id="beam"><path id="beam15" serif:id="beam" d="M64.108,34.623c-2.705,0 -4.901,2.196 -4.901,4.901c-0,2.705 2.196,4.901 4.901,4.901l9.614,0c2.705,0 4.901,-2.196 4.901,-4.901c-0,-2.705 -2.196,-4.901 -4.901,-4.901l-9.614,0Z" style="fill:#fff;"/></g></g></g></svg>
+    </template>
+
+    <template v-if="mode == 'dark'">
+        <svg width="100%" height="100%" viewBox="0 0 79 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="mode_dark"><rect id="Bounds" x="0" y="-0" width="78.623" height="79.049" style="fill:none;"/><circle cx="39.311" cy="39.524" r="15.734" style="fill:#fff;"/><g id="beams"><g id="beam"><path id="beam1" serif:id="beam" d="M44.212,14.515c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,0 -4.901,2.196 -4.901,4.901c0,2.705 2.197,4.901 4.901,4.901c2.705,0 4.901,-2.196 4.901,-4.901Z" style="fill:#fff;"/></g><g id="beam2" serif:id="beam"><path id="beam3" serif:id="beam" d="M60.662,24.892c1.902,-1.902 1.902,-4.99 0,-6.892l-0.04,-0.039c-1.901,-1.902 -4.989,-1.902 -6.891,-0c-1.901,1.901 -1.901,4.989 0,6.891l0.04,0.04c1.902,1.901 4.989,1.901 6.891,-0Z" style="fill:#fff;"/></g><g id="beam4" serif:id="beam"><path id="beam5" serif:id="beam" d="M25.732,61.103c1.91,-1.91 1.91,-5.011 0,-6.921l-0.009,-0.01c-1.91,-1.91 -5.012,-1.91 -6.921,-0c-1.91,1.91 -1.91,5.011 -0,6.921l0.01,0.01c1.909,1.91 5.011,1.91 6.92,-0Z" style="fill:#fff;"/></g><g id="beam6" serif:id="beam"><path id="beam7" serif:id="beam" d="M60.672,54.167c-1.907,-1.907 -5.004,-1.907 -6.911,0l-0.02,0.02c-1.907,1.907 -1.907,5.004 0,6.911c1.907,1.907 5.004,1.907 6.911,-0l0.02,-0.02c1.907,-1.907 1.907,-5.004 0,-6.911Z" style="fill:#fff;"/></g><g id="beam8" serif:id="beam"><path id="beam9" serif:id="beam" d="M14.52,34.623c-2.702,0 -4.896,2.194 -4.896,4.896l0,0.01c0,2.702 2.194,4.896 4.896,4.896c2.702,0 4.896,-2.194 4.896,-4.896l-0,-0.01c-0,-2.702 -2.194,-4.896 -4.896,-4.896Z" style="fill:#fff;"/></g><g id="beam10" serif:id="beam"><path id="beam11" serif:id="beam" d="M44.212,64.534c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.901,2.196 -4.901,4.901c0,2.704 2.197,4.9 4.901,4.9c2.705,0 4.901,-2.196 4.901,-4.9Z" style="fill:#fff;"/></g><g id="beam12" serif:id="beam"><path id="beam13" serif:id="beam" d="M25.73,17.943c-1.911,-1.911 -5.015,-1.911 -6.926,0l-0.005,0.005c-1.911,1.911 -1.911,5.015 0,6.926c1.911,1.911 5.015,1.911 6.926,0l0.005,-0.005c1.911,-1.911 1.911,-5.014 -0,-6.926Z" style="fill:#fff;"/></g><g id="beam14" serif:id="beam"><path id="beam15" serif:id="beam" d="M64.098,34.623c-2.699,0 -4.891,2.192 -4.891,4.892l-0,0.019c-0,2.699 2.192,4.891 4.891,4.891c2.7,0 4.892,-2.192 4.892,-4.891l0,-0.019c0,-2.7 -2.192,-4.892 -4.892,-4.892Z" style="fill:#fff;"/></g></g></g></svg>
+    </template>
+
+    <template v-if="mode == 'darkest'">
+        <svg width="100%" height="100%" viewBox="0 0 79 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="mode_darkest"><rect id="Bounds" x="0" y="-0" width="78.623" height="79.049" style="fill:none;"/><path d="M39.315,23.791c8.684,-0 15.734,7.05 15.734,15.733c0,8.684 -7.05,15.734 -15.734,15.734c-8.683,0 -15.733,-7.05 -15.733,-15.734c-0,-8.683 7.05,-15.733 15.733,-15.733Zm0,4.737c6.069,0 10.997,4.927 10.997,10.996c-0,6.069 -4.928,10.996 -10.997,10.996c-6.068,0 -10.996,-4.927 -10.996,-10.996c0,-6.069 4.928,-10.996 10.996,-10.996Z" style="fill:#fff;"/><g id="beams"><g id="beam"><path id="beam1" serif:id="beam" d="M44.216,14.515c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,0 -4.9,2.196 -4.9,4.901c-0,2.705 2.196,4.901 4.9,4.901c2.705,0 4.901,-2.196 4.901,-4.901Z" style="fill:#fff;"/></g><g id="beam2" serif:id="beam"><path id="beam3" serif:id="beam" d="M60.666,24.892c1.902,-1.902 1.902,-4.99 0,-6.892l-0.04,-0.039c-1.901,-1.902 -4.989,-1.902 -6.891,-0c-1.901,1.901 -1.901,4.989 0,6.891l0.04,0.04c1.902,1.901 4.99,1.901 6.891,-0Z" style="fill:#fff;"/></g><g id="beam4" serif:id="beam"><path id="beam5" serif:id="beam" d="M25.737,61.103c1.909,-1.91 1.909,-5.011 -0,-6.921l-0.01,-0.01c-1.91,-1.91 -5.011,-1.91 -6.921,-0c-1.91,1.91 -1.91,5.011 -0,6.921l0.01,0.01c1.91,1.91 5.011,1.91 6.921,-0Z" style="fill:#fff;"/></g><g id="beam6" serif:id="beam"><path id="beam7" serif:id="beam" d="M60.676,54.167c-1.907,-1.907 -5.004,-1.907 -6.911,0l-0.02,0.02c-1.907,1.907 -1.907,5.004 0,6.911c1.907,1.907 5.004,1.907 6.911,-0l0.02,-0.02c1.907,-1.907 1.907,-5.004 0,-6.911Z" style="fill:#fff;"/></g><g id="beam8" serif:id="beam"><path id="beam9" serif:id="beam" d="M14.524,34.623c-2.702,0 -4.896,2.194 -4.896,4.896l0,0.01c0,2.702 2.194,4.896 4.896,4.896c2.702,0 4.896,-2.194 4.896,-4.896l0,-0.01c0,-2.702 -2.194,-4.896 -4.896,-4.896Z" style="fill:#fff;"/></g><g id="beam10" serif:id="beam"><path id="beam11" serif:id="beam" d="M44.216,64.534c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.9,2.196 -4.9,4.901c-0,2.704 2.196,4.9 4.9,4.9c2.705,0 4.901,-2.196 4.901,-4.9Z" style="fill:#fff;"/></g><g id="beam12" serif:id="beam"><path id="beam13" serif:id="beam" d="M25.734,17.943c-1.911,-1.911 -5.015,-1.911 -6.926,0l-0.005,0.005c-1.911,1.911 -1.911,5.015 0,6.926c1.911,1.911 5.015,1.911 6.926,0l0.005,-0.005c1.911,-1.911 1.911,-5.014 0,-6.926Z" style="fill:#fff;"/></g><g id="beam14" serif:id="beam"><path id="beam15" serif:id="beam" d="M64.103,34.623c-2.7,0 -4.892,2.192 -4.892,4.892l-0,0.019c-0,2.699 2.192,4.891 4.892,4.891c2.699,0 4.891,-2.192 4.891,-4.891l0,-0.019c0,-2.7 -2.192,-4.892 -4.891,-4.892Z" style="fill:#fff;"/></g></g></g></svg>
+    </template>
+</a>
+
+<script>
+(function() {
+    const LOCAL_STORAGE_KEY = 'piccoloThemeMode'
+
+    var initialMode = localStorage.getItem(LOCAL_STORAGE_KEY)
+
+    if (initialMode) {
+        // Make sure the value in local storage is valid
+        if (['light', 'dark', 'darkest'].indexOf(initialMode) == -1) {
+            initialMode = 'light'
+            localStorage.setItem(LOCAL_STORAGE_KEY, initialMode)
+        }
+    } else {
+        // Check if the client prefers dark mode
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            initialMode = 'dark'
+        } else {
+            initialMode = 'light'
+        }
+        localStorage.setItem(LOCAL_STORAGE_KEY, initialMode)
+    }
+
+    document.documentElement.dataset.mode = initialMode
+
+    PetiteVue.createApp({
+        'mode': initialMode,
+        handleClick() {
+            let currentMode = this.mode
+
+            if (currentMode == 'light') {
+                this.mode = 'dark'
+            } else if (currentMode == 'dark') {
+                this.mode = 'darkest'
+            } else if (currentMode == 'darkest') {
+                this.mode = 'light'
+            }
+
+            document.documentElement.dataset.mode = this.mode
+            localStorage.setItem(LOCAL_STORAGE_KEY, this.mode)
+
+            console.log(this.mode)
+        }
+    }).mount('#mode_toggle')
+})()
+</script>
+            <p class="mobile_search_link">
+                <a href="search.html" title="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 65 64" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
+                        <path d="M14.873 40.009c-2.315-3.943-3.642-8.532-3.642-13.429C11.231 11.91 23.141 0 37.811 0s26.58 11.91 26.58 26.58-11.91 26.58-26.58 26.58a26.44 26.44 0 0 1-14.277-4.161L9.739 62.794a3.12 3.12 0 0 1-4.413 0L.913 58.382c-1.217-1.218-1.217-3.196 0-4.413l13.96-13.96zM37.811 8.054c10.225 0 18.526 8.301 18.526 18.526s-8.301 18.526-18.526 18.526-18.526-8.301-18.526-18.526S27.586 8.054 37.811 8.054z" fill="#fff" />
+                    </svg>
+                </a>
+            </p>
+        
+
+        <div class="searchbox_wrapper">
+            
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="caption" role="heading"><span class="caption-text">Further content and information:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Api Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-decore_base.decore">
+<span id="api-reference"></span><h1>Api Reference<a class="headerlink" href="#module-decore_base.decore" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="decore_base.decore.Decore">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">decore_base.decore.</span></span><span class="sig-name descname"><span class="pre">Decore</span></span><a class="headerlink" href="#decore_base.decore.Decore" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.action">
+<span class="sig-name descname"><span class="pre">action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_icon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'standard'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'submit'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'check'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'response'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'file'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'download'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'standard'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_activator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'none'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'default-menu'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'item-menu'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'item-click'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'none'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.action" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.app">
+<span class="sig-name descname"><span class="pre">app</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_title</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator for app registration</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.base">
+<span class="sig-name descname"><span class="pre">base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_icon=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_title=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_desc=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_model=&lt;Model:</span> <span class="pre">Decore_model&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.base" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.dialog">
+<span class="sig-name descname"><span class="pre">dialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_icon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'standard'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'tabs'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'stepper'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'standard'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_display</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'modal'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'drawer'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'drawer'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_activator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'none'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'default-menu'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'item-menu'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'item-click'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'none'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.element">
+<span class="sig-name descname"><span class="pre">element</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_icon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'p'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'checkbox'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'text'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_disable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.element" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.function">
+<span class="sig-name descname"><span class="pre">function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'shot'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'work'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'shot'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.get_api">
+<span class="sig-name descname"><span class="pre">get_api</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.get_api" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.get_base_by_id">
+<span class="sig-name descname"><span class="pre">get_base_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.get_base_by_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.get_base_by_model">
+<span class="sig-name descname"><span class="pre">get_base_by_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_model</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Decore_base</span></span></span><a class="headerlink" href="#decore_base.decore.Decore.get_base_by_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.get_base_by_module">
+<span class="sig-name descname"><span class="pre">get_base_by_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_module</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.get_base_by_module" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.get_default">
+<span class="sig-name descname"><span class="pre">get_default</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_source_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.get_default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.get_last">
+<span class="sig-name descname"><span class="pre">get_last</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_source_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.get_last" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.get_meta">
+<span class="sig-name descname"><span class="pre">get_meta</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.get_meta" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.get_query_s">
+<span class="sig-name descname"><span class="pre">get_query_s</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.get_query_s" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.get_remove_query">
+<span class="sig-name descname"><span class="pre">get_remove_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.get_remove_query" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.l_action_activator">
+<span class="sig-name descname"><span class="pre">l_action_activator</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_action_activator" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘none’, ‘default-menu’, ‘item-menu’, ‘item-click’]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.l_action_type">
+<span class="sig-name descname"><span class="pre">l_action_type</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_action_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘standard’, ‘submit’, ‘check’, ‘response’, ‘file’, ‘download’]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.l_dialog_activator">
+<span class="sig-name descname"><span class="pre">l_dialog_activator</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_dialog_activator" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘none’, ‘default-menu’, ‘item-menu’, ‘item-click’]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.l_dialog_display">
+<span class="sig-name descname"><span class="pre">l_dialog_display</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_dialog_display" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘modal’, ‘drawer’]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.l_dialog_type">
+<span class="sig-name descname"><span class="pre">l_dialog_type</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_dialog_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘standard’, ‘tabs’, ‘stepper’]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.l_element_type">
+<span class="sig-name descname"><span class="pre">l_element_type</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_element_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘p’, ‘checkbox’]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.l_function_type">
+<span class="sig-name descname"><span class="pre">l_function_type</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_function_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘shot’, ‘work’]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.l_view_pag_type">
+<span class="sig-name descname"><span class="pre">l_view_pag_type</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_view_pag_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘client’]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.l_view_type">
+<span class="sig-name descname"><span class="pre">l_view_type</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_view_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘table’]</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.l_widget_type">
+<span class="sig-name descname"><span class="pre">l_widget_type</span></span><a class="headerlink" href="#decore_base.decore.Decore.l_widget_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Literal</span></code>[‘default’, ‘info’, ‘form’, ‘table’]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.post_action">
+<span class="sig-name descname"><span class="pre">post_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_action_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.post_action" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.post_item_s">
+<span class="sig-name descname"><span class="pre">post_item_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_source_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.post_item_s" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.post_option_s">
+<span class="sig-name descname"><span class="pre">post_option_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_source_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.post_option_s" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.post_save_query">
+<span class="sig-name descname"><span class="pre">post_save_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_base_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_view_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.post_save_query" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.start_api">
+<span class="sig-name descname"><span class="pre">start_api</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.start_api" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.view">
+<span class="sig-name descname"><span class="pre">view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_icon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'table'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'table'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_active_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_filter_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_pag_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'client'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'client'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_pag_recs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.view" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="decore_base.decore.Decore.widget">
+<span class="sig-name descname"><span class="pre">widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_parent_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_icon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_desc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'default'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'info'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'form'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'table'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_layout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cera'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_active_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#decore_base.decore.Decore.widget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+    
+        <div id="show_right_sidebar">
+            <p><a class="toggle_right_sidebar" href="#"><span class="icon">&lt;</span><span>Page contents<span></a></p>
+        </div>
+
+        <div id="right_sidebar">
+            <p><a class="toggle_right_sidebar" href="#"><span class="icon">&gt;</span><span>Page contents:<span></a></p>
+            <div class="page_toc">
+                <ul>
+<li><a class="reference internal" href="#">Api Reference</a><ul>
+<li><a class="reference internal" href="#decore_base.decore.Decore"><code class="docutils literal notranslate"><span class="pre">Decore</span></code></a><ul>
+<li><a class="reference internal" href="#decore_base.decore.Decore.action"><code class="docutils literal notranslate"><span class="pre">Decore.action()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.app"><code class="docutils literal notranslate"><span class="pre">Decore.app()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.base"><code class="docutils literal notranslate"><span class="pre">Decore.base()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.dialog"><code class="docutils literal notranslate"><span class="pre">Decore.dialog()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.element"><code class="docutils literal notranslate"><span class="pre">Decore.element()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.function"><code class="docutils literal notranslate"><span class="pre">Decore.function()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.get_api"><code class="docutils literal notranslate"><span class="pre">Decore.get_api()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.get_base_by_id"><code class="docutils literal notranslate"><span class="pre">Decore.get_base_by_id()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.get_base_by_model"><code class="docutils literal notranslate"><span class="pre">Decore.get_base_by_model()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.get_base_by_module"><code class="docutils literal notranslate"><span class="pre">Decore.get_base_by_module()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.get_default"><code class="docutils literal notranslate"><span class="pre">Decore.get_default()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.get_last"><code class="docutils literal notranslate"><span class="pre">Decore.get_last()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.get_meta"><code class="docutils literal notranslate"><span class="pre">Decore.get_meta()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.get_query_s"><code class="docutils literal notranslate"><span class="pre">Decore.get_query_s()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.get_remove_query"><code class="docutils literal notranslate"><span class="pre">Decore.get_remove_query()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.index"><code class="docutils literal notranslate"><span class="pre">Decore.index()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.l_action_activator"><code class="docutils literal notranslate"><span class="pre">Decore.l_action_activator</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.l_action_type"><code class="docutils literal notranslate"><span class="pre">Decore.l_action_type</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.l_dialog_activator"><code class="docutils literal notranslate"><span class="pre">Decore.l_dialog_activator</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.l_dialog_display"><code class="docutils literal notranslate"><span class="pre">Decore.l_dialog_display</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.l_dialog_type"><code class="docutils literal notranslate"><span class="pre">Decore.l_dialog_type</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.l_element_type"><code class="docutils literal notranslate"><span class="pre">Decore.l_element_type</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.l_function_type"><code class="docutils literal notranslate"><span class="pre">Decore.l_function_type</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.l_view_pag_type"><code class="docutils literal notranslate"><span class="pre">Decore.l_view_pag_type</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.l_view_type"><code class="docutils literal notranslate"><span class="pre">Decore.l_view_type</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.l_widget_type"><code class="docutils literal notranslate"><span class="pre">Decore.l_widget_type</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.post_action"><code class="docutils literal notranslate"><span class="pre">Decore.post_action()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.post_item_s"><code class="docutils literal notranslate"><span class="pre">Decore.post_item_s()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.post_option_s"><code class="docutils literal notranslate"><span class="pre">Decore.post_option_s()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.post_save_query"><code class="docutils literal notranslate"><span class="pre">Decore.post_save_query()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.start_api"><code class="docutils literal notranslate"><span class="pre">Decore.start_api()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.view"><code class="docutils literal notranslate"><span class="pre">Decore.view()</span></code></a></li>
+<li><a class="reference internal" href="#decore_base.decore.Decore.widget"><code class="docutils literal notranslate"><span class="pre">Decore.widget()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+    
+
+      <div class="clearer"></div>
+    </div>
+    <div class="button_nav_wrapper">
+        <div class="button_nav">
+            <div class="left">
+                
+                <a href="index.html">
+                    <span class="icon">&lt;</span><span>Welcome to decore Base | crafting UI simply</span></a>
+                
+            </div>
+
+            <div class="right">
+                
+            </div>
+        </div>
+    </div>
+
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2023, Kemo Panzah.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+
+<p id="theme_credit">Styled using the <a href="https://github.com/piccolo-orm/piccolo_theme">Piccolo Theme</a></p>
+  </body>
+</html>

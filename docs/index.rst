@@ -3,22 +3,16 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to decore Base's documentation!
-=======================================
+Welcome to decore Base | crafting UI simply
+===========================================
 
-Hello World 6
+.. include:: ../README.rst
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 1
+   :caption: Content:
 
-Api Reference
-=============
-
-.. automodule:: decore_base.decore
-   :members:
-   :inherited-members:
-   :undoc-members: False
+   decore
 
 Indices and tables
 ==================
