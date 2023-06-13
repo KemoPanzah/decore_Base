@@ -6,6 +6,8 @@
 Welcome to decore Base's documentation!
 =======================================
 
+Hello World 3
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
@@ -16,14 +18,7 @@ Api Reference
 .. automodule:: decore_base.decore
    :members:
    :inherited-members:
-   :undoc-members: True
-
-Sample Code
-===========
-.. automodule:: decore_base.sample.app
-   :members:
-   :inherited-members:
-   :undoc-members: True
+   :undoc-members: False
 
 Indices and tables
 ==================
