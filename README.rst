@@ -40,7 +40,7 @@ This requires an activated Python Interpreter! To learn more about Python Interp
 Preperation
 ###########
 
-Create a new file named `app.py` in your project root directory.
+Create a new file named ``app.py`` in your project root directory.
 
 Usage
 #####
@@ -51,11 +51,11 @@ To allow the Python interpreter to process the future base classes, add the foll
 
    from bases import *
 
-Typically, a Python main module contains a query that checks whether it is the main module, and then calls the `main` function.
+Typically, a Python main module contains a query that checks whether it is the main module, and then calls the ``main`` function.
 
-We next create a line `if __name__ == '__main__':` in the app.py file.
+We next create a line ``if __name__ == '__main__':`` in the app.py file.
 
-To create a new Decore application instance, use a `@decore.app` decorated `main` function in the app.py file after the line `if __name__ == '__main__':`.
+To create a new Decore application instance, use a ``@decore.app`` decorated ``main`` function in the app.py file after the line ``if __name__ == '__main__':``.
 
 .. code-block:: python
 
@@ -74,31 +74,31 @@ https://github.com/KemoPanzah/decore_Base/blob/master/decore_base/sample/app.py
 Debug and Run
 #############
 
-To only start your application, run `python app.py` in your project root directory. Use the terminal in vscode.
+To only start your application, run ``python app.py`` in your project root directory. Use the terminal in vscode.
 
-Open the browser and type `http://localhost:5555`.
+Open the browser and type ``http://localhost:5555``.
 
 Development
 ~~~~~~~~~~~
-To develop your application, use your debugger with the `[dev] decore base development` profile in vscode.
+To develop your application, use your debugger with the ``[dev] decore base development`` profile in vscode.
 
-Open the browser and type `http://localhost:5555`.
+Open the browser and type ``http://localhost:5555``.
 
 Build
 ~~~~~
 
-To build your application, run `python app.py --build` in your project root directory. Use the terminal in vscode.
+To build your application, run ``python app.py --build`` in your project root directory. Use the terminal in vscode.
 
 Sample application
-------
+-----------------
 
 To understand how decore base works, it is best to look at the sample application. The application represents my continuous development of decore base.
 
 https://github.com/KemoPanzah/decore_Base/tree/master/decore_base/sample
 
-To sync the sample application to a subfolder of the project root directory, run `python app.py --sample` in your project root directory. Use the terminal in vscode.
+To sync the sample application to a subfolder of the project root directory, run ``python app.py --sample`` in your project root directory. Use the terminal in vscode.
 
-To run the sample application after synchronization, use your debugger with the profile `[smp] decore base sample` in vscode.
+To run the sample application after synchronization, use your debugger with the profile ``[smp] decore base sample`` in vscode.
 
 Explanations
 ------------
@@ -120,7 +120,7 @@ To create a GUI with decore Base, you decorate functions in the source code acco
 
 The decore module contains those functions that are needed to create the metadata for the decore front application.
 
-To understand the general approach, synchronize the sample application with the command `python app.py --sample` in your project root directory.
+To understand the general approach, synchronize the sample application with the command ``python app.py --sample`` in your project root directory.
 
 Model Reference
 ---------------
