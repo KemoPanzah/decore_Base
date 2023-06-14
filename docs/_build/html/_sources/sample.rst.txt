@@ -1,6 +1,0 @@
-Sample application
----------------
-
-.. automodule:: decore_base.sample.app
-   :members:
-   :undoc-members:
