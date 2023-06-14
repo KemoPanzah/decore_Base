@@ -10,7 +10,7 @@ Welcome to decore Base | crafting UI simply
 
 .. toctree::
    :maxdepth: 1
-   :caption: Further content and information:
+   :caption: Content:
 
    decore
 

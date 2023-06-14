@@ -118,7 +118,7 @@
 
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><p class="caption" role="heading"><span class="caption-text">Further content and information:</span></p>
+        <div class="sphinxsidebarwrapper"><p class="caption" role="heading"><span class="caption-text">Content:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="decore.html">Api Reference</a></li>
 </ul>
@@ -159,7 +159,7 @@
 </section>
 <section id="preperation">
 <h3>Preperation<a class="headerlink" href="#preperation" title="Permalink to this heading">¶</a></h3>
-<p>Create a new file named <cite>app.py</cite> in your project root directory.</p>
+<p>Create a new file named  ˋˋapp.pyˋˋ in your project root directory.</p>
 </section>
 <section id="usage">
 <h3>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h3>
@@ -182,23 +182,23 @@
 <p>You can find an example here:</p>
 <p><a class="reference external" href="https://github.com/KemoPanzah/decore_Base/blob/master/decore_base/sample/app.py">https://github.com/KemoPanzah/decore_Base/blob/master/decore_base/sample/app.py</a></p>
 </section>
+<section id="debug-and-run">
+<h3>Debug and Run<a class="headerlink" href="#debug-and-run" title="Permalink to this heading">¶</a></h3>
+<p>To only start your application, run <cite>python app.py</cite> in your project root directory. Use the terminal in vscode.</p>
+<p>Open the browser and type <cite>http://localhost:5555</cite>.</p>
 <section id="development">
-<h3>Development<a class="headerlink" href="#development" title="Permalink to this heading">¶</a></h3>
+<h4>Development<a class="headerlink" href="#development" title="Permalink to this heading">¶</a></h4>
 <p>To develop your application, use your debugger with the <cite>[dev] decore base development</cite> profile in vscode.</p>
 <p>Open the browser and type <cite>http://localhost:5555</cite>.</p>
 </section>
-<section id="run">
-<h3>Run<a class="headerlink" href="#run" title="Permalink to this heading">¶</a></h3>
-<p>To start your application, run <cite>python app.py</cite> in your project root directory. Use the terminal in vscode.</p>
-<p>Open the browser and type <cite>http://localhost:5555</cite>.</p>
-</section>
 <section id="build">
-<h3>Build<a class="headerlink" href="#build" title="Permalink to this heading">¶</a></h3>
+<h4>Build<a class="headerlink" href="#build" title="Permalink to this heading">¶</a></h4>
 <p>To build your application, run <cite>python app.py –build</cite> in your project root directory. Use the terminal in vscode.</p>
 </section>
 </section>
-<section id="sample">
-<h2>Sample<a class="headerlink" href="#sample" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="sample-application">
+<h2>Sample application<a class="headerlink" href="#sample-application" title="Permalink to this heading">¶</a></h2>
 <p>To understand how decore base works, it is best to look at the sample application. The application represents my continuous development of decore base.</p>
 <p><a class="reference external" href="https://github.com/KemoPanzah/decore_Base/tree/master/decore_base/sample">https://github.com/KemoPanzah/decore_Base/tree/master/decore_base/sample</a></p>
 <p>To sync the sample application to a subfolder of the project root directory, run <cite>python app.py –sample</cite> in your project root directory. Use the terminal in vscode.</p>
@@ -206,14 +206,8 @@
 </section>
 <section id="explanations">
 <h2>Explanations<a class="headerlink" href="#explanations" title="Permalink to this heading">¶</a></h2>
-<section id="base">
-<h3>Base<a class="headerlink" href="#base" title="Permalink to this heading">¶</a></h3>
 <p>The base is basically the carrier element for views. It can contain views from the same base or views from other bases. The Base is always linked to a Model.</p>
-</section>
-<section id="model">
-<h3>Model<a class="headerlink" href="#model" title="Permalink to this heading">¶</a></h3>
 <p>The model defines the data to work with. Each model is linked to a Base and is based on peewee ORM. To learn more about peewee ORM, visit <a class="reference external" href="http://docs.peewee-orm.com/en/latest/">peewee</a>.</p>
-</section>
 </section>
 <section id="api-reference">
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">¶</a></h2>
@@ -233,7 +227,7 @@
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
 <p>This documentation was translated from German to English by GitHub Copilot.</p>
 <div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Further content and information:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Content:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="decore.html">Api Reference</a></li>
 </ul>
@@ -269,17 +263,15 @@
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#preperation">Preperation</a></li>
 <li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#debug-and-run">Debug and Run</a><ul>
 <li><a class="reference internal" href="#development">Development</a></li>
-<li><a class="reference internal" href="#run">Run</a></li>
 <li><a class="reference internal" href="#build">Build</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#sample">Sample</a></li>
-<li><a class="reference internal" href="#explanations">Explanations</a><ul>
-<li><a class="reference internal" href="#base">Base</a></li>
-<li><a class="reference internal" href="#model">Model</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#sample-application">Sample application</a></li>
+<li><a class="reference internal" href="#explanations">Explanations</a></li>
 <li><a class="reference internal" href="#api-reference">API Reference</a></li>
 <li><a class="reference internal" href="#model-reference">Model Reference</a></li>
 <li><a class="reference internal" href="#field-reference">Field Reference</a></li>

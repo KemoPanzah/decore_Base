@@ -25,7 +25,7 @@ Get started
 -----------
 
 Installation
-~~~~~~~~~~~~
+############
 
 Create an empty Python project in your desired directory. I will refer to this directory as **project root directory** in the following course of this documentation.
 
@@ -38,12 +38,12 @@ To install decore Base, run the following command in your project root directory
 This requires an activated Python Interpreter! To learn more about Python Interpreters, visit `Python Interpreter <https://code.visualstudio.com/docs/python/environments>`_.
 
 Preperation
-~~~~~~~~~~~
+###########
 
 Create a new file named `app.py` in your project root directory.
 
 Usage
-~~~~~
+#####
 
 To allow the Python interpreter to process the future base classes, add the following import.
 
@@ -71,16 +71,16 @@ You can find an example here:
 
 https://github.com/KemoPanzah/decore_Base/blob/master/decore_base/sample/app.py
 
-Development
-~~~~~~~~~~~
-To develop your application, use your debugger with the `[dev] decore base development` profile in vscode.
+Debug and Run
+#############
+
+To only start your application, run `python app.py` in your project root directory. Use the terminal in vscode.
 
 Open the browser and type `http://localhost:5555`.
 
-Run
-~~~
-
-To start your application, run `python app.py` in your project root directory. Use the terminal in vscode.
+Development
+~~~~~~~~~~~
+To develop your application, use your debugger with the `[dev] decore base development` profile in vscode.
 
 Open the browser and type `http://localhost:5555`.
 
@@ -89,7 +89,7 @@ Build
 
 To build your application, run `python app.py --build` in your project root directory. Use the terminal in vscode.
 
-Sample
+Sample application
 ------
 
 To understand how decore base works, it is best to look at the sample application. The application represents my continuous development of decore base.
