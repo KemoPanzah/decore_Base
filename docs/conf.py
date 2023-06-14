@@ -24,6 +24,9 @@ release = '0.0.17'
 
 extensions = ['sphinx.ext.autodoc', 'sphinxcontrib.mermaid']
 
+# Definiere die Dokumentationsklassen
+autodoc_member_order = 'bysource'
+
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 

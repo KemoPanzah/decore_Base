@@ -8,11 +8,15 @@ Welcome to decore Base | crafting UI simply
 
 .. include:: ../README.rst
 
+Contents:
+=========
+
 .. toctree::
    :maxdepth: 1
-   :caption: Content:
-
+   :caption: Main menu:
+   
    decore
+   model
 
 Indices and tables
 ==================

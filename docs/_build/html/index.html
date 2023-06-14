@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Welcome to decore Base | crafting UI simply &#8212; decore Base 0.0.17 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -15,7 +16,7 @@
     <script src="_static/js/petite-vue.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Api Reference" href="decore.html" /> 
+    <link rel="next" title="Decorator reference" href="decore.html" /> 
   </head><body data-dark_mode_code_blocks="true">
 
 <div id="top_nav">
@@ -117,9 +118,10 @@
 
     
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><p class="caption" role="heading"><span class="caption-text">Content:</span></p>
+        <div class="sphinxsidebarwrapper"><p class="caption" role="heading"><span class="caption-text">Main menu:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="decore.html">Api Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="decore.html">Decorator reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">Model reference</a></li>
 </ul>
 
         </div>
@@ -203,35 +205,20 @@
 <p>To sync the sample application to a subfolder of the project root directory, run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">app.py</span> <span class="pre">--sample</span></code> in your project root directory. Use the terminal in vscode.</p>
 <p>To run the sample application after synchronization, use your debugger with the profile <code class="docutils literal notranslate"><span class="pre">[smp]</span> <span class="pre">decore</span> <span class="pre">base</span> <span class="pre">sample</span></code> in vscode.</p>
 </section>
-<section id="explanations">
-<h2>Explanations<a class="headerlink" href="#explanations" title="Permalink to this heading">¶</a></h2>
-<p>The base is basically the carrier element for views. It can contain views from the same base or views from other bases. The Base is always linked to a Model.</p>
-<p>The model defines the data to work with. Each model is linked to a Base and is based on peewee ORM. To learn more about peewee ORM, visit <a class="reference external" href="http://docs.peewee-orm.com/en/latest/">peewee</a>.</p>
-</section>
-<section id="api-reference">
-<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">¶</a></h2>
-<p>To create a GUI with decore Base, you decorate functions in the source code according to the default of the execution process.</p>
-<p>The decore module contains those functions that are needed to create the metadata for the decore front application.</p>
-<p>To understand the general approach, synchronize the sample application with the command <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">app.py</span> <span class="pre">--sample</span></code> in your project root directory.</p>
-</section>
-<section id="model-reference">
-<h2>Model Reference<a class="headerlink" href="#model-reference" title="Permalink to this heading">¶</a></h2>
-<p>To simplify the work with the original Peewee model even more, the model was extended by some functions.</p>
-</section>
-<section id="field-reference">
-<h2>Field Reference<a class="headerlink" href="#field-reference" title="Permalink to this heading">¶</a></h2>
-<p>The following fields are currently usable in decore Base and are evaluated by the frontend.</p>
-</section>
 <section id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">¶</a></h2>
 <p>This documentation was translated from German to English by GitHub Copilot.</p>
+</section>
+</section>
+<section id="contents">
+<h1>Contents:<a class="headerlink" href="#contents" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Content:</span></p>
+<p class="caption" role="heading"><span class="caption-text">Main menu:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="decore.html">Api Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="decore.html">Decorator reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model.html">Model reference</a></li>
 </ul>
 </div>
-</section>
 </section>
 <section id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
@@ -270,13 +257,10 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#sample-application">Sample application</a></li>
-<li><a class="reference internal" href="#explanations">Explanations</a></li>
-<li><a class="reference internal" href="#api-reference">API Reference</a></li>
-<li><a class="reference internal" href="#model-reference">Model Reference</a></li>
-<li><a class="reference internal" href="#field-reference">Field Reference</a></li>
 <li><a class="reference internal" href="#notes">Notes</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#contents">Contents:</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 
@@ -294,7 +278,7 @@
 
             <div class="right">
                 
-                    <a href="decore.html"><span>Api Reference</span><span class="icon">&gt;</span></a>
+                    <a href="decore.html"><span>Decorator reference</span><span class="icon">&gt;</span></a>
                 
             </div>
         </div>
@@ -303,7 +287,7 @@
 
     <div class="footer" role="contentinfo">
         &#169; Copyright 2023, Kemo Panzah.
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
     </div>
 
 <p id="theme_credit">Styled using the <a href="https://github.com/piccolo-orm/piccolo_theme">Piccolo Theme</a></p>

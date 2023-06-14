@@ -90,7 +90,7 @@ Build
 To build your application, run ``python app.py --build`` in your project root directory. Use the terminal in vscode.
 
 Sample application
------------------
+------------------
 
 To understand how decore base works, it is best to look at the sample application. The application represents my continuous development of decore base.
 
@@ -100,39 +100,8 @@ To sync the sample application to a subfolder of the project root directory, run
 
 To run the sample application after synchronization, use your debugger with the profile ``[smp] decore base sample`` in vscode.
 
-Explanations
-------------
-
-Base
-~~~~
-
-The base is basically the carrier element for views. It can contain views from the same base or views from other bases. The Base is always linked to a Model.
-
-Model
-~~~~~
-
-The model defines the data to work with. Each model is linked to a Base and is based on peewee ORM. To learn more about peewee ORM, visit `peewee <http://docs.peewee-orm.com/en/latest/>`_.
-
-API Reference
--------------
-
-To create a GUI with decore Base, you decorate functions in the source code according to the default of the execution process.
-
-The decore module contains those functions that are needed to create the metadata for the decore front application.
-
-To understand the general approach, synchronize the sample application with the command ``python app.py --sample`` in your project root directory.
-
-Model Reference
----------------
-
-To simplify the work with the original Peewee model even more, the model was extended by some functions.
-
-Field Reference
----------------
-
-The following fields are currently usable in decore Base and are evaluated by the frontend.
-
 Notes
 -----
 
 This documentation was translated from German to English by GitHub Copilot.
+
