@@ -56,8 +56,8 @@ Anschließend erstellen wir mit dem Befehl **prepare** alle benötigten Hilfsdat
 
 Um die Anwendung nun tatsächlich vorzubereiten, führen wir nun den Befehl ``python app.py --prepare`` im Terminal aus. Der Pfad muss sich im Projektstammverzeichnis befinden, also da wo die **app.py** liegt.
 
-Usage and Run 
-#############
+Usage
+#####
 Damit der Python-Interpreter die zukünftigen Basisklassen verarbeiten kann, fügen wir noch den folgenden Import hinzu.
 
 .. code-block:: python

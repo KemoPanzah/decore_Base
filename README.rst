@@ -56,8 +56,8 @@ Then we use the **prepare** command to create all the necessary auxiliary files 
 
 Now, to actually prepare the application, we run the command ``python app.py --prepare`` in the terminal. The path must be in the project root directory, i.e. where the **app.py** is located.
 
-Usage and Run 
-#############
+Usage
+#####
 To allow the Python interpreter to process the future base classes, we add the following import.
 
 .. code-block:: python
