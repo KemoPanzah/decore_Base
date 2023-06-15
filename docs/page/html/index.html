@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
+    <link href="_static/favicon.ico" rel="icon" type="image/x-icon">
     <title>Welcome to decore Base | crafting UI simply &#8212; decore Base 0.0.18 documentation</title>
   
   
@@ -30,6 +30,7 @@
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/custom.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -39,6 +40,8 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -111,9 +114,9 @@
   </div>
   
   
-  <div class="col-lg-9 navbar-header-items">
+  <div class=" navbar-header-items">
     
-    <div class="me-auto navbar-header-items__center">
+    <div class="ms-auto navbar-header-items__center">
       
         <div class="navbar-item"><nav class="navbar-nav">
   <p class="sidebar-header-items__title"
@@ -276,54 +279,54 @@ document.write(`
                   
   <section id="welcome-to-decore-base-crafting-ui-simply">
 <h1>Welcome to decore Base | crafting UI simply<a class="headerlink" href="#welcome-to-decore-base-crafting-ui-simply" title="Permalink to this heading">#</a></h1>
-<a class="reference external image-reference" href="https://ko-fi.com/P5P2JCC5B"><img alt="Buy me a coffee" src="https://ko-fi.com/img/githubbutton_sm.svg" /></a>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
-<p>decore Base is an out-of-the-box “Python to Vue.js” data application dashboard that helps you go from idea to view in a few simple steps. It is aimed at those who want to focus on the results of their algorithms , do scientific work, or perform teaching or learning functions.</p>
-<p><strong>decore Base is currently a work in progress, only locally deployable, only available for Windows and not yet ready for production.</strong></p>
+<p>decore Base is an out-of-the-box “Python to Vue.js” data application dashboard that helps you go from idea to view in a few simple steps. It is aimed at those who want to focus on the results of their algorithms, do scientific work or perform teaching and learning functions.</p>
+<p><strong>decore Base is currently a work in progress, only locally deployable, only available for Windows and not yet production ready</strong>.</p>
 <p>The recommended IDE is Visual Studio Code and all my comments and documentation here will also refer to vscode only.</p>
-<p><a class="reference external" href="https://github.com/users/KemoPanzah/projects/1/views/1">Insight into the current progress of the decore project</a></p>
+<p><a class="reference external" href="https://github.com/users/KemoPanzah/projects/1/views/1">Insights into the current status of the Decore project</a></p>
+<a class="reference external image-reference" href="https://ko-fi.com/P5P2JCC5B"><img alt="Buy me a coffee" src="https://ko-fi.com/img/githubbutton_sm.svg" /></a>
 </section>
 <section id="contribution">
 <h2>Contribution<a class="headerlink" href="#contribution" title="Permalink to this heading">#</a></h2>
 <p>The biggest help I can get right now is if you take a look at the project and tell me what you think. I am grateful for any criticism.</p>
-<p>My current sample project is included directly in the Python package. To install the sample application, please see the documentation under <strong>Sample</strong>. Please read <strong>Installation</strong>, <strong>Usage</strong> and <strong>Preperation</strong> first.</p>
-<p>Everything that is found in features, bugs or unclear in the documentation, I ask you to let me know.</p>
-<p><a class="reference external" href="https://github.com/KemoPanzah/decore_Base/issues">Please use the Issues area in the repository for this.</a></p>
+<p>My current sample project is included directly in the Python package. To install the example application, please read the documentation in <strong>Example</strong>. Please read <strong>Installation</strong>, <strong>Use</strong> and <strong>Preparation</strong> first.</p>
+<p>Anything found in the documentation in terms of features, bugs or ambiguities, please let me know.</p>
+<p><a class="reference external" href="https://github.com/KemoPanzah/decore_Base/issues">Please use the problem area in the repository for this purpose.</a></p>
 </section>
 <section id="get-started">
 <h2>Get started<a class="headerlink" href="#get-started" title="Permalink to this heading">#</a></h2>
-<p>Um die Anwendungserstellung mit decore Base zu veranschaulichen, erstellen wir nun gemeinsam eine kleine Web-Anwendung.</p>
-<p>Die Dekoartoratoren dienen in erster Linie der Erstellung von Meta-Informationen für die spätere Auswertung in der <strong>decore Front</strong> Web-Anwendung und sind nichts vor dem man sich fürchten muss.</p>
-<p><em>Es ist wirklich simpel, bitte folgt mir!</em></p>
+<p>To illustrate application creation with decore Base, we will now create a small web application together.</p>
+<p>The decoartorators are primarily used to create meta-information for later evaluation in the <strong>decore Front</strong> web application and are nothing to be afraid of.</p>
+<p><em>It’s really simple, please follow me!</em></p>
 <section id="installation">
 <h3>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h3>
-<p>Erstellen wir erstmal ein leeres Python-Projekt in Deinem gewünschten Verzeichnis.</p>
-<p>Um decore Base zu installieren, führen wir den folgenden Befehl im Projekt-Stammverzeichnis aus. Verwenden wir das Terminal in vscode.</p>
+<p>Let’s first create an empty Python project in your desired directory.</p>
+<p>To install decore Base, we run the following command in the project root directory. Let’s use the terminal in vscode.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">decore</span><span class="o">-</span><span class="n">Base</span>
 </pre></div>
 </div>
-<p>Dies erfordert einen aktiviertes Python-Environment! Um mehr über darüber zu erfahren, besuchen Sie <a class="reference external" href="https://code.visualstudio.com/docs/python/environments">Python environments in VS Code</a>.</p>
+<p>This requires an enabled Python environment! To learn more about this, visit <a class="reference external" href="https://code.visualstudio.com/docs/python/environments">Python environments in VS Code</a>.</p>
 </section>
 <section id="preperation">
 <h3>Preperation<a class="headerlink" href="#preperation" title="Permalink to this heading">#</a></h3>
-<p>Erstellen wir nun eine neue Datei mit dem Namen <strong>app.py</strong> in dem Projekt-Stammverzeichnis.</p>
-<p>Um decore Base zu verwenden, importieren wir es al aller erstes in das modul <strong>app.py</strong>.</p>
+<p>Now let’s create a new file named <strong>app.py</strong> in the project root directory.</p>
+<p>To use decore Base, we first import it into the module <strong>app.py</strong>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">decore_base</span> <span class="kn">import</span> <span class="n">decore</span>
 </pre></div>
 </div>
-<p>Anschließend erstellen wir mit dem Befehl <strong>prepare</strong> alle benötigten Hilfsdateien im Projektstammverzeichnis.</p>
-<p>Um die Anwendung nun tatsächlich vorzubereiten, führen wir nun den Befehl <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">app.py</span> <span class="pre">--prepare</span></code> im Terminal aus. Der Pfad muss sich im Projektstammverzeichnis befinden, also da wo die <strong>app.py</strong> liegt.</p>
+<p>Then we use the <strong>prepare</strong> command to create all the necessary auxiliary files in the project root directory.</p>
+<p>Now, to actually prepare the application, we run the command <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">app.py</span> <span class="pre">--prepare</span></code> in the terminal. The path must be in the project root directory, i.e. where the <strong>app.py</strong> is located.</p>
 </section>
 <section id="usage-and-run">
 <h3>Usage and Run<a class="headerlink" href="#usage-and-run" title="Permalink to this heading">#</a></h3>
-<p>Damit der Python-Interpreter die zukünftigen Basisklassen verarbeiten kann, fügen wir noch den folgenden Import hinzu.</p>
+<p>To allow the Python interpreter to process the future base classes, we add the following import.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bases</span> <span class="kn">import</span> <span class="o">*</span>
 </pre></div>
 </div>
-<p>Typischerweise enthält ein Python-Hauptmodul eine Abfrage, die überprüft, ob es das Hauptmodul ist, damit wir danach die Funktion <code class="docutils literal notranslate"><span class="pre">main</span></code> aufrufen können.</p>
-<p>Als nächstes erstellen wir eine Zeile <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">'__main__':</span></code> in der Datei <strong>app.py</strong>.</p>
-<p>Um eine neue Decore-Anwendungsinstanz zu erstellen, verwenden wir eine <code class="docutils literal notranslate"><span class="pre">&#64;decore.app</span></code> dekorierte <code class="docutils literal notranslate"><span class="pre">main()</span></code> Funktion in der <strong>app.py</strong> Datei, direkt unter der Zeile: <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">'__main__':</span></code>.</p>
+<p>Typically, a Python main module contains a query that checks if it is the main module so that we can call the <code class="docutils literal notranslate"><span class="pre">main</span></code> function afterwards.</p>
+<p>Next, we create a line <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">'__main__':</span></code> in the <strong>app.py</strong> file.</p>
+<p>To create a new Decore application instance, we use a <code class="docutils literal notranslate"><span class="pre">&#64;decore.app</span></code> decorated <code class="docutils literal notranslate"><span class="pre">main()</span></code> function in the <strong>app.py</strong> file, just below the line: <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">'__main__':</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">decore_base</span> <span class="kn">import</span> <span class="n">decore</span>
 <span class="kn">from</span> <span class="nn">bases</span> <span class="kn">import</span> <span class="o">*</span>
 
@@ -335,11 +338,11 @@ document.write(`
 </div>
 <section id="model">
 <h4>Model<a class="headerlink" href="#model" title="Permalink to this heading">#</a></h4>
-<p>In einem Model definieren wir die Datenfelder die für, die später zugeodnete, Base benötigt werden. Es dient als Datenbankschnittstelle zu den Datenbanktreibern wie z.B. SQLite, MySQL, PostgreSQL etc.</p>
-<p>Wir legen nun die Datei first_model.py im Verzeichnis <strong>models</strong> an und fügen folgenden Code ein:</p>
+<p>In a model we define the data fields that are needed for the later assigned base. It serves as a database interface to the database drivers such as SQLite, MySQL, PostgreSQL, etc.</p>
+<p>We now create the file first_model.py in the directory <strong>models</strong> and insert the following code:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Um eventuelle zirkuläre Importe zu vermeiden erstellen wir die Modell-Klassen in einem seperaten Verzeichnis <strong>models</strong> in unserem Projektstammverzeichnis. Das Verzeichnis <strong>models</strong> wurde durch den zuvor ausgeführten Befehl <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">app.py</span> <span class="pre">--prepare</span></code> mit erstellt.</p>
+<p>To avoid possible circular imports we create the model classes in a separate directory <strong>models</strong> in our project root directory. The directory <strong>models</strong> was created by the previously executed command <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">app.py</span> <span class="pre">--prepare</span></code>.</p>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">decore_base.uniform.conform_model</span> <span class="kn">import</span> <span class="o">*</span>
 
@@ -348,17 +351,17 @@ document.write(`
    <span class="n">lastname</span> <span class="o">=</span> <span class="n">CharField</span><span class="p">(</span><span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Last Name&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Im hier gezeigten Beispiel importieren wir, aus der <strong>uniform-Bibliothek</strong>, die Conform_model Klasse und erweiteren diese um die Felder firstname und lastname.</p>
+<p>In the example shown here, we import, from the <strong>uniform library</strong>, the Conform_model class and extend it with the firstname and lastname fields.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Beim Import bitte beachten, dass wir uns alles (*) aus dem conform_model-Namespace importieren um auch die Feld-Klassen zu erhalten.</p>
+<p>When importing please note that we import everything (*) from the conform_model namespace to get the field classes as well.</p>
 </div>
 </section>
 <section id="base">
 <h4>Base<a class="headerlink" href="#base" title="Permalink to this heading">#</a></h4>
-<p>Diese Basisklassen dienen in der decore-Applikation als Trägerelement für die View-Komponente, erhalten das Datenmodell und gelten somit auch als Datenquelle für die Auswertung in der <strong>decore Front</strong> Web-Anwendung.</p>
-<p>Nun müssen wir ein neues Python-Modul erstellen, welches eine Basisklasse enthält, zum Beispiel: <strong>first_base.py</strong>, im Verzeichnis <strong>bases</strong> in unserem Projektstammverzeichnis.
-Das Verzeichnis <strong>bases</strong> wurde durch den zuvor ausgeführten Befehl <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">app.py</span> <span class="pre">--prepare</span></code> mit erstellt.</p>
+<p>These base classes serve the decore application as a carrier element for the view components, maintain the data model and are thus also considered the data source for evaluation in the <strong>decore Front</strong> web application.</p>
+<p>Now we need to create a new Python module containing a base class, for example: <strong>first_base.py</strong>, in the <strong>bases</strong> directory in our project root directory.
+The <strong>bases</strong> directory was co-created by the <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">app.py</span> <span class="pre">--prepare</span></code> command executed earlier.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">decore_base</span> <span class="kn">import</span> <span class="n">decore</span>
 <span class="kn">from</span> <span class="nn">models.first_model</span> <span class="kn">import</span> <span class="n">First_model</span>
 
@@ -369,14 +372,14 @@ Das Verzeichnis <strong>bases</strong> wurde durch den zuvor ausgeführten Befeh
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Um das zuvor erstellte Model zu verwenden, importieren wir dieses in die Base-Klasse und übergeben es dem Parameter <code class="docutils literal notranslate"><span class="pre">model</span></code>.</p>
+<p>To use the previously created model, we import it into the Base class and pass it to the <code class="docutils literal notranslate"><span class="pre">model</span></code> parameter.</p>
 </div>
 </section>
 <section id="view">
 <h4>View<a class="headerlink" href="#view" title="Permalink to this heading">#</a></h4>
-<p>Views dienen in der decore-Applikation als Präsentation der Datensätze in der <strong>decore Front</strong> Web-Anwendung.</p>
-<p>Mit dem View-Dekorator können wir nun eine View-Komponente erzeugen und diese mit der zuvor erstellten Base-Klasse verknüpfen.</p>
-<p>Wir editieren nun wieder die Datei <strong>first_base.py</strong> und erweitern den Code wie folgt:</p>
+<p>Views are used by the decore application to present the data sets in the <strong>decore Front</strong> web application.</p>
+<p>With the view decorator we can now create a view component and link it to the previously created base class.</p>
+<p>We now edit the <strong>first_base.py</strong> file again and extend the code as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">decore_base</span> <span class="kn">import</span> <span class="n">decore</span>
 <span class="kn">from</span> <span class="nn">models.first_model</span> <span class="kn">import</span> <span class="n">First_model</span>
 
@@ -390,9 +393,9 @@ Das Verzeichnis <strong>bases</strong> wurde durch den zuvor ausgeführten Befeh
 </section>
 <section id="dialog">
 <h4>Dialog<a class="headerlink" href="#dialog" title="Permalink to this heading">#</a></h4>
-<p>Dialoge sind die Trägerelemente für Widgets in der <strong>decore Front</strong> Web-Anwendung. Sie können nur den Views hinzugefügt werden und steuern die Sichtbarkeit und Darstellungsform der untergeordneten Elemente. Dialoge erhalten auch die Kontrolle über die Submit-Funktionen der Widgets.</p>
-<p>In unserem Fall erstellen wir einen Diaolg um eine neue Person mit Vornamen und Nachnamen anzulegen.</p>
-<p>Und los gehts … wieder die Datei <strong>first_base.py</strong> und erweitern den Code wie folgt:</p>
+<p>Dialogs are the supporting elements for widgets in the <strong>decore Front</strong> web application. They can only be added to views and control the visibility and display style of child elements. Dialogs also get control over the submit functions of the widgets.</p>
+<p>In our case, we create a diaolg to create a new person with first name and last name.</p>
+<p>Here we go … again the file <strong>first_base.py</strong> and extend the code as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">decore_base</span> <span class="kn">import</span> <span class="n">decore</span>
 <span class="kn">from</span> <span class="nn">models.first_model</span> <span class="kn">import</span> <span class="n">First_model</span>
 
@@ -408,8 +411,8 @@ Das Verzeichnis <strong>bases</strong> wurde durch den zuvor ausgeführten Befeh
 </section>
 <section id="widget">
 <h4>Widget<a class="headerlink" href="#widget" title="Permalink to this heading">#</a></h4>
-<p>Widgets sind Komponenten mit denen wir Interaktionen am einzelen Datensatz durchführen können. Sie können nur den Dialogen hinzugefügt werden und sind stapelbar.</p>
-<p>Was wir nun brauchen ist noch ein Eingabeformular zu erzeugen, um die Daten für die neue Person einzugeben.</p>
+<p>Widgets are components with which we can perform interactions on the single record. They can only be added to dialogs and are stackable.</p>
+<p>What we need now is to create an input form to enter the data for the new person.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">decore_base</span> <span class="kn">import</span> <span class="n">decore</span>
 <span class="kn">from</span> <span class="nn">models.first_model</span> <span class="kn">import</span> <span class="n">First_model</span>
 
@@ -425,10 +428,46 @@ Das Verzeichnis <strong>bases</strong> wurde durch den zuvor ausgeführten Befeh
 </pre></div>
 </div>
 </section>
+<section id="action">
+<h4>Action<a class="headerlink" href="#action" title="Permalink to this heading">#</a></h4>
+<p>Actions are methods with which <strong>decore Front</strong> can communicate with <strong>decore Base</strong>. They can be added to views and widgets and are the only real class methods in the meta kit.</p>
+<p>We now need an action to store the data of the new person and extend the code in <strong>first_base.py</strong> as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">decore_base</span> <span class="kn">import</span> <span class="n">decore</span>
+<span class="kn">from</span> <span class="nn">models.first_model</span> <span class="kn">import</span> <span class="n">First_model</span>
+
+<span class="nd">@decore</span><span class="o">.</span><span class="n">base</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;My First Base&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s1">&#39;mdi-home&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">First_model</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">First_base</span><span class="p">:</span>
+   <span class="nd">@decore</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Person&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s1">&#39;mdi-account&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="n">First_model</span><span class="o">.</span><span class="n">firstname</span><span class="p">,</span> <span class="n">First_model</span><span class="o">.</span><span class="n">lastname</span><span class="p">])</span>
+   <span class="k">def</span> <span class="nf">first_view</span><span class="p">():</span>
+      <span class="nd">@decore</span><span class="o">.</span><span class="n">dialog</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Add Person&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s1">&#39;mdi-plus&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;standard&#39;</span><span class="p">,</span> <span class="n">display</span><span class="o">=</span><span class="s1">&#39;drawer&#39;</span><span class="p">,</span> <span class="n">activator</span><span class="o">=</span><span class="s1">&#39;default-menu&#39;</span><span class="p">)</span>
+      <span class="k">def</span> <span class="nf">first_dialog</span><span class="p">():</span>
+         <span class="nd">@decore</span><span class="o">.</span><span class="n">widget</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Add Person Form&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s1">&#39;mdi-account&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;form&#39;</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="n">First_model</span><span class="o">.</span><span class="n">firstname</span><span class="p">,</span> <span class="n">First_model</span><span class="o">.</span><span class="n">lastname</span><span class="p">])</span>
+         <span class="k">def</span> <span class="nf">first_widget</span><span class="p">():</span>
+            <span class="nd">@decore</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Save Person&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s1">&#39;mdi-content-save&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;submit&#39;</span><span class="p">)</span>
+            <span class="k">def</span> <span class="nf">first_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+               <span class="n">item</span> <span class="o">=</span> <span class="n">First_model</span><span class="p">()</span>
+               <span class="n">item</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;firstname&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;lastname&#39;</span><span class="p">]</span>
+               <span class="n">item</span><span class="o">.</span><span class="n">firstname</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;firstname&#39;</span><span class="p">]</span>
+               <span class="n">item</span><span class="o">.</span><span class="n">lastname</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;lastname&#39;</span><span class="p">]</span>
+               <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">save</span><span class="p">():</span>
+                  <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">title</span> <span class="o">+</span> <span class="s1">&#39; saved successfully&#39;</span>
+               <span class="k">else</span><span class="p">:</span>
+                  <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">error</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To create a record with decore Base, we need to create an instance of the model. In our case <strong>First_model</strong>. The instance is filled with the data from the form and then saved.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The field <strong>title</strong> was inherited from the class <strong>Deform_model</strong> and must be used for each record creation. Otherwise the item will fail the validation.</p>
+</div>
+</section>
 </section>
 <section id="run-development-and-build">
 <h3>Run, Development and Build<a class="headerlink" href="#run-development-and-build" title="Permalink to this heading">#</a></h3>
-<p>To only start your application, run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">app.py</span></code> in your project root directory. Use the terminal in vscode.</p>
+<p>To start only your application, run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">app.py</span></code> in your project root directory. Use the terminal in vscode.</p>
 <p>Open the browser and type <code class="docutils literal notranslate"><span class="pre">http://localhost:5555</span></code>.</p>
 <section id="development">
 <h4>Development<a class="headerlink" href="#development" title="Permalink to this heading">#</a></h4>
@@ -445,12 +484,12 @@ Das Verzeichnis <strong>bases</strong> wurde durch den zuvor ausgeführten Befeh
 <h2>Sample application<a class="headerlink" href="#sample-application" title="Permalink to this heading">#</a></h2>
 <p>To better understand how decore base works, it is best to look at the sample application. The application represents my continuous development of decore base.</p>
 <p><a class="github reference external" href="https://github.com/KemoPanzah/decore_Base/tree/master/decore_base/sample">KemoPanzah/decore_Base</a></p>
-<p>To sync the sample application to a subfolder of the project root directory, run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">app.py</span> <span class="pre">--sample</span></code> in your project root directory. Use the terminal in vscode.</p>
-<p>To run the sample application after synchronization, use your debugger with the profile <code class="docutils literal notranslate"><span class="pre">[smp]</span> <span class="pre">decore</span> <span class="pre">base</span> <span class="pre">sample</span></code> in vscode.</p>
+<p>To synchronize the sample application with a subfolder of the project root directory, run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">app.py</span> <span class="pre">--sample</span></code> in your project root directory. Use the terminal in vscode.</p>
+<p>To run the sample application after synchronization, use your debugger with the <code class="docutils literal notranslate"><span class="pre">[smp]</span> <span class="pre">decore</span> <span class="pre">base</span> <span class="pre">sample</span></code> profile in vscode.</p>
 </section>
 <section id="notes">
 <h2>Notes<a class="headerlink" href="#notes" title="Permalink to this heading">#</a></h2>
-<p>This documentation was translated from German to English with Deepl.</p>
+<p>This documentation was translated from German into English with Deepl.</p>
 </section>
 </section>
 <section id="contents">
@@ -522,6 +561,7 @@ Das Verzeichnis <strong>bases</strong> wurde durch den zuvor ausgeführten Befeh
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#view">View</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dialog">Dialog</a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#widget">Widget</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#action">Action</a></li>
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-development-and-build">Run, Development and Build</a><ul class="nav section-nav flex-column">

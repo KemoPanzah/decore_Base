@@ -22,7 +22,7 @@ release = '0.0.18'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx.ext.autodoc']
+extensions = ['sphinx.ext.autodoc', 'sphinx_copybutton', 'sphinx_favicon']
 
 # Definiere die Dokumentationsklassen
 autodoc_member_order = 'bysource'
@@ -30,14 +30,21 @@ autodoc_member_order = 'bysource'
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
-
-
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'pydata_sphinx_theme'
+
+html_theme_options = {
+   "navbar_align": "right",
+}
+
 html_static_path = ['_static']
 
 html_css_files = [
     'styles/custom.css',
+]
+
+favicons = [
+    {"href": "favicon.ico"},
 ]
