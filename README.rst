@@ -23,7 +23,6 @@ Everything that is found in features, bugs or unclear in the documentation, I as
 
 Get started
 -----------
-
 Installation
 ############
 
@@ -32,23 +31,28 @@ Create an empty Python project in your desired directory. I will refer to this d
 To install decore Base, run the following command in your project root directory. Use the terminal in vscode.
 
 .. code-block:: python
-
    pip install decore-Base
 
 This requires an activated Python Interpreter! To learn more about Python Interpreters, visit `Python Interpreter <https://code.visualstudio.com/docs/python/environments>`_.
 
 Preperation
 ###########
-
 Create a new file named ``app.py`` in your project root directory.
+
+To use decore Base, import it into your project. 
+
+.. code-block:: python
+   from decore_base import decore
+
+You then use the prepare command to create all the auxiliary files you need in your project root directory.
+
+To prepare your application, run ``python app.py --prepare`` in your project root directory. Use the terminal in vscode.
 
 Usage
 #####
-
 To allow the Python interpreter to process the future base classes, add the following import.
 
 .. code-block:: python
-
    from bases import *
 
 Typically, a Python main module contains a query that checks whether it is the main module, and then calls the ``main`` function.
@@ -58,7 +62,6 @@ We next create a line ``if __name__ == '__main__':`` in the app.py file.
 To create a new Decore application instance, use a ``@decore.app`` decorated ``main`` function in the app.py file after the line ``if __name__ == '__main__':``.
 
 .. code-block:: python
-
    from decore_base import decore
    from bases import *
 

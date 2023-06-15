@@ -153,33 +153,21 @@
 <h3>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h3>
 <p>Create an empty Python project in your desired directory. I will refer to this directory as <strong>project root directory</strong> in the following course of this documentation.</p>
 <p>To install decore Base, run the following command in your project root directory. Use the terminal in vscode.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">decore</span><span class="o">-</span><span class="n">Base</span>
-</pre></div>
-</div>
 <p>This requires an activated Python Interpreter! To learn more about Python Interpreters, visit <a class="reference external" href="https://code.visualstudio.com/docs/python/environments">Python Interpreter</a>.</p>
 </section>
 <section id="preperation">
 <h3>Preperation<a class="headerlink" href="#preperation" title="Permalink to this heading">¶</a></h3>
 <p>Create a new file named <code class="docutils literal notranslate"><span class="pre">app.py</span></code> in your project root directory.</p>
+<p>To use decore Base, import it into your project.</p>
+<p>You then use the prepare command to create all the auxiliary files you need in your project root directory.</p>
+<p>To prepare your application, run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">app.py</span> <span class="pre">--prepare</span></code> in your project root directory. Use the terminal in vscode.</p>
 </section>
 <section id="usage">
 <h3>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">¶</a></h3>
 <p>To allow the Python interpreter to process the future base classes, add the following import.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bases</span> <span class="kn">import</span> <span class="o">*</span>
-</pre></div>
-</div>
 <p>Typically, a Python main module contains a query that checks whether it is the main module, and then calls the <code class="docutils literal notranslate"><span class="pre">main</span></code> function.</p>
 <p>We next create a line <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">'__main__':</span></code> in the app.py file.</p>
 <p>To create a new Decore application instance, use a <code class="docutils literal notranslate"><span class="pre">&#64;decore.app</span></code> decorated <code class="docutils literal notranslate"><span class="pre">main</span></code> function in the app.py file after the line <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">'__main__':</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">decore_base</span> <span class="kn">import</span> <span class="n">decore</span>
-<span class="kn">from</span> <span class="nn">bases</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="nd">@decore</span><span class="o">.</span><span class="n">app</span><span class="p">(</span><span class="n">p_title</span><span class="o">=</span><span class="s1">&#39;My App&#39;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-        <span class="k">pass</span>
-</pre></div>
-</div>
 <p>You can find an example here:</p>
 <p><a class="reference external" href="https://github.com/KemoPanzah/decore_Base/blob/master/decore_base/sample/app.py">https://github.com/KemoPanzah/decore_Base/blob/master/decore_base/sample/app.py</a></p>
 </section>
