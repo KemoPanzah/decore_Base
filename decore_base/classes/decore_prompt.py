@@ -23,7 +23,8 @@ class Decore_prompt(object):
                 self.copy_launch()
                 self.copy_gitignore()
                 self.sync_spa()
-                self.create_bases()
+                self.create_base_dir()
+                self.create_model_dir()
                 exit()
             elif self.args.sample:
                 if not globals.config.app_id == '364871e4-6727-4e1f-80a2-acc9c83ace92':
@@ -75,8 +76,13 @@ class Decore_prompt(object):
         t_sample_destination.mkdir(parents=True, exist_ok=True)
         sync(str(t_sample_source.absolute()), str(t_sample_destination.absolute()), 'sync', purge=True)
     
-    def create_bases(self):
+    def create_base_dir(self):
         t_bases_init_path = Path('bases').joinpath('__init__.py')
         if not t_bases_init_path.exists():
             t_bases_init_path.parent.mkdir(parents=True, exist_ok=True)
             with open(t_bases_init_path, 'w'): pass
+
+    def create_model_dir(self):
+        t_models_init_path = Path('models')
+        if not t_models_init_path.exists():
+            t_models_init_path.mkdir(parents=True, exist_ok=True)

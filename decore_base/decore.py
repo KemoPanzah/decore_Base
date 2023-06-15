@@ -174,7 +174,7 @@ class Decore(object):
             self.pool.register(Decore_element(func.__name__, t_parent_id, t_source_id, p_icon, p_title, p_desc, p_type, p_default, p_disable, p_schema, func))
         return wrapper
 
-    l_action_type = Literal['standard', 'submit', 'check', 'response', 'file', 'download'] #TODO - check, response > activators
+    l_action_type = Literal['standard', 'submit', 'check', 'response', 'file', 'download']
     l_action_activator = Literal['none', 'default-menu', 'item-menu', 'item-click']
 
     def action(self, p_parent_id=None, p_icon=None, p_title=None, p_desc=None, p_type: l_action_type = 'standard', p_activator: l_action_activator = 'none'):

@@ -1,4 +1,4 @@
-from decore_base.uniform import *
+from decore_base.uniform.conform_model import *
 
 class Test_model(Conform_model):
     charfield = CharField(verbose_name='CharField', default='Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
