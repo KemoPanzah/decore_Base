@@ -1,7 +1,3 @@
-.. image:: https://ko-fi.com/img/githubbutton_sm.svg
-   :target: https://ko-fi.com/P5P2JCC5B
-   :alt: Buy me a coffee
-
 Overview
 --------
 decore Base is an out-of-the-box "Python to Vue.js" data application dashboard that helps you go from idea to view in a few simple steps. It is aimed at those who want to focus on the results of their algorithms , do scientific work, or perform teaching or learning functions.
@@ -12,6 +8,10 @@ The recommended IDE is Visual Studio Code and all my comments and documentation 
 
 `Insight into the current progress of the decore project <https://github.com/users/KemoPanzah/projects/1/views/1>`_
 
+.. image:: https://ko-fi.com/img/githubbutton_sm.svg
+   :target: https://ko-fi.com/P5P2JCC5B
+   :alt: Buy me a coffee
+   
 Contribution
 ------------
 The biggest help I can get right now is if you take a look at the project and tell me what you think. I am grateful for any criticism.
