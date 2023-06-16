@@ -14,7 +14,7 @@ sys.path.append(module_root)
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'decore Base'
+project = 'decore Base | UI fastly'
 copyright = '2023, Jean Rohark'
 author = 'Jean Rohark'
 release = '0.0.18'
@@ -36,7 +36,11 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 html_theme = 'pydata_sphinx_theme'
 
 html_theme_options = {
+   "show_toc_level": 3,
    "navbar_align": "right",
+   "logo": {
+        "text": "decore Base | UI fastly",
+        }
 }
 
 html_static_path = ['_static']
@@ -44,6 +48,8 @@ html_static_path = ['_static']
 html_css_files = [
     'styles/custom.css',
 ]
+
+html_logo = "_static/logo.png"
 
 favicons = [
     {"href": "favicon.ico"},

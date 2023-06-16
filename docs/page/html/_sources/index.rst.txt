@@ -3,24 +3,18 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to decore Base | crafting UI simply
-===========================================
+Welcome
+=======
 
 .. include:: ../README.rst
 
-Contents:
-=========
-
 .. toctree::
-   :maxdepth: 1
-   :caption: Main menu:
-   
-   decore
-   model
+   :hidden:
+   :maxdepth: 2
 
-Indices and tables
-==================
+.. Indices and tables
+.. ==================
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. * :ref:`genindex`
+.. * :ref:`modindex`
+.. * :ref:`search`
