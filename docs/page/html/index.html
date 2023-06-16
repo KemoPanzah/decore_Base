@@ -355,6 +355,14 @@ The <strong>bases</strong> directory was co-created by the <code class="docutils
 <p class="admonition-title">Note</p>
 <p>To use the previously created model, we import it into the Base class and pass it to the <code class="docutils literal notranslate"><span class="pre">model</span></code> parameter.</p>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In order for the Python interpreter to be able to process the base classes, we have to import them into the __init__.py file in the <strong>bases</strong> directory. The order of the individual imports also determines the order in <strong>decore Front</strong>.</p>
+<p>We edit the <strong>__init__.py</strong> file and insert the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">.first_base</span> <span class="kn">import</span> <span class="n">First_base</span>
+</pre></div>
+</div>
+</div>
 </section>
 <section id="view">
 <h4>View<a class="headerlink" href="#view" title="Permalink to this heading">#</a></h4>

@@ -121,6 +121,15 @@ Das Verzeichnis **bases** wurde durch den zuvor ausgeführten Befehl ``python ap
 .. note::
    Um das zuvor erstellte Model zu verwenden, importieren wir dieses in die Base-Klasse und übergeben es dem Parameter ``model``.
 
+.. warning::
+   Damit der Python-Interpreter die Basisklassen auch verarbeiten kann, müssen wir diese in der __init__.py Datei im Verzeichnis **bases** importieren. Die Reihenfolge der einzelnen Importe gibt auch die Reihenfolge in **decore Front** vor.
+   
+   Wir editiren die Datei **__init__.py** und fügen folgenden Code ein:
+
+   .. code-block:: python
+
+      from .first_base import First_base
+
 View
 ~~~~
 Views dienen der decore Applikation als Präsentation der Datensätze in der **decore Front** Web-Anwendung.

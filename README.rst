@@ -121,6 +121,15 @@ The **bases** directory was co-created by the ``python app.py --prepare`` comman
 .. note::
    To use the previously created model, we import it into the Base class and pass it to the ``model`` parameter.
 
+.. warning::
+   In order for the Python interpreter to be able to process the base classes, we have to import them into the __init__.py file in the **bases** directory. The order of the individual imports also determines the order in **decore Front**.
+   
+   We edit the **__init__.py** file and insert the following code:
+
+   .. code-block:: python
+
+      from .first_base import First_base
+
 View
 ~~~~
 Views are used by the decore application to present the data sets in the **decore Front** web application.

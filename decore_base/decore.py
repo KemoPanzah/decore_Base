@@ -83,10 +83,10 @@ class Decore(object):
         else:
             self.api.run(HOST, PORT)
 
-    def app(self, p_title):
+    def app(self, title):
         '''Decorator for app registration'''
         def wrapper(func):
-            self.pool.register(Decore_app('app', None, None, None, p_title, None, func.__doc__))
+            self.pool.register(Decore_app('app', None, None, None, title, None, func.__doc__))
             self.pool.extend()
             i_base: Decore_base
             for i_base in self.pool.base_s:
@@ -95,7 +95,7 @@ class Decore(object):
             self.start_api()
         return wrapper
 
-    def base(self, p_icon=None, p_title=None, p_desc=None, p_model=Decore_model):
+    def base(self, icon=None, title=None, desc=None, model=Decore_model):
         def wrapper(cls):
             class Base(cls, Decore_base):
                 def __init__(self):
@@ -104,29 +104,29 @@ class Decore(object):
                    
             t_base = type(cls.__name__, (Base,), {})()
             t_base.id = cls.__name__
-            t_base.icon = p_icon
-            t_base.title = p_title
-            t_base.desc = p_desc
+            t_base.icon = icon
+            t_base.title = title
+            t_base.desc = desc
             t_base.doc = cls.__doc__
-            t_base.model = p_model.register()
-            t_base.field_s = p_model.field_s
-            t_base.rel_field_s = p_model.rel_field_s
-            t_base.schema = p_model.build_schema()
+            t_base.model = model.register()
+            t_base.field_s = model.field_s
+            t_base.rel_field_s = model.rel_field_s
+            t_base.schema = model.build_schema()
             self.pool.register(t_base)
         return wrapper
 
     l_view_type = Literal['table']
     l_view_pag_type = Literal['client']
 
-    def view(self, p_parent_id=None, p_icon=None, p_title=None, p_desc=None, p_type: l_view_type = 'table', p_active_s=[], p_filter_s=[], p_query={}, p_pag_type: l_view_pag_type = 'client', p_pag_recs=16):
+    def view(self, parent_id=None, icon=None, title=None, desc=None, type: l_view_type = 'table', fields=[], filter_s=[], query={}, pag_type: l_view_pag_type = 'client', pag_recs=16):
         def wrapper(func):
             t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
-            if not p_parent_id:
+            if not parent_id:
                 t_parent_id = t_parent_s[-2]
             else:
-                t_parent_id = p_parent_id
+                t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_view(func.__name__, t_parent_id, t_source_id, p_icon, p_title, p_desc, func.__doc__, p_type, p_active_s, p_filter_s, p_query, p_pag_type, p_pag_recs))
+            self.pool.register(Decore_view(func.__name__, t_parent_id, t_source_id, icon, title, desc, func.__doc__, type, fields, filter_s, query, pag_type, pag_recs))
             func()
         return wrapper
 
@@ -135,67 +135,67 @@ class Decore(object):
     l_dialog_activator = Literal['none', 'default-menu', 'item-menu', 'item-click']
 
     # TODO - Überprüfen ob element mit gleicher ID schon vorhanden ist und Execption
-    def dialog(self, p_parent_id=None, p_icon=None, p_title=None, p_desc=None, p_type: l_dialog_type = 'standard', p_display: l_dialog_display = 'drawer', p_activator: l_dialog_activator = 'none'):
+    def dialog(self, parent_id=None, icon=None, title=None, desc=None, type: l_dialog_type = 'standard', display: l_dialog_display = 'drawer', activator: l_dialog_activator = 'none'):
         def wrapper(func):
             t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
-            if not p_parent_id:
+            if not parent_id:
                 t_parent_id = t_parent_s[-2]
             else:
-                t_parent_id = p_parent_id
+                t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_dialog(func.__name__, t_parent_id, t_source_id, p_icon, p_title, p_desc, func.__doc__, p_type, p_display, p_activator))
+            self.pool.register(Decore_dialog(func.__name__, t_parent_id, t_source_id, icon, title, desc, func.__doc__, type, display, activator))
             func()
         return wrapper
 
     l_widget_type = Literal['default', 'info', 'form', 'table']
 
-    def widget(self, p_parent_id=None, p_icon=None, p_title=None, p_desc=None, p_type: l_widget_type = 'default', p_layout='cera', p_active_s=[]):
+    def widget(self, parent_id=None, icon=None, title=None, desc=None, type: l_widget_type = 'default', layout='cera', fields=[]):
         def wrapper(func):
             t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
-            if not p_parent_id:
+            if not parent_id:
                 t_parent_id = t_parent_s[-2]
             else:
-                t_parent_id = p_parent_id
+                t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_widget(func.__name__, t_parent_id, t_source_id, p_icon, p_title, p_desc, func.__doc__, p_type, p_layout, p_active_s))
+            self.pool.register(Decore_widget(func.__name__, t_parent_id, t_source_id, icon, title, desc, func.__doc__, type, layout, fields))
             func()
         return wrapper
 
     l_element_type = Literal['p', 'checkbox']
 
-    def element(self, p_parent_id=None, p_icon=None, p_title=None, p_desc=None, p_type: l_element_type = 'text', p_default=None, p_disable=False, p_schema=None):
+    def element(self, parent_id=None, icon=None, title=None, desc=None, type: l_element_type = 'text', default=None, disable=False, schema=None):
         def wrapper(func):
             t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
-            if not p_parent_id:
+            if not parent_id:
                 t_parent_id = t_parent_s[-2]
             else:
-                t_parent_id = p_parent_id
+                t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_element(func.__name__, t_parent_id, t_source_id, p_icon, p_title, p_desc, p_type, p_default, p_disable, p_schema, func))
+            self.pool.register(Decore_element(func.__name__, t_parent_id, t_source_id, icon, title, desc, type, default, disable, schema, func))
         return wrapper
 
     l_action_type = Literal['standard', 'submit', 'check', 'response', 'file', 'download']
     l_action_activator = Literal['none', 'default-menu', 'item-menu', 'item-click']
 
-    def action(self, p_parent_id=None, p_icon=None, p_title=None, p_desc=None, p_type: l_action_type = 'standard', p_activator: l_action_activator = 'none'):
+    def action(self, parent_id=None, icon=None, title=None, desc=None, type: l_action_type = 'standard', activator: l_action_activator = 'none'):
         def wrapper(func):
             t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
-            if not p_parent_id:
+            if not parent_id:
                 t_parent_id = t_parent_s[-2]
             else:
-                t_parent_id = p_parent_id
+                t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_action(func.__name__, t_parent_id, t_source_id, p_icon, p_title, p_desc, func.__doc__, p_type, p_activator, func))
+            self.pool.register(Decore_action(func.__name__, t_parent_id, t_source_id, icon, title, desc, func.__doc__, type, activator, func))
         return wrapper
 
     l_function_type = Literal['shot', 'work']
   
-    def function(self, p_type:l_function_type = 'shot'):
+    def function(self, type:l_function_type = 'shot'):
         def wrapper(func):
             t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
             t_parent_id = t_parent_s[-2]
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_function(func.__name__, t_parent_id, t_source_id, None, None, None, func.__doc__, p_type, func))
+            self.pool.register(Decore_function(func.__name__, t_parent_id, t_source_id, None, None, None, func.__doc__, type, func))
         return wrapper
 
     def get_base_by_id(self, p_id):
