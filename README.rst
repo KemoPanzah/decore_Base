@@ -97,6 +97,7 @@ We now create the file first_model.py in the directory **models** and insert the
       firstname = CharField(verbose_name='First Name')
       lastname = CharField(verbose_name='Last Name')
 
+
 .. note::
    In the example shown here, we import, from the **uniform library**, the Conform_model class and extend it with the firstname and lastname fields.
 
