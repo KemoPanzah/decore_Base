@@ -101,8 +101,6 @@ Wir legen nun die Datei first_model.py im Verzeichnis **models** an und fügen f
 .. note::
    Im hier gezeigten Beispiel importieren wir, aus der **uniform-Bibliothek**, die Conform_model Klasse und erweiteren diese um die Felder firstname und lastname.
 
-   Die ID in Form einer UUID wird automatisch generiert und muss nicht extra angegeben werden.
-
    Die Modelle in **decore Base** basieren auf dem großartigen Peewee ORM. Um mehr über Peewee zu erfahren, besuchen Sie `Peewee ORM <http://docs.peewee-orm.com/en/latest/>`_.
 
 .. warning::
@@ -229,6 +227,8 @@ Wir benötigen nun eine Action um die Daten der neuen Person zu speichern und er
 
 .. note::
    Um mit decore Base einen Datensatz zu erzeugen, müssen wir eine Instanz vom Model erzeugen. In unserem Fall **First_model**. Die Instanz wird mit den Daten aus dem Formular befüllt und anschließend gespeichert.
+
+   Die ID in Form einer UUID wird automatisch generiert und muss nicht extra angegeben werden.
 
 .. warning::
    Das Feld **title** wurde aus der Klasse **Deform_model** geerbt und muss bei jeder Datensatzerzeugung belegt werden. Sonst fällt das Item durch die Validierung.
