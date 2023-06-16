@@ -2,8 +2,8 @@ from ..classes.decore_model import *
 
 class Conform_model(Decore_model):
     
-    def __init__(self, p_id=None, *args, **kwargs):
-        Decore_model.__init__(self, p_id, *args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        Decore_model.__init__(self, *args, **kwargs)
 
     class Meta:
         # TODO - diese Zeile wieder einsetzen wenn alle Relationen zwischen conform und perform passen

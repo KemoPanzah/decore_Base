@@ -6,7 +6,7 @@ decore Base is an out-of-the-box "Python to Vue.js" data application dashboard t
 
 The recommended IDE is Visual Studio Code and all my comments and documentation here will also refer to vscode only.
 
-`Insights into the current status of the Decore project <https://github.com/users/KemoPanzah/projects/1/views/1>`_
+`Insights into the current status of the Decore project. <https://github.com/users/KemoPanzah/projects/1/views/1>`_
 
 .. image:: https://ko-fi.com/img/githubbutton_sm.svg
    :target: https://ko-fi.com/P5P2JCC5B
@@ -97,9 +97,14 @@ We now create the file first_model.py in the directory **models** and insert the
       firstname = CharField(verbose_name='First Name')
       lastname = CharField(verbose_name='Last Name')
 
-In the example shown here, we import, from the **uniform library**, the Conform_model class and extend it with the firstname and lastname fields.
-
 .. note::
+   In the example shown here, we import, from the **uniform library**, the Conform_model class and extend it with the firstname and lastname fields.
+
+   The ID in the form of a UUID is generated automatically and does not have to be specified separately.
+
+   The models in **decore Base** are based on the great Peewee ORM. To learn more about Peewee, visit `Peewee ORM <http://docs.peewee-orm.com/en/latest/>`_.
+
+.. warning::
    When importing please note that we import everything (*) from the conform_model namespace to get the field classes as well.
 
 Base

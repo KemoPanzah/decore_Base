@@ -125,14 +125,11 @@ class Decore_model(Model):
         # tbase = SqliteDatabase('state/database.db', pragmas=(('cache_size', -1024 * 64),('journal_mode', 'wal')))
         tbase = SqliteDatabase('state/database.db')
 
-    def __init__(self, p_known_id=None, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         Model.__init__(self, *args, **kwargs)
         self.kdb_group = self.get_kdb_group()
-        
-        # TODO - den Weg über get_or_create testen
-        if p_known_id:
-            if self.get_or_none(self.__class__.id == p_known_id):
-                self.__data__.update(self.get_by_id(p_known_id).__data__)
+        if not self.id:
+            self.id = self.create_uuid()
 
     @classmethod
     def register(cls):

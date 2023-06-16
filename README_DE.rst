@@ -97,9 +97,15 @@ Wir legen nun die Datei first_model.py im Verzeichnis **models** an und fügen f
       firstname = CharField(verbose_name='First Name')
       lastname = CharField(verbose_name='Last Name')
 
-Im hier gezeigten Beispiel importieren wir, aus der **uniform-Bibliothek**, die Conform_model Klasse und erweiteren diese um die Felder firstname und lastname.
 
 .. note::
+   Im hier gezeigten Beispiel importieren wir, aus der **uniform-Bibliothek**, die Conform_model Klasse und erweiteren diese um die Felder firstname und lastname.
+
+   Die ID in Form einer UUID wird automatisch generiert und muss nicht extra angegeben werden.
+
+   Die Modelle in **decore Base** basieren auf dem großartigen Peewee ORM. Um mehr über Peewee zu erfahren, besuchen Sie `Peewee ORM <http://docs.peewee-orm.com/en/latest/>`_.
+
+.. warning::
    Beim Import bitte beachten, dass wir uns alles (*) aus dem conform_model-Namespace importieren um auch die Feld-Klassen zu erhalten.
 
 Base

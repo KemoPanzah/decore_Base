@@ -7,14 +7,20 @@ from models.company_model import Company_model
 from mimesis import Person, Finance
 from random import randrange
 
-@decore.base(p_title='Global Management', p_icon='mdi-account-supervisor-circle-outline')
+@decore.base(title='Global Management', icon='mdi-account-supervisor-circle-outline')
 class Global_management_base:
     def __init__(self):
+        self.test_item()
         # self.query_tester()
         self.create_company_s()
         self.create_person_s()
         self.set_company_person()
     
+    def test_item(self):
+        t_person_s = Person_model.select()[0]
+        t_person = Person_model()
+        pass
+
     # Query tester
     def query_tester(self):
         t_item_s = Person_model.query({'companies__title__eq':'NetApp'})
@@ -34,7 +40,6 @@ class Global_management_base:
     def create_person_s(self):        
         while len(Person_model.select()) < 4500:
             t_item = Person_model()
-            t_item.id = t_item.create_uuid()
             t_item.title = t_item.first_name + ' ' + t_item.last_name
             t_item.save()
 
