@@ -223,7 +223,7 @@ Wir benötigen nun eine Action um die Daten der neuen Person zu speichern und er
                      if item.save():
                         return True, item.title + ' saved successfully'
                      else:
-                        return False, item.error
+                        return False, 'Error while saving ' + item.title
 
 .. note::
    Um mit decore Base einen Datensatz zu erzeugen, müssen wir eine Instanz vom Model erzeugen. In unserem Fall **First_model**. Die Instanz wird mit den Daten aus dem Formular befüllt und anschließend gespeichert.

@@ -328,6 +328,7 @@ class Decore_model(Model):
 
     def validate(self):
         t_schema = self.build_schema()
+        #TODO - Schema as property and Validator as attribute in model
         t_val = Validator(t_schema, require_all=True, allow_unknown = True)
         r_value =  t_val.validate(self.__data__)
         if r_value == False:

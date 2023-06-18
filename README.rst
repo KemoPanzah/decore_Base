@@ -223,7 +223,7 @@ We now need an action to store the data of the new person and extend the code in
                      if item.save():
                         return True, item.title + ' saved successfully'
                      else:
-                        return False, item.error
+                        return False, 'Error while saving ' + item.title
 
 .. note::
    To create a record with decore Base, we need to create an instance of the model. In our case **First_model**. The instance is filled with the data from the form and then saved.
