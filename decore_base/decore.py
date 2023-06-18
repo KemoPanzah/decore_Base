@@ -118,7 +118,7 @@ class Decore(object):
     l_view_type = Literal['table']
     l_view_pag_type = Literal['client']
 
-    def view(self, parent_id=None, icon=None, title=None, desc=None, type: l_view_type = 'table', fields=[], filter_s=[], query={}, pag_type: l_view_pag_type = 'client', pag_recs=16):
+    def view(self, parent_id=None, icon=None, title=None, desc=None, type: l_view_type = 'table', fields=[], filters=[], query={}, pag_type: l_view_pag_type = 'client', pag_recs=16):
         def wrapper(func):
             t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
             if not parent_id:
@@ -126,7 +126,7 @@ class Decore(object):
             else:
                 t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_view(func.__name__, t_parent_id, t_source_id, icon, title, desc, func.__doc__, type, fields, filter_s, query, pag_type, pag_recs))
+            self.pool.register(Decore_view(func.__name__, t_parent_id, t_source_id, icon, title, desc, func.__doc__, type, fields, filters, query, pag_type, pag_recs))
             func()
         return wrapper
 

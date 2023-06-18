@@ -6,6 +6,6 @@ from bases import *
 # fmt: on
 
 if __name__ == '__main__':
-    @decore.app(p_title='Decore Sample Application')
+    @decore.app(title='Decore Sample Application')
     def main():
         pass

@@ -1,12 +1,12 @@
 from decore_base import decore
 from models.account_model import Account_model as Model
 
-@decore.base(p_title='Accounts', p_model=Model)
+@decore.base(title='Accounts', model=Model)
 class Account_base(object):
-    @decore.widget(p_parent_id='per_vi1_di1_wi1', p_title='Accounts' , p_type='table', p_active_s=[Model.title, Model.email])
+    @decore.widget(parent_id='per_vi1_di1_wi1', title='Accounts' , type='table', fields=[Model.title, Model.email])
     def per_vi1_di1_wi1_wi1():
         pass
 
-    @decore.view(p_parent_id='Information_system_base', p_title='Accounts',p_icon='mdi-account-circle-outline', p_type='table', p_active_s=Model.field_s, p_filter_s=[Model.password ,Model.person])
+    @decore.view(parent_id='Information_system_base', title='Accounts',icon='mdi-account-circle-outline', type='table', fields=Model.field_s, filters=[Model.password ,Model.person])
     def acc_vi1():
         pass
