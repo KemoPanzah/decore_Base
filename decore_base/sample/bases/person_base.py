@@ -18,6 +18,8 @@ class Person_base(Base):
             def per_vi1_di3_wi1():
                 @decore.action(type='submit')
                 def per_vi1_di3_wi1_ac1(self, p_data):
+                    t_item = Model(p_data['item'])
+                    t_item.title = t_item.first_name + ' ' + t_item.last_name
                     return True, 'Success!'
         
         @decore.action(title='Test action', icon='mdi-test-tube', type='standard', activator='default-menu')
