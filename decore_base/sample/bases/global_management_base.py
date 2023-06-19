@@ -10,11 +10,12 @@ from random import randrange
 @decore.base(title='Global Management', icon='mdi-account-supervisor-circle-outline')
 class Global_management_base:
     def __init__(self):
-        self.test_item()
+        # self.test_item()
         # self.query_tester()
-        self.create_company_s()
-        self.create_person_s()
-        self.set_company_person()
+        # self.create_company_s()
+        # self.create_person_s()
+        # self.set_company_person()
+        pass
     
     def test_item(self):
         t_person_s = Person_model.select()[0]
@@ -38,7 +39,7 @@ class Global_management_base:
 
     # Create 4096 persons with capacity 1-2 of companies
     def create_person_s(self):        
-        while len(Person_model.select()) < 4500:
+        while len(Person_model.select()) < 32:
             t_item = Person_model()
             t_item.title = t_item.first_name + ' ' + t_item.last_name
             t_item.save()

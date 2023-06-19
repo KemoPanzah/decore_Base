@@ -15,6 +15,7 @@ from playhouse.shortcuts import model_to_dict
 from pykeepass.entry import Entry
 
 from ..globals import globals
+from .decore_fields import *
 from .decore_translate import Decore_translate as t
 
 
@@ -115,7 +116,7 @@ class BackRefMetaField(MetaField):
         delattr(model, name)
 
 class Decore_model(Model):
-    id = CharField(primary_key=True, unique=True, verbose_name="ID")
+    id = DecoreUUIDField(primary_key=True, unique=True, verbose_name="ID")
     title = CharField(verbose_name=t('Title'))
     desc = CharField(verbose_name=t('Description'), null=True)
     item_type = CharField(verbose_name=t('Item type'), default='object')
@@ -129,7 +130,7 @@ class Decore_model(Model):
         Model.__init__(self, *args, **kwargs)
         self.kdb_group = self.get_kdb_group()
         if not self.id:
-            self.id = self.create_uuid()
+            self.id = uuid1()
 
     @classmethod
     def register(cls):
@@ -301,24 +302,28 @@ class Decore_model(Model):
     def get_option_s(cls, p_query, p_attr, p_rel_attr):
         r_value = []
         t_item_s = cls.query(p_query)
-        for item in t_item_s:
-            if p_rel_attr:
-                t_attr = getattr(item, p_attr) 
-                try:
-                    for rel_item in t_attr:
-                        t_value = rel_item.__data__[p_rel_attr]
+        if p_attr:
+            for item in t_item_s:
+                if p_rel_attr:
+                    t_attr = getattr(item, p_attr) 
+                    #TODO - Hier bitte nach dem typen fragen und nicht auf exception setzen
+                    try:
+                        for rel_item in t_attr:
+                            t_value = rel_item.__data__[p_rel_attr]
+                            if not t_value in r_value:
+                                r_value.append(t_value)
+                    except TypeError as error:
+                        t_value = t_attr.__data__[p_rel_attr]
                         if not t_value in r_value:
                             r_value.append(t_value)
-                except TypeError as error:
-                    t_value = t_attr.__data__[p_rel_attr]
+                else:
+                    t_value = item.__data__[p_attr]
                     if not t_value in r_value:
                         r_value.append(t_value)
-            else:
-                t_value = item.__data__[p_attr]
-                if not t_value in r_value:
-                    r_value.append(t_value)
-        return r_value
-
+            return r_value
+        else:
+            return r_value
+        
     def get_kdb_group(self):
         t_group = globals.kdb.find_groups_by_name(self.__class__.__name__, group=globals.kdb.root_group, first=True)
         if not t_group:

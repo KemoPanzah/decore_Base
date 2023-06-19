@@ -98,20 +98,19 @@ class Decore(object):
     def base(self, icon=None, title=None, desc=None, model=Decore_model):
         def wrapper(cls):
             class Base(cls, Decore_base):
-                def __init__(self):
+                def __init__(self, p_id, p_icon, p_title, p_desc, p_model):
+                    self.id = p_id
+                    self.icon = p_icon
+                    self.title = p_title
+                    self.desc = p_desc
+                    self.model = p_model.register()
+                    self.field_s = self.model.field_s
+                    self.rel_field_s = self.model.rel_field_s
+                    self.schema = self.model.build_schema()
                     cls.__init__(self)
                     Decore_base.__init__(self)
                    
-            t_base = type(cls.__name__, (Base,), {})()
-            t_base.id = cls.__name__
-            t_base.icon = icon
-            t_base.title = title
-            t_base.desc = desc
-            t_base.doc = cls.__doc__
-            t_base.model = model.register()
-            t_base.field_s = model.field_s
-            t_base.rel_field_s = model.rel_field_s
-            t_base.schema = model.build_schema()
+            t_base = type(cls.__name__, (Base,), {})(cls.__name__, icon, title, desc, model)
             self.pool.register(t_base)
         return wrapper
 

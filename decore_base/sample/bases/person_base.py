@@ -4,6 +4,8 @@ from models.person_model import Person_model as Model
 
 @decore.base(title='Person', model=Model)
 class Person_base(Base):
+    def __init__(self):
+        pass
     
     @decore.widget(parent_id='com_vi1_di1', title='Persons', type='table', fields=Model.field_s)
     def com_vi1_di1_wi1():
@@ -20,7 +22,10 @@ class Person_base(Base):
                 def per_vi1_di3_wi1_ac1(self, p_data):
                     t_item = Model(p_data['item'])
                     t_item.title = t_item.first_name + ' ' + t_item.last_name
-                    return True, 'Success!'
+                    if t_item.save():
+                        return True, 'Success!'
+                    else:
+                        return False, 'Error!'
         
         @decore.action(title='Test action', icon='mdi-test-tube', type='standard', activator='default-menu')
         def per_vi1_ac1(self, p_data):
