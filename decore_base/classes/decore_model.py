@@ -375,6 +375,3 @@ class Decore_model(Model):
         else:
             logging.error('%s > %s' % ('remove_item', 'Remove error'))
             return False
-    
-    def create_uuid(self):
-        return str(uuid1())

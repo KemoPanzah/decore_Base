@@ -2,7 +2,7 @@ from decore_base import decore
 from models.account_model import Account_model as Model
 
 @decore.base(title='Accounts', model=Model)
-class Account_base(object):
+class Account_base:
     @decore.widget(parent_id='per_vi1_di1_wi1', title='Accounts' , type='table', fields=[Model.title, Model.email])
     def per_vi1_di1_wi1_wi1():
         pass

@@ -10,15 +10,18 @@ from random import randrange
 @decore.base(title='Global Management', icon='mdi-account-supervisor-circle-outline')
 class Global_management_base:
     def __init__(self):
-        # self.test_item()
-        # self.query_tester()
-        # self.create_company_s()
-        # self.create_person_s()
-        # self.set_company_person()
+        self.test_attr = 'test_attr'
         pass
+
+    @decore.function(type='shot')
+    def create_data(self):
+        self.test_item()
+        self.query_tester()
+        self.create_company_s()
+        self.create_person_s()
+        # self.set_company_person()
     
     def test_item(self):
-        t_person_s = Person_model.select()[0]
         t_person = Person_model()
         pass
 
@@ -32,7 +35,6 @@ class Global_management_base:
         while len(Company_model.select()) < 32:
             t_finance = Finance()
             t_item = Company_model()
-            t_item.id = t_item.create_uuid()
             t_item.title = t_finance.company()
             t_item.capacity = randrange(16, 128)
             t_item.save()

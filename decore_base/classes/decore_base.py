@@ -7,12 +7,12 @@ from threading import Thread
 
 
 class Decore_base(Decore_object):
-    def __init__(self):
-        Decore_object.__init__(self, p_id=None, p_parent_id='app', p_source_id=None, p_icon=None, p_title=None, p_desc=None, p_doc=None)
-        self.model = None
-        self.field_s = None
-        self.rel_field_s = None
-        self.schema = None
+    def __init__(self, p_id, p_icon, p_title, p_desc, p_model):
+        Decore_object.__init__(self, p_id=p_id, p_parent_id='app', p_source_id=None, p_icon=p_icon, p_title=p_title, p_desc=p_desc, p_doc=None)
+        self.model = p_model.register()
+        self.field_s = p_model.field_s
+        self.rel_field_s = p_model.rel_field_s
+        self.schema = p_model.build_schema()
         self.function_s = []
 
     def start_shot(self):

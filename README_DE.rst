@@ -216,7 +216,7 @@ Wir benötigen nun eine Action um die Daten der neuen Person zu speichern und er
                def first_widget():
                   @decore.action(title='Save Person', icon='mdi-content-save', type='submit')
                   def first_action(self, data):
-                     item = First_model(data['item'])
+                     item = First_model(**data['item'])
                      item.title = item.firstname + ' ' + item.lastname
                      if item.save():
                         return True, item.title + ' saved successfully'
