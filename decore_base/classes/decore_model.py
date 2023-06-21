@@ -19,48 +19,6 @@ from .decore_fields import *
 from .decore_translate import Decore_translate as t
 
 
-class PasswordFieldAccessor(object):
-    def __init__(self, model, field, name):
-        self.model = model
-        self.field = field
-        self.name = name
-    #TODO - alles nochmal durch debuggen SET und GET
-    def __get__(self, instance, instance_type=None):
-        if instance is not None:
-            t_entry = None
-            # MEMO - Suche nach einem Eintrag der dem Identifiziern entspricht und gebe das Password des Eintrages zurück
-            for entry in instance.kdb_group.entries:
-                if entry.title == self.name and entry.username == instance.id:
-                    return entry.password
-            # MEMO - Wenn kein Eintrag vorhanden ist, gebe None als Passwort aus
-            if not t_entry: #TODO - diese Zeile kann wahrscheinlich weg, einfach nur return None wenn bei Schleifenabarbeitung nichts zurückgegeben wird
-                return None
-        return self.field
-
-    def __set__(self, instance, value):
-        instance.kdb_group = instance.__class__().kdb_group
-        if instance.id:
-            t_entry = None
-            # MEMO - Suche nach einem Eintrag der dem Identifiziern entspricht 
-            for entry in instance.kdb_group.entries:
-                if entry.title == self.name and entry.username == instance.id:
-                    t_entry = entry
-            # MEMO - Wenn kein Eintrag vorhanden ist, lege einen neuen an und füge diesen der Gruppe hinzu
-            if not t_entry:
-                t_entry = Entry(title=self.name, username=instance.id, password=value, kp=globals.kdb)
-                instance.kdb_group.append(t_entry)
-                globals.kdb.save()
-            # MEMO - Wenn der neue Wert nicht mit dem Password im Entry übereinstimmt und auch nicht mit der UUID dann ändere und speichere
-            if not value == t_entry.password and not value == str(t_entry.uuid):
-                t_entry.password = value
-                globals.kdb.save()
-            # MEMO - schreibe die UUID des Entries in das __data__ Dict um das Kennwort zu verschleiern
-            instance.__data__[self.name] = str(t_entry.uuid)
-        else:
-            logging.error('%s > %s' % (self.name, 'u get no password while ur item id was not setted'))
-            instance.__data__[self.name] = None
-        instance._dirty.add(self.name)
-
 class FileFieldAccessor(object):
     def __init__(self, model, field, name):
         self.model = model
@@ -90,10 +48,6 @@ class FileFieldAccessor(object):
             instance.__data__[self.name] = None
         instance._dirty.add(self.name)
 
-class PasswordField(Field):
-    accessor_class = PasswordFieldAccessor
-    field_type = 'VARCHAR'
-    
 class FileField(Field):
     accessor_class = FileFieldAccessor
     field_type = 'VARCHAR'
@@ -128,7 +82,6 @@ class Decore_model(Model):
 
     def __init__(self, *args, **kwargs):
         Model.__init__(self, *args, **kwargs)
-        self.kdb_group = self.get_kdb_group()
         if not self.id:
             self.id = uuid1()
 
@@ -323,13 +276,6 @@ class Decore_model(Model):
             return r_value
         else:
             return r_value
-        
-    def get_kdb_group(self):
-        t_group = globals.kdb.find_groups_by_name(self.__class__.__name__, group=globals.kdb.root_group, first=True)
-        if not t_group:
-            t_group = globals.kdb.add_group(globals.kdb.root_group, self.__class__.__name__)
-            globals.kdb.save()
-        return t_group
 
     def validate(self):
         t_schema = self.build_schema()
@@ -349,19 +295,23 @@ class Decore_model(Model):
         if self.validate():
             t_item = self.__class__.get_or_none(self.__class__.id == self.id)
             if not t_item:
-                if super(Decore_model,self).save(force_insert=True):
-                    return True
-                else:
-                    logging.error('%s > %s' % ('save_item', 'Insert error'))
+                try:
+                    super(Decore_model,self).save(force_insert=True)
+                except Exception as error:
+                    logging.error('%s > %s > %s' % ('save_item', 'Insert error', error))
                     return False
+                else:
+                    return True
             elif t_item:
                 # t_data = {k: v for k, v in t_item.__data__.items() if v is not None}
                 if not self.__data__ == t_item.__data__:
-                    if self.save():
-                        return True
-                    else:
-                        logging.error('%s > %s' % ('save_item', 'Update error'))
+                    try:
+                        super(Decore_model,self).save()
+                    except Exception as error:
+                        logging.error('%s > %s > %s' % ('save_item', 'Update error', error))
                         return False
+                    else:
+                        return True
                 else:
                     return True
         else:

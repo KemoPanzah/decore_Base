@@ -22,7 +22,12 @@ class Global_management_base:
         # self.set_company_person()
     
     def test_item(self):
-        t_person = Person_model()
+        t_account = Account_model()
+        t_account.title = 'test'
+        t_account.email = 'test@mail.com'
+        t_account.password = 'test'
+        t_account.save()
+        t_account_s = list(Account_model.select())
         pass
 
     # Query tester
