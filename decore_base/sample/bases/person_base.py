@@ -41,4 +41,7 @@ class Person_base:
                 @decore.action(type='submit')
                 def per_vi1_di2_wi1_ac1(self, data):
                     t_item = Model(**data['item'])
-                    return True, 'Success!'
+                    if t_item.save():
+                        return True, 'Success!'
+                    else:
+                        return False, 'Error!'

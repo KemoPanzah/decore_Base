@@ -158,7 +158,9 @@ class Decore_model(Model):
     def build_schema(cls):
         t_schema = {}
         for i_field in cls.field_s:
-         
+            if i_field.field_type == 'UUID' and i_field.null == False:
+                t_schema[i_field.name] = {'empty': False}
+
             if i_field.field_type == 'VARCHAR' and i_field.null == False:
                 t_schema[i_field.name] = {'type': 'string'}
 
@@ -290,8 +292,8 @@ class Decore_model(Model):
     def to_dict(self):
         return model_to_dict(self, recurse=True, max_depth=1)
 
-    #TODO - return values prüfen; werden die eigentlich benötigt? > save_item
     def save(self):
+        #TODO - auf try except umstellen und raisen in validate.
         if self.validate():
             t_item = self.__class__.get_or_none(self.__class__.id == self.id)
             if not t_item:

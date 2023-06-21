@@ -23,6 +23,7 @@ class Global_management_base:
     
     def test_item(self):
         t_account = Account_model()
+        t_account.id = None
         t_account.title = 'test'
         t_account.email = 'test@mail.com'
         t_account.password = 'test'

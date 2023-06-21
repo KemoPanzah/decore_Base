@@ -5,8 +5,26 @@ from pykeepass.entry import Entry
 from peewee import CharField, Field, UUIDField
 from ..globals import globals
 
+class UUIDFieldAccessor(object):
+    def __init__(self, model, field, name):
+        self.model = model
+        self.field = field
+        self.name = name
 
-class DecoreField(Field):
+    def __get__(self, instance, instance_type=None):
+        if instance is not None:
+            return instance.__data__.get(self.name)
+        return self.field
+
+    def __set__(self, instance, value):
+        if isinstance(value, UUID):
+            instance.__data__[self.name] = value
+            instance._dirty.add(self.name)
+        else:
+            instance.__data__[self.name] = UUID(value) if value is not None else None
+            instance._dirty.add(self.name)
+
+class DecoreCustomField(Field):
 
     @property
     def instance(self):
@@ -21,10 +39,9 @@ class DecoreCharField(CharField):
     pass
 
 class DecoreUUIDField(UUIDField):
-    pass
+    accessor_class = UUIDFieldAccessor
 
-class DecorePasswordField(DecoreField):
-
+class DecorePasswordField(DecoreCustomField):
     field_type = 'VARCHAR'
 
     @property
