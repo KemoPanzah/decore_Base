@@ -12,6 +12,8 @@ Welcome
    :hidden:
    :maxdepth: 2
 
+   fields
+
 .. Indices and tables
 .. ==================
 

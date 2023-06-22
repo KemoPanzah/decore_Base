@@ -259,7 +259,7 @@ class Decore_model(Model):
                 # t_data = {k: v for k, v in t_item.__data__.items() if v is not None}
                 if not self.__data__ == t_item.__data__:
                     try:
-                        super(Decore_model,self).save()
+                        super(Decore_model, self).save()
                     except Exception as error:
                         logging.error('%s > %s > %s' % ('save_item', 'Update error', error))
                         return False
@@ -273,7 +273,7 @@ class Decore_model(Model):
 
     #TODO - return values prüfen; werden die eigentlich benötigt? > delete_instance
     def delete_instance(self):
-        if self(Decore_model, self).delete_instance():
+        if super(Decore_model, self).delete_instance():
             return True
         else:
             logging.error('%s > %s' % ('remove_item', 'Remove error'))

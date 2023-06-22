@@ -82,12 +82,36 @@ class CustomField(Field):
         return None
 
 class BackRefMetaField(MetaField):
-    def __init__(self,verbose_name=None, help_text=None, filter_fields=None):
-        super().__init__(False, False, False, None, None, False, None, None, None, False, None, help_text, verbose_name, None, None, False)
-        self.filter_fields = filter_fields
+    ''' 
+    .. Warning:: The BackRefMetaField's name must match the name of the specified backref in the ForeignKey or ManyToMany field in the reference model.
+
+    The BackRefMetaField is used by the user to represent relationships in the **decore Front** application. For example, it can be assigned to the filter or to a form. It is a MetaField and does not get a column in the database.
+            
+    Parameters:
+
+    - ``null`` - If True, the field is allowed to be null. Defaults to False.
+    - ``default`` - The default value for the field.
+    - ``help_text`` - Additional text to be displayed in **decore Front**.
+    - ``verbose_name`` - A human-readable name for the field.
+    - ``filter_fields`` - A List of type string. Only the speciefied fields will be displayed in the filter. If None, all fields will be displayed.
     
+    .. code-block:: python
+
+        class Account(Conform_model):
+            users = ManyToManyField(User, backref='accounts', null=True, verbose_name='Users')
+
+    .. code-block:: python
+
+        class User(Conform_model):
+            accounts = BackRefMetaField(null=True, verbose_name='Accounts')
+        
+    '''
+    def __init__(self, null=False, default=None, help_text=None, verbose_name=None, filter_fields=None):
+        self.filter_fields = filter_fields
+        MetaField.__init__(self, null=null, default=default, help_text=help_text, verbose_name=verbose_name)
+        
     def bind(self, model, name, set_attribute):
-        super().bind(model, name, set_attribute)
+        super(BackRefMetaField, self).bind(model, name, set_attribute)
         setattr(model,'br_'+name, getattr(model, name)) 
         delattr(model, name)
 
