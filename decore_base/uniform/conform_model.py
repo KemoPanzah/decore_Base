@@ -9,7 +9,6 @@ class Conform_model(Decore_model):
         # TODO - diese Zeile wieder einsetzen wenn alle Relationen zwischen conform und perform passen
         # database = SqliteDatabase('state/database.db', pragmas=(('cache_size', -1024 * 64),('journal_mode', 'wal')))
         database = SqliteDatabase('state/database.db')
-        migrator = SqliteMigrator(database)
 
     @classmethod
     def register(cls):

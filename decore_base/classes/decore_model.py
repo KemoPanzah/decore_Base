@@ -2,75 +2,24 @@ import inspect
 import logging
 import operator
 from functools import reduce
-from pathlib import Path, PosixPath, WindowsPath
-from shutil import move
 from uuid import uuid1
 
+#
 from cerberus import Validator
-from peewee import *
-from peewee import FieldAccessor, MetaField
-from playhouse.migrate import *
+from peewee import DQ, FieldAccessor, Model, SqliteDatabase
+from playhouse.migrate import SqliteMigrator, migrate
 from playhouse.reflection import Introspector
 from playhouse.shortcuts import model_to_dict
-from pykeepass.entry import Entry
 
+#
 from ..globals import globals
 from .decore_fields import *
+#
 from .decore_translate import Decore_translate as t
 
 
-class FileFieldAccessor(object):
-    def __init__(self, model, field, name):
-        self.model = model
-        self.field = field
-        self.name = name
-
-    def __get__(self, instance, instance_type=None):
-        if instance is not None:
-            t_path = Path(globals.config['default']['state_path']).joinpath('filebase').joinpath(self.model.__name__).joinpath(instance.id).joinpath(self.name).joinpath(instance.__data__.get(self.name))
-            if t_path.exists():
-                return t_path.absolute()
-            else:
-                return None
-        return self.field
-
-    def __set__(self, instance, value):
-        if instance.id:
-            if type(value) == WindowsPath or type(value) == PosixPath:
-                t_path = Path(globals.config['default']['state_path']).joinpath('filebase').joinpath(self.model.__name__).joinpath(instance.id).joinpath(self.name).joinpath(value.name)
-                t_path.parent.mkdir(parents=True, exist_ok=True)
-                move(value, t_path)
-                instance.__data__[self.name] = value.name
-            else:
-                instance.__data__[self.name] = value
-        else:
-            logging.error('%s > %s' % (self.name, 'u can not store files while ur item id was not setted'))
-            instance.__data__[self.name] = None
-        instance._dirty.add(self.name)
-
-class FileField(Field):
-    accessor_class = FileFieldAccessor
-    field_type = 'VARCHAR'
-
-class ManyToManyField(ManyToManyField):
-    def __init__(self, model, backref=None, on_delete=None, on_update=None, _is_backref=False, verbose_name=None, help_text=None, filter_fields=None):
-        super().__init__(model, backref, on_delete, on_update, _is_backref)
-        self.verbose_name = verbose_name
-        self.help_text = help_text
-        self.filter_fields = filter_fields
-    
-class BackRefMetaField(MetaField):
-    def __init__(self,verbose_name=None, help_text=None, filter_fields=None):
-        super().__init__(False, False, False, None, None, False, None, None, None, False, None, help_text, verbose_name, None, None, False)
-        self.filter_fields = filter_fields
-    
-    def bind(self, model, name, set_attribute):
-        super().bind(model, name, set_attribute)
-        setattr(model,'br_'+name, getattr(model, name)) 
-        delattr(model, name)
-
 class Decore_model(Model):
-    id = DecoreUUIDField(primary_key=True, unique=True, verbose_name="ID")
+    id = CharField(primary_key=True, unique=True, verbose_name="ID")
     title = CharField(verbose_name=t('Title'))
     desc = CharField(verbose_name=t('Description'), null=True)
     item_type = CharField(verbose_name=t('Item type'), default='object')
@@ -78,12 +27,14 @@ class Decore_model(Model):
     
     class Meta:
         # tbase = SqliteDatabase('state/database.db', pragmas=(('cache_size', -1024 * 64),('journal_mode', 'wal')))
+        database = None
         tbase = SqliteDatabase('state/database.db')
+        migrator = SqliteMigrator(database)
 
     def __init__(self, *args, **kwargs):
         Model.__init__(self, *args, **kwargs)
         if not self.id:
-            self.id = uuid1()
+            self.id = str(uuid1())
 
     @classmethod
     def register(cls):
