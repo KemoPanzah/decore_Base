@@ -29,6 +29,9 @@ from collections import OrderedDict
 
 
 class Decore(object):
+    '''
+    Test
+    '''
     def __init__(self):
         if not globals.flags.production_mode:
             self.prompt = Decore_prompt()
