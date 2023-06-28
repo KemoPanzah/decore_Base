@@ -1,6 +1,6 @@
 decore Base | UI fastly
 =======================
-decore Base ist ein sofort einsatzbereites "Python to Vue.js" Datenanwendungs-Dashboard, das Ihnen hilft, in wenigen einfachen Schritten von der Idee zur Ansicht zu gelangen. Es richtet sich an diejenigen, die sich auf die Ergebnisse ihrer Algorithmen konzentrieren, wissenschaftlich arbeiten oder Lehr- und Lernfunktionen ausführen wollen.
+decore Base is an out-of-the-box "Python to Vue.js" data application dashboard that helps you go from idea to view in a few simple steps. It is aimed at those who want to focus on the results of their algorithms, do scientific work or perform teaching and learning functions.
 
 **decore Base is currently a work in progress, only locally deployable, only available for Windows and not yet production ready**.
 
@@ -12,6 +12,9 @@ The recommended IDE is Visual Studio Code and all my comments and documentation 
    :target: https://ko-fi.com/P5P2JCC5B
    :alt: Buy me a coffee
 
+.. raw:: html
+   <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#29abe0', 'P5P2JCC5B');kofiwidget2.draw();</script>
+   
 Contribution
 ------------
 The biggest help I can get right now is if you take a look at the project and tell me what you think. I am grateful for any criticism.
