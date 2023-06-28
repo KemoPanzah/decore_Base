@@ -30,7 +30,7 @@ from collections import OrderedDict
 
 class Decore(object):
     '''
-    Test
+    This class provides all the necessary functions to define a decore app and passes the collected information to the pool. It also holds the routes for communication with decore Front.
     '''
     def __init__(self):
         if not globals.flags.production_mode:
@@ -87,7 +87,19 @@ class Decore(object):
             self.api.run(HOST, PORT)
 
     def app(self, title):
-        '''Decorator for app registration'''
+        '''
+        A function for opening an app. It is used as a decorator.
+
+        Parameters:
+
+        - ``title`` - The title of the app.
+
+        .. code-block:: python
+
+            @decore.app('My App')
+            def main():
+                pass
+        '''
         def wrapper(func):
             self.pool.register(Decore_app('app', None, None, None, title, None, func.__doc__))
             self.pool.extend()
@@ -99,6 +111,24 @@ class Decore(object):
         return wrapper
 
     def base(self, icon=None, title=None, desc=None, model=Decore_model):
+        '''
+        A function for opening a base. It is used as a decorator.
+
+        The base is the carrier of the views and forms the data source in the frontend.
+
+        Parameters:
+
+        - ``icon`` - The icon of the base.
+        - ``title`` - The title of the base.
+        - ``desc`` - The description of the base.
+        - ``model`` - The data model of the Base. It forms a kind of context for all child elements of the base.
+
+        .. code-block:: python
+
+            @decore.base('mdi mdi-account', 'Person', 'A basis for managing personal data', Person)
+            class Person_base:
+                pass
+        '''
         def wrapper(cls):
             t_base = Decore_base(cls.__name__, icon, title, desc, model)
             t_base.__class__ = type(cls.__name__, (Decore_base, cls), {
