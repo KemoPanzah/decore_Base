@@ -12,9 +12,6 @@ The recommended IDE is Visual Studio Code and all my comments and documentation 
    :target: https://ko-fi.com/P5P2JCC5B
    :alt: Buy me a coffee
 
-.. raw:: html
-   <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#29abe0', 'P5P2JCC5B');kofiwidget2.draw();</script>
-   
 Contribution
 ------------
 The biggest help I can get right now is if you take a look at the project and tell me what you think. I am grateful for any criticism.
