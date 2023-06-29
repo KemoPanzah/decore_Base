@@ -90,13 +90,11 @@ class Decore(object):
         '''
         A function for opening an app. It is used as a decorator.
 
-        Parameters:
-
-        - ``title`` - The title of the app.
+        :param str title: The title of the app.
 
         .. code-block:: python
 
-            @decore.app('My App')
+            @decore.app(title='My App')
             def main():
                 pass
         '''
@@ -114,18 +112,16 @@ class Decore(object):
         '''
         A function for opening a base. It is used as a decorator.
 
-        The base is the carrier of the views and forms the data source in the frontend.
+            The base is the carrier element for the view and the template for the data source.
 
-        Parameters:
-
-        - ``icon`` - The icon of the base.
-        - ``title`` - The title of the base.
-        - ``desc`` - The description of the base.
-        - ``model`` - The data model of the Base. It forms a kind of context for all child elements of the base.
+        :param str icon: The icon of the base.
+        :param str title: The title of the base.
+        :param str desc: The description of the base.
+        :param Model model: The data model of the base. It forms a kind of context for all child elements of the base.
 
         .. code-block:: python
 
-            @decore.base('mdi mdi-account', 'Person', 'A basis for managing personal data', Person)
+            @decore.base(icon='mdi-account', title='Person', desc='A basis for managing personal data', model=Person)
             class Person_base:
                 pass
         '''
@@ -141,6 +137,28 @@ class Decore(object):
     l_view_pag_type = Literal['client']
 
     def view(self, parent_id=None, icon=None, title=None, desc=None, type: l_view_type = 'table', fields=[], filters=[], query={}, pag_type: l_view_pag_type = 'client', pag_recs=16):
+        '''
+        A function to register a view. It is used as a decorator.
+
+            A view is a container for displaying data.
+        
+        :param str parent_id: The ID of the parent element. Only to be set if the view is to be rendered in another base.
+        :param str icon: The icon of the view.
+        :param str title: The title of the view.
+        :param str desc: The description of the view.
+        :param str type: The type of the view.
+        :param list fields: The active fields of the view.
+        :param list filters: The fields that are used in filter.
+        :param dict query: The default query of the view.
+        :param str pag_type: The pagination type of the view.
+        :param int pag_recs: The pagination records of the view.
+
+        .. code-block:: python
+
+            @decore.view(icon='mdi-account', title='Person', desc='A view for managing personal data', type='table', fields=[Person.id, Person.name, Person.age], filters=[Person.name, Person.age], query={'name__eq': 'Kemo'}, pag_type='client', pag_recs=16)
+            def person_view():
+                pass
+        '''
         def wrapper(func):
             t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
             if not parent_id:
@@ -158,6 +176,26 @@ class Decore(object):
 
     # TODO - Überprüfen ob element mit gleicher ID schon vorhanden ist und Execption
     def dialog(self, parent_id=None, icon=None, title=None, desc=None, type: l_dialog_type = 'standard', display: l_dialog_display = 'drawer', activator: l_dialog_activator = 'none'):
+        '''
+        A function to register a dialog. It is used as a decorator.
+
+            A dialog is a carrier for widgets.
+
+        :param str parent_id: The ID of the parent element. Only to be set if the dialog is to be rendered in a view of another base.
+        :param str icon: The icon of the dialog.
+        :param str title: The title of the dialog.
+        :param str desc: The description of the dialog.
+        :param str type: The type of the dialog.
+        :param str display: The display type of the dialog.
+        :param str activator: The activator type of the dialog.
+
+        .. code-block:: python
+
+            @decore.dialog(icon='mdi-account', title='Person', desc='A dialog for managing personal data', type='standard', display='drawer', activator='default-menu')
+            def person_dialog():
+                pass
+                
+        '''
         def wrapper(func):
             t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
             if not parent_id:
@@ -172,6 +210,26 @@ class Decore(object):
     l_widget_type = Literal['default', 'info', 'form', 'table']
 
     def widget(self, parent_id=None, icon=None, title=None, desc=None, type: l_widget_type = 'default', layout='cera', fields=[]):
+        '''
+        A function to register a widget. It is used as a decorator.
+
+            A widget is an element for displaying or editing a single item from the data.
+
+        :param str parent_id: The ID of the parent element. Only to be set if the widget is to be rendered in a dialog of another base.
+        :param str icon: The icon of the widget.
+        :param str title: The title of the widget.
+        :param str desc: The description of the widget.
+        :param str type: The type of the widget.
+        :param str layout: The layout of the widget.
+        :param list fields: The active fields of the widget.
+
+        .. code-block:: python
+        
+            @decore.widget(icon='mdi-account', title='Person', desc='A widget for managing personal data', type='form', layout='cera', fields=[Person.name, Person.age])
+            def person_widget():
+                pass
+                
+        '''
         def wrapper(func):
             t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
             if not parent_id:
