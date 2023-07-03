@@ -1,5 +1,7 @@
 decore Base | UI fastly
 =======================
+Introduction
+------------
 decore Base ist ein sofort einsatzbereites "Python to Vue.js" Datenanwendungs-Dashboard, das Ihnen hilft, in wenigen einfachen Schritten von der Idee zur Ansicht zu gelangen. Es richtet sich an diejenigen, die sich auf die Ergebnisse ihrer Algorithmen konzentrieren, wissenschaftlich arbeiten oder Lehr- und Lernfunktionen ausführen wollen.
 
 **decore Base ist derzeit noch in Arbeit, nur lokal einsetzbar, nur für Windows verfügbar und noch nicht produktionsreif**.

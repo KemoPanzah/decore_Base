@@ -71,7 +71,6 @@ class UUIDFieldAccessor(object):
             instance._dirty.add(self.name)
 
 class CustomField(Field):
-
     @property
     def instance(self):
         calling_frames = inspect.getouterframes(inspect.currentframe())
@@ -86,15 +85,13 @@ class BackRefMetaField(MetaField):
     .. Warning:: The BackRefMetaField's name must match the name of the specified backref in the ForeignKey or ManyToMany field in the reference model.
 
     The BackRefMetaField is used by the user to represent relationships in the **decore Front** application. For example, it can be assigned to the filter or to a form. It is a MetaField and does not get a column in the database.
-            
-    Parameters:
 
-    - ``null`` - If True, the field is allowed to be null. Defaults to False.
-    - ``default`` - The default value for the field.
-    - ``help_text`` - Additional text to be displayed in **decore Front**.
-    - ``verbose_name`` - A human-readable name for the field.
-    - ``filter_fields`` - A List of type string. Only the speciefied fields will be displayed in the filter. If None, all fields will be displayed.
-    
+    :param null: If True, the field is allowed to be null. Defaults to False.
+    :param default: The default value for the field.
+    :param help_text: Additional text to be displayed in **decore Front**.
+    :param verbose_name: A human-readable name for the field.
+    :param filter_fields: A List of type string. Only the speciefied fields will be displayed in the filter. If None, all fields will be displayed.
+        
     .. code-block:: python
 
         class Account(Conform_model):
