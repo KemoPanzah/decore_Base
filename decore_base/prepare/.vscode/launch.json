@@ -8,14 +8,6 @@
             "program": "app.py",
             "args": ["--dev"],
             "console": "integratedTerminal"
-        },
-        {
-            "name": "[build] decore Base development",
-            "type": "python",
-            "request": "launch",
-            "program": "app.py",
-            "args": ["--build"],
-            "console": "integratedTerminal"
         }
     ]
 }
