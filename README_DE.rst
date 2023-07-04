@@ -253,11 +253,7 @@ Sample application
 ------------------
 Um besser zu verstehen, wie decore base funktioniert, ist es am besten, sich die Beispielanwendung anzusehen. Die Anwendung repräsentiert meine kontinuierliche Entwicklung von decore base.
 
-https://github.com/KemoPanzah/decore_Base/tree/master/decore_base/sample
-
-Um die Beispielanwendung mit einem Unterordner des Projektstammverzeichnisses zu synchronisieren, führen Sie ``python app.py --sample`` in Ihrem Projektstammverzeichnis aus. Verwenden Sie das Terminal in vscode.
-
-Um die Beispielanwendung nach der Synchronisation auszuführen, verwenden Sie Ihren Debugger mit dem Profil ``[smp] decore base sample`` in vscode.
+https://github.com/KemoPanzah/decore_Sample
 
 Notes
 -----

@@ -10,12 +10,12 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "[smp] decore Base sample",
+            "name": "[build] decore Base development",
             "type": "python",
             "request": "launch",
             "program": "app.py",
-            "console": "integratedTerminal",
-            "cwd":"${workspaceFolder}/sample"
+            "args": ["--build"],
+            "console": "integratedTerminal"
         }
     ]
 }
