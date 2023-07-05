@@ -150,7 +150,7 @@ class Decore_model(Model):
                         t_exp |= DQ(**{key: item})
                     r_item_s = r_item_s.filter(t_exp)
 
-                elif type(value) is str:
+                elif type(value) is str or int:
                     r_item_s = r_item_s.filter(**{key: value})
                 else:
                     raise Exception('Type error in query value')
