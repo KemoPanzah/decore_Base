@@ -67,10 +67,10 @@ class Global_keybase(PyKeePass):
             return None
 
     def commit(self, instance_id):
-        t_entry = None
         t_meta_item: Meta_item
         for t_meta_item in self.__meta__.values():
             if t_meta_item.title == instance_id:
+                t_entry = None
                 t_group = self.find_groups_by_name(t_meta_item.group, group=self.root_group, first=True)
                 if not t_group:
                     t_group = self.add_group(self.root_group, t_meta_item.group)
