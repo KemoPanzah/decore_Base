@@ -4,6 +4,8 @@ Introduction
 ------------
 decore Base ist ein sofort einsatzbereites "Python to Vue.js" Datenanwendungs-Dashboard, das Ihnen hilft, in wenigen einfachen Schritten von der Idee zur Ansicht zu gelangen. Es richtet sich an diejenigen, die sich auf die Ergebnisse ihrer Algorithmen konzentrieren, wissenschaftlich arbeiten oder Lehr- und Lernfunktionen ausführen wollen.
 
+Notes
+-----
 **decore Base ist derzeit noch in Arbeit, nur lokal einsetzbar, nur für Windows verfügbar und noch nicht produktionsreif**.
 
 Die empfohlene IDE ist Visual Studio Code und alle meine Kommentare und Dokumentationen hier werden sich auch nur auf vscode beziehen.
@@ -13,6 +15,18 @@ Die empfohlene IDE ist Visual Studio Code und alle meine Kommentare und Dokument
 .. image:: https://ko-fi.com/img/githubbutton_sm.svg
    :target: https://ko-fi.com/P5P2JCC5B
    :alt: Buy me a coffee
+
+Diese Dokumentation wurde mit Deepl vom Deutschen ins Englische übersetzt.
+
+Features and Integrations
+-------------------------
+- Fertige SPA (Single Page Application) mit Vue.js mittels Quasar Framework (https://github.com/quasarframework/quasar)
+- Vordefinierte Webapi für Meta und Aktionen mit Flask (https://github.com/pallets/flask)
+- Integriertes ORM für die Datenverwaltung und Datenbankschnittstellen (SQLite) powered by the great Peewee (https://github.com/coleifer/peewee)
+- Datenvalidierung mittels Cerberus (https://github.com/pyeve/cerberus)
+- Passwortmanagment durch pykeepass (https://github.com/libkeepass/pykeepass)
+
+Bitte unterstützt diese großartigen Projekte!
 
 Contribution
 ------------
@@ -254,7 +268,3 @@ Sample application
 Um besser zu verstehen, wie decore base funktioniert, ist es am besten, sich die Beispielanwendung anzusehen. Die Anwendung repräsentiert meine kontinuierliche Entwicklung von decore base.
 
 https://github.com/KemoPanzah/decore_Sample
-
-Notes
------
-Diese Dokumentation wurde mit Deepl vom Deutschen ins Englische übersetzt.
