@@ -4,7 +4,6 @@ import operator
 from functools import reduce
 from uuid import uuid1
 
-#
 from cerberus import Validator
 from peewee import DQ, FieldAccessor, Model, SqliteDatabase
 from playhouse.migrate import SqliteMigrator, migrate
@@ -249,6 +248,7 @@ class Decore_model(Model):
             t_item = self.__class__.get_or_none(self.__class__.id == self.id)
             if not t_item:
                 try:
+                    globals.keybase.commit(self.id)
                     super(Decore_model,self).save(force_insert=True)
                 except Exception as error:
                     logging.error('%s > %s > %s' % ('save_item', 'Insert error', error))
@@ -256,9 +256,10 @@ class Decore_model(Model):
                 else:
                     return True
             elif t_item:
-                # t_data = {k: v for k, v in t_item.__data__.items() if v is not None}
-                if not self.__data__ == t_item.__data__:
+                t_data = {k: v for k, v in t_item.__data__.items() if v is not None}
+                if not self.__data__ == t_data:
                     try:
+                        globals.keybase.commit(self.id)
                         super(Decore_model, self).save()
                     except Exception as error:
                         logging.error('%s > %s > %s' % ('save_item', 'Update error', error))

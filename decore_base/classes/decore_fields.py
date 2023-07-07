@@ -118,58 +118,31 @@ class BooleanField(BooleanField):
 class CharField(CharField):
     pass
 
+class PasswordFieldAccessor(object):
+    def __init__(self, model, field, name):
+        self.model = model
+        self.field = field
+        self.name = name
+
+    def __get__(self, instance, instance_type=None):
+        if instance is not None:
+            if instance.__data__.get(self.name) is not None:
+                return globals.keybase.get_entry(self.model.__name__, instance.__data__.get(self.name))
+            else:
+                return None
+        return self.field
+
+    def __set__(self, instance, value):
+        if value is not None:
+            instance.__data__[self.name] = globals.keybase.append(self.model.__name__, instance.id, self.name, str(value))
+        else:
+            instance.__data__[self.name] = None
+        instance._dirty.add(self.name)
+
 class PasswordField(CustomField):
+    accessor_class = PasswordFieldAccessor
     field_type = 'VARCHAR'
 
-    @property
-    def kdb_group(self):
-        t_group = globals.kdb.find_groups_by_name(self.model.__name__, group=globals.kdb.root_group, first=True)
-        if not t_group:
-            t_group = globals.kdb.add_group(globals.kdb.root_group, self.model.__name__)
-            globals.kdb.save()
-        return t_group
-
-    def db_value(self, value):
-        t_entry = None
-        
-        # MEMO - Suche nach einem Eintrag der dem Identifiziern entspricht 
-        i_entry: Entry
-        for i_entry in self.kdb_group.entries:
-            if i_entry.title == self.name and i_entry.username == self.instance.id:
-                t_entry = i_entry
-        
-        # MEMO - Wenn kein Eintrag vorhanden ist, lege einen neuen an und füge diesen der Gruppe hinzu
-        if not t_entry:
-            t_entry = Entry(title=self.name, username=self.instance.id, password=value, kp=globals.kdb)
-            self.kdb_group.append(t_entry)
-            try:
-                globals.kdb.save()
-            except:
-                raise Exception('Could not save to keybase')
-            
-        # MEMO - Wenn der neue Wert nicht mit dem Password im Entry übereinstimmt und auch nicht mit der UUID dann ändere und speichere
-        if not value == t_entry.password and not value == str(t_entry.uuid):
-            t_entry.password = value
-            try:
-                globals.kdb.save()
-            except:
-                raise Exception('Could not save to keybase')
-        
-        # MEMO - schreibe die UUID des Entries in das __data__ Dict um das Kennwort zu verschleiern
-        return str(t_entry.uuid)
-
-    def python_value(self, value):
-        t_entry = None
-        
-        # MEMO - Suche nach einem Eintrag der dem Identifiziern entspricht und gebe das Password des Eintrages zurück
-        i_entry: Entry
-        for i_entry in self.kdb_group.entries:
-            if i_entry.uuid.hex == value:
-                return i_entry.password
-        
-        # MEMO - Wenn kein Eintrag vorhanden ist, gebe None als Passwort aus
-        if not t_entry:
-            return None
 
 class ForeignKeyField(ForeignKeyField):
     pass

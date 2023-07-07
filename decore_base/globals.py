@@ -1,7 +1,8 @@
 from pathlib import Path
-from pykeepass import create_database, PyKeePass
 from uuid import uuid4
 import json,logging,sys
+
+from .classes.globals_keybase import Global_keybase
 
 logging.basicConfig(format='[%(levelname)s] | %(message)s', level=logging.INFO)
 
@@ -57,15 +58,6 @@ class Globals(object):
     def __init__(self):
         self.flags = Global_flags()
         self.config = Global_config()
-        #TODO - move to model
-        self.kdb = self.get_kdb()
+        self.keybase = Global_keybase(Path().joinpath(self.config.state_path).joinpath('keybase.kdbx'))
 
-    #TODO - move to model
-    def get_kdb(self):
-        t_kdp_path = Path().joinpath(self.config.state_path).joinpath('keybase.kdbx')
-        t_kdp_path.parent.mkdir(parents=True, exist_ok=True)
-        if not t_kdp_path.exists():
-            create_database(str(t_kdp_path.absolute()), password='12345678')
-        return PyKeePass(str(t_kdp_path.absolute()), password='12345678')
-    
 globals = Globals()
