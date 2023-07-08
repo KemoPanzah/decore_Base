@@ -20,11 +20,10 @@ class Test_fields:
         self.setup_item()
         self.test_item.password = "12345678"
         self.test_item.save()
-        
-        assert self.test_item.password == '12345678'
-        assert self.test_item.__data__['password'] != '12345678'
-
         db_item = Test_model.get(Test_model.id == self.test_item.id)
 
+        assert self.test_item.password == '12345678'
+        assert self.test_item.__data__['password'] != '12345678'
         assert db_item.password == "12345678"
+        assert db_item.__data__['password'] != "12345678"
 
