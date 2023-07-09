@@ -70,15 +70,28 @@ class UUIDFieldAccessor(object):
             instance.__data__[self.name] = UUID(value) if value is not None else None
             instance._dirty.add(self.name)
 
-class CustomField(Field):
-    @property
-    def instance(self):
-        calling_frames = inspect.getouterframes(inspect.currentframe())
-        for frame in calling_frames:
-            instance = frame[0].f_locals.get('self')
-            if isinstance(instance, self.model):
-                return instance
-        return None
+class PasswordFieldAccessor(object):
+    def __init__(self, model, field, name):
+        self.model = model
+        self.field = field
+        self.name = name
+
+    def __get__(self, instance, instance_type=None):
+        if instance is not None:
+            if instance.__data__.get(self.name) is not None:
+                return globals.keybase.get_entry(self.model.__name__, instance.__data__.get(self.name))
+            else:
+                return None
+        return self.field
+
+    def __set__(self, instance, value):
+        if value is not None:
+            instance.__data__[self.name] = globals.keybase.append(self.model.__name__, instance.id, self.name, str(value))
+        else:
+            instance.__data__[self.name] = None
+        instance._dirty.add(self.name)
+
+######################################################################################################
 
 class BackRefMetaField(MetaField):
     ''' 
@@ -118,28 +131,23 @@ class BooleanField(BooleanField):
 class CharField(CharField):
     pass
 
-class PasswordFieldAccessor(object):
-    def __init__(self, model, field, name):
-        self.model = model
-        self.field = field
-        self.name = name
+class PasswordField(Field):
+    '''
+    ... warning:: The keybase is a KeePass file and should be protected by setting the correct access rights (ACL).
 
-    def __get__(self, instance, instance_type=None):
-        if instance is not None:
-            if instance.__data__.get(self.name) is not None:
-                return globals.keybase.get_entry(self.model.__name__, instance.__data__.get(self.name))
-            else:
-                return None
-        return self.field
+    A field to store passwords in the keybase and to use them again.
+    
+    :param null: If True, the field is allowed to be null. Defaults to False.
+    :param default: The default value for the field.
+    :param help_text: Additional text to be displayed in **decore Front**.
+    :param verbose_name: A human-readable name for the field.
 
-    def __set__(self, instance, value):
-        if value is not None:
-            instance.__data__[self.name] = globals.keybase.append(self.model.__name__, instance.id, self.name, str(value))
-        else:
-            instance.__data__[self.name] = None
-        instance._dirty.add(self.name)
+    .. code-block:: python
 
-class PasswordField(CustomField):
+        class User(Conform_model):
+            password = PasswordField(null=False, verbose_name='Password')
+
+    '''
     accessor_class = PasswordFieldAccessor
     field_type = 'VARCHAR'
 
