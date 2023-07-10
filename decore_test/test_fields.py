@@ -3,10 +3,7 @@ import sys, os
 #sys.path.append(os.path.abspath('../'))
 # fmt: on
 
-from decore_base.uniform.conform_model import *
-
-class Test_model(Conform_model):
-    password = PasswordField(null=True, verbose_name="Password")
+from .test_model import Test_model
 
 # Testklasse für MyClass
 class Test_fields:

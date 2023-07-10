@@ -95,15 +95,13 @@ class PasswordFieldAccessor(object):
 
 class BackRefMetaField(MetaField):
     ''' 
-    .. Warning:: The BackRefMetaField's name must match the name of the specified backref in the ForeignKey or ManyToMany field in the reference model.
+    .. warning:: The BackRefMetaField's name must match the name of the specified backref in the ForeignKey or ManyToMany field in the reference model.
 
     The BackRefMetaField is used by the user to represent relationships in the **decore Front** application. For example, it can be assigned to the filter or to a form. It is a MetaField and does not get a column in the database.
 
-    :param null: If True, the field is allowed to be null. Defaults to False.
-    :param default: The default value for the field.
-    :param help_text: Additional text to be displayed in **decore Front**.
-    :param verbose_name: A human-readable name for the field.
-    :param filter_fields: A List of type string. Only the speciefied fields will be displayed in the filter. If None, all fields will be displayed.
+    :param str help_text: Additional text to be displayed in **decore Front**.
+    :param str verbose_name: A human-readable name for the field.
+    :param list filter_fields: A List of type string. Only the speciefied fields will be displayed in the filter. If None, all fields will be displayed.
         
     .. code-block:: python
 
@@ -116,9 +114,9 @@ class BackRefMetaField(MetaField):
             accounts = BackRefMetaField(null=True, verbose_name='Accounts')
         
     '''
-    def __init__(self, null=False, default=None, help_text=None, verbose_name=None, filter_fields=None):
+    def __init__(self, help_text=None, verbose_name=None, filter_fields=None):
         self.filter_fields = filter_fields
-        MetaField.__init__(self, null=null, default=default, help_text=help_text, verbose_name=verbose_name)
+        MetaField.__init__(self, help_text=help_text, verbose_name=verbose_name)
         
     def bind(self, model, name, set_attribute):
         super(BackRefMetaField, self).bind(model, name, set_attribute)
@@ -133,12 +131,12 @@ class CharField(CharField):
 
 class PasswordField(Field):
     '''
-    ... warning:: The keybase is a KeePass file and should be protected by setting the correct access rights (ACL).
+    .. warning:: 
+        The keybase is a KeePass file and should be protected by setting the correct access rights (ACL).
 
     A field to store passwords in the keybase and to use them again.
     
     :param null: If True, the field is allowed to be null. Defaults to False.
-    :param default: The default value for the field.
     :param help_text: Additional text to be displayed in **decore Front**.
     :param verbose_name: A human-readable name for the field.
 
@@ -151,6 +149,8 @@ class PasswordField(Field):
     accessor_class = PasswordFieldAccessor
     field_type = 'VARCHAR'
 
+    def __init__(self, null=False, help_text=None, verbose_name=None):
+        Field.__init__(self, null=null, help_text=help_text, verbose_name=verbose_name)
 
 class ForeignKeyField(ForeignKeyField):
     pass
