@@ -10,10 +10,10 @@ from playhouse.migrate import SqliteMigrator, migrate
 from playhouse.reflection import Introspector
 from playhouse.shortcuts import model_to_dict
 
-#
+
 from ..globals import globals
 from .decore_fields import *
-#
+
 from .decore_translate import Decore_translate as t
 
 
@@ -29,6 +29,7 @@ class Decore_model(Model):
         database = None
         tbase = SqliteDatabase('state/database.db')
         migrator = SqliteMigrator(database)
+        user_query = {}
 
     def __init__(self, *args, **kwargs):
         Model.__init__(self, *args, **kwargs)
@@ -135,6 +136,7 @@ class Decore_model(Model):
     def query(cls, p_query={}):
         r_item_s = cls.select()
         t_mm_query = {}
+        t_uq_query = {}
         for key, value in p_query.items():         
             t_query_attr_s = key.split('__')
             t_field = t_query_attr_s[0]
@@ -142,6 +144,9 @@ class Decore_model(Model):
                 t_rel_field = t_query_attr_s[1]
                 t_operator =  t_query_attr_s[2]                
                 t_mm_query.setdefault(t_field, []).append({'operator': t_operator, 'field': t_rel_field,  'value': value})
+            elif t_field in cls._meta.user_query.keys():
+                t_operator =  t_query_attr_s[1]
+                t_uq_query.setdefault(t_field, []).append({'operator': t_operator, 'value': value})
             else:
                 if type(value) is list:
                     t_exp = None
@@ -149,32 +154,34 @@ class Decore_model(Model):
                         t_exp |= DQ(**{key: item})
                     r_item_s = r_item_s.filter(t_exp)
 
-                elif type(value) is str or int or bool:
+                elif type(value) is str or int or float or bool:
                     r_item_s = r_item_s.filter(**{key: value})
                 else:
                     raise Exception('Type error in query value')
         
         for key, value in t_mm_query.items():   
-            t_rel_model = cls._meta.manytomany[key].rel_model
             t_through_model = cls._meta.manytomany[key]._through_model
+            t_rel_model = cls._meta.manytomany[key].rel_model
             r_item_s = r_item_s.join(t_through_model).join(t_rel_model)
             for i_attrs in value:
-                t_operator = i_attrs['operator']
+                t_operator = getattr(operator, i_attrs['operator'])
                 t_field = i_attrs['field']
                 t_value = i_attrs['value']
                 if type(t_value) is list:
                     t_clause_s = []
                     for item in t_value:
-                        if t_operator == 'eq':
-                            t_clause_s.append((getattr(t_rel_model, t_field) == item))
+                        t_clause_s.append(t_operator(getattr(t_rel_model, t_field), item))
                     t_exp = reduce(operator.or_, t_clause_s)
                     r_item_s = r_item_s.where(t_exp)
-                elif type(t_value) is str or int or bool:
-                    if t_operator == 'eq':
-                        r_item_s = r_item_s.where(getattr(t_rel_model, t_field) == t_value)
+                elif type(t_value) is str or int or float or bool:
+                    r_item_s = r_item_s.where(t_operator(getattr(t_rel_model, t_field),t_value))
                 else:
                     raise Exception('Type error in query value')
-    
+                
+        for key, value in t_uq_query.items():
+            for i_attrs in value:
+                r_item_s = cls._meta.user_query[key](cls, r_item_s, getattr(operator, i_attrs['operator']), i_attrs['value'])
+
         return r_item_s
 
     @classmethod
@@ -240,8 +247,8 @@ class Decore_model(Model):
         return r_value
 
     # TODO - Wer ruft das auf? was ist damit?
-    def to_dict(self):
-        return model_to_dict(self, recurse=True, max_depth=1)
+    # def to_dict(self):
+    #     return model_to_dict(self, recurse=True, max_depth=1)
 
     def save(self):
         #TODO - auf try except umstellen und raisen in validate.
@@ -280,3 +287,10 @@ class Decore_model(Model):
         else:
             logging.error('%s > %s' % ('remove_item', 'Remove error'))
             return False
+
+    @classmethod    
+    def user_query(cls):
+        def wrapper(func):
+            cls._meta.user_query[func.__name__] = func
+            pass
+        return wrapper
