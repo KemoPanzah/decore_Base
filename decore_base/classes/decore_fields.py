@@ -99,9 +99,10 @@ class BackRefMetaField(MetaField):
 
     The BackRefMetaField is used by the user to represent relationships in the **decore Front** application. For example, it can be assigned to the filter or to a form. It is a MetaField and does not get a column in the database.
 
-    :param str help_text: Additional text to be displayed in **decore Front**.
     :param str verbose_name: A human-readable name for the field.
+    :param str help_text: Additional text to be displayed in **decore Front**.
     :param list filter_fields: A List of type string. Only the speciefied fields will be displayed in the filter. If None, all fields will be displayed.
+    :param dict options_query: A dictonary containing a query which is used when querying the options (e.g. in selection fields in the frontend). The query always refers to the relational model.
         
     .. code-block:: python
 
@@ -114,9 +115,10 @@ class BackRefMetaField(MetaField):
             accounts = BackRefMetaField(null=True, verbose_name='Accounts')
         
     '''
-    def __init__(self, help_text=None, verbose_name=None, filter_fields=None):
+    def __init__(self, verbose_name=None, help_text=None, filter_fields=[], options_query={}):
+        MetaField.__init__(self, verbose_name=verbose_name, help_text=help_text)
         self.filter_fields = filter_fields
-        MetaField.__init__(self, help_text=help_text, verbose_name=verbose_name)
+        self.options_query = options_query
         
     def bind(self, model, name, set_attribute):
         super(BackRefMetaField, self).bind(model, name, set_attribute)
@@ -159,11 +161,12 @@ class IntegerField(IntegerField):
     pass
 
 class ManyToManyField(ManyToManyField):
-    def __init__(self, model, backref=None, on_delete=None, on_update=None, _is_backref=False, verbose_name=None, help_text=None, filter_fields=None):
-        super().__init__(model, backref, on_delete, on_update, _is_backref)
+    def __init__(self, model, backref=None, on_delete=None, on_update=None, verbose_name=None, help_text=None, filter_fields=[], options_query={}):
+        super().__init__(model, backref=backref, on_delete=on_delete, on_update=on_update)
         self.verbose_name = verbose_name
         self.help_text = help_text
         self.filter_fields = filter_fields
+        self.options_query = options_query
     
 class TextField(TextField):
     pass
