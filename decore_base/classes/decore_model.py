@@ -149,7 +149,7 @@ class Decore_model(Model):
                         t_exp |= DQ(**{key: item})
                     r_item_s = r_item_s.filter(t_exp)
 
-                elif type(value) is str or int:
+                elif type(value) is str or int or bool:
                     r_item_s = r_item_s.filter(**{key: value})
                 else:
                     raise Exception('Type error in query value')
@@ -162,18 +162,19 @@ class Decore_model(Model):
                 t_operator = i_attrs['operator']
                 t_field = i_attrs['field']
                 t_value = i_attrs['value']
-                if t_operator == 'eq':
-                    if type(t_value) is list:
-                        t_clause_s = []
-                        for item in t_value:
+                if type(t_value) is list:
+                    t_clause_s = []
+                    for item in t_value:
+                        if t_operator == 'eq':
                             t_clause_s.append((getattr(t_rel_model, t_field) == item))
-                        t_exp = reduce(operator.or_, t_clause_s)
-                        r_item_s = r_item_s.where(t_exp)
-                    elif type(t_value) is str:
+                    t_exp = reduce(operator.or_, t_clause_s)
+                    r_item_s = r_item_s.where(t_exp)
+                elif type(t_value) is str or int or bool:
+                    if t_operator == 'eq':
                         r_item_s = r_item_s.where(getattr(t_rel_model, t_field) == t_value)
-                    else:
-                        raise Exception('Type error in query value')
-        
+                else:
+                    raise Exception('Type error in query value')
+    
         return r_item_s
 
     @classmethod
