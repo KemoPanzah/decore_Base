@@ -23,4 +23,3 @@ class Test_fields:
         assert self.test_item.__data__['password'] != '12345678'
         assert db_item.password == "12345678"
         assert db_item.__data__['password'] != "12345678"
-
