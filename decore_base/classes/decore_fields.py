@@ -102,7 +102,7 @@ class BackRefMetaField(MetaField):
     :param str verbose_name: A human-readable name for the field.
     :param str help_text: Additional text to be displayed in **decore Front**.
     :param list filter_fields: A List of type string. Only the speciefied fields will be displayed in the filter. If None, all fields will be displayed.
-    :param dict options_query: A dictonary containing a query which is used when querying the options (e.g. in selection fields in the frontend). The query always refers to the relational model.
+    :param dict options_query: A dictonary containing a query to be used when querying options (e.g. in selection fields in the frontend). The query always refers to the reference model.
         
     .. code-block:: python
 
@@ -154,8 +154,8 @@ class PasswordField(Field):
     accessor_class = PasswordFieldAccessor
     field_type = 'VARCHAR'
 
-    def __init__(self, null=False, help_text=None, verbose_name=None):
-        Field.__init__(self, null=null, help_text=help_text, verbose_name=verbose_name)
+    def __init__(self, null=False, verbose_name=None, help_text=None):
+        Field.__init__(self, null=null, verbose_name=verbose_name, help_text=help_text)
 
 class ForeignKeyField(ForeignKeyField):
     pass
@@ -164,8 +164,33 @@ class IntegerField(IntegerField):
     pass
 
 class ManyToManyField(ManyToManyField):
-    def __init__(self, model, backref=None, on_delete=None, on_update=None, verbose_name=None, help_text=None, filter_fields=[], options_query={}):
-        super().__init__(model, backref=backref, on_delete=on_delete, on_update=on_update)
+    '''
+    A field to represent a many-to-many relationship between two models. It is a MetaField and does not get a column in the database. However, a through model is created by decore Base, which represents the relationship between the two models.
+    
+    :param model: The model to which the relationship is to be established.
+    :param backref: The name of the field in the reference model that represents the relationship to the model.
+    :param null: If True, the field is allowed to be null. Defaults to False.
+    :param verbose_name: A human-readable name for the field.
+    :param help_text: Additional text to be displayed in **decore Front**.
+    :param list filter_fields: A List of type string. Only the speciefied fields will be displayed in the filter. If None, all fields will be displayed.
+    :param dict options_query: A dictonary containing a query to be used when querying options (e.g. in selection fields in the frontend). The query always refers to the reference model.
+
+    .. code-block:: python
+
+        class Account(Conform_model):
+            users = ManyToManyField(User, backref='accounts', null=True, verbose_name='Users')
+            prefix = CharField(verbose_name='Mail prefix')
+            domain = CharField(verbose_name='Mail domain', default='example.com')
+
+    .. code-block:: python
+
+        class User(Conform_model):
+            username = CharField(verbose_name='Username')
+            accounts = BackRefMetaField(null=True, verbose_name='Accounts', options_query={'domain__eq': 'example.com'}
+
+    '''
+    def __init__(self, model, backref=None, verbose_name=None, help_text=None, filter_fields=[], options_query={}):
+        super().__init__(model, backref=backref)
         self.verbose_name = verbose_name
         self.help_text = help_text
         self.filter_fields = filter_fields
