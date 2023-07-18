@@ -106,17 +106,17 @@ class BackRefMetaField(MetaField):
         
     .. code-block:: python
 
-        class Account(Conform_model):
-            users = ManyToManyField(User, backref='accounts', null=True, verbose_name='Users')
-            prefix = CharField(verbose_name='Mail prefix')
-            domain = CharField(verbose_name='Mail domain', default='example.com')
-
-    .. code-block:: python
-
         class User(Conform_model):
             username = CharField(verbose_name='Username')
             accounts = BackRefMetaField(null=True, verbose_name='Accounts', options_query={'domain__eq': 'example.com'}
-        
+    
+    .. code-block:: python
+
+        class Account(Conform_model):
+            user = ForeignKeyField(User, backref='accounts', null=True, verbose_name='User')
+            prefix = CharField(verbose_name='Mail prefix')
+            domain = CharField(verbose_name='Mail domain', default='example.com')
+
     '''
     def __init__(self, verbose_name=None, help_text=None, filter_fields=[], options_query={}):
         MetaField.__init__(self, verbose_name=verbose_name, help_text=help_text)
