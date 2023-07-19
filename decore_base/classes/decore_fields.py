@@ -4,7 +4,7 @@ from pathlib import Path, PosixPath, WindowsPath
 from shutil import move
 from uuid import UUID
 
-from peewee import (BooleanField, CharField, Field, ForeignKeyField,
+from peewee import (BooleanField, CharField, DateTimeField, Field, ForeignKeyField,
                     IntegerField, ManyToManyField, MetaField, TextField,
                     UUIDField)
 from pykeepass.entry import Entry
@@ -15,6 +15,7 @@ __all__ = [
     'BackRefMetaField', 
     'BooleanField', 
     'CharField',
+    'DateTimeField',
     'ForeignKeyField', 
     'IntegerField', 
     'ManyToManyField', 
@@ -134,6 +135,9 @@ class BooleanField(BooleanField):
 class CharField(CharField):
     pass
 
+class DateTimeField(DateTimeField):
+    pass
+
 class PasswordField(Field):
     '''
     .. warning:: 
@@ -141,9 +145,9 @@ class PasswordField(Field):
 
     A field to store passwords in the keybase and to use them again.
     
-    :param null: If True, the field is allowed to be null. Defaults to False.
-    :param help_text: Additional text to be displayed in **decore Front**.
-    :param verbose_name: A human-readable name for the field.
+    :param bool null: If True, the field is allowed to be null. Defaults to False.
+    :param str help_text: Additional text to be displayed in **decore Front**.
+    :param str verbose_name: A human-readable name for the field.
 
     .. code-block:: python
 
@@ -167,11 +171,11 @@ class ManyToManyField(ManyToManyField):
     '''
     A field to represent a many-to-many relationship between two models. It is a MetaField and does not get a column in the database. However, a through model is created by decore Base, which represents the relationship between the two models.
     
-    :param model: The model to which the relationship is to be established.
-    :param backref: The name of the field in the reference model that represents the relationship to the model.
-    :param null: If True, the field is allowed to be null. Defaults to False.
-    :param verbose_name: A human-readable name for the field.
-    :param help_text: Additional text to be displayed in **decore Front**.
+    :param Model model: The model to which the relationship is to be established.
+    :param str backref: The name of the field in the reference model that represents the relationship to the model.
+    :param bool null: If True, the field is allowed to be null. Defaults to False.
+    :param str verbose_name: A human-readable name for the field.
+    :param str help_text: Additional text to be displayed in **decore Front**.
     :param list filter_fields: A List of type string. Only the speciefied fields will be displayed in the filter. If None, all fields will be displayed.
     :param dict options_query: A dictonary containing a query to be used when querying options (e.g. in selection fields in the frontend). The query always refers to the reference model.
 
