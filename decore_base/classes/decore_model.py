@@ -213,7 +213,18 @@ class Decore_model(Model):
 
     @classmethod
     def get_option_s(cls, p_query, p_attr, p_rel_attr):
-        r_value = []
+        class Options_return:
+            def __init__(self):
+                self.__item_s__ = []
+            
+            def append(self, p_id, p_value):
+                for item in self.__item_s__:
+                    if item['value'] == p_value:
+                        return False
+                self.__item_s__.append({'id': p_id, 'value': p_value})
+                return True
+
+        r_value = Options_return()
         t_item_s = cls.query(p_query)
         if p_attr:
             for item in t_item_s:
@@ -223,19 +234,18 @@ class Decore_model(Model):
                     try:
                         for rel_item in t_attr:
                             t_value = rel_item.__data__[p_rel_attr]
-                            if not t_value in r_value:
-                                r_value.append(t_value)
+                            r_value.append(rel_item.id, t_value)
+
                     except TypeError as error:
                         t_value = t_attr.__data__[p_rel_attr]
-                        if not t_value in r_value:
-                            r_value.append(t_value)
+                        r_value.append(t_attr.id, t_value)
                 else:
                     t_value = item.__data__[p_attr]
-                    if not t_value in r_value:
-                        r_value.append(t_value)
-            return r_value
+                    r_value.append(item.id, t_value)
+            
+            return r_value.__item_s__
         else:
-            return r_value
+            return r_value.__item_s__
 
     def validate(self):
         t_schema = self.build_schema()
