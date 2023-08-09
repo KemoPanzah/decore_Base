@@ -103,6 +103,8 @@ class Decore(object):
             self.pool.extend()
             i_base: Decore_base
             for i_base in self.pool.base_s:
+                #TODO - erweitere auch das Modell im Pool und passe decore_Front darauf an. Dann können die nächste Zeile wieder raus
+                i_base.rel_field_s = i_base.model.rel_field_s
                 i_base.start_shot()
                 i_base.start_work()
             self.start_api()
@@ -172,8 +174,7 @@ class Decore(object):
 
     l_dialog_type = Literal['standard', 'tabs', 'stepper']
     l_dialog_display = Literal['modal', 'drawer']
-    # TODO - none, default, context, click
-    l_dialog_activator = Literal['none', 'default-menu', 'item-menu', 'item-click']
+    l_dialog_activator = Literal['none', 'default', 'context', 'click']
 
     # TODO - Überprüfen ob element mit gleicher ID schon vorhanden ist und Execption
     def dialog(self, parent_id=None, icon=None, title=None, desc=None, type: l_dialog_type = 'standard', display: l_dialog_display = 'drawer', activator: l_dialog_activator = 'none'):
@@ -256,8 +257,7 @@ class Decore(object):
         return wrapper
 
     l_action_type = Literal['standard', 'submit', 'check', 'response', 'file', 'download']
-    # TODO - none, default, context, click
-    l_action_activator = Literal['none', 'default-menu', 'item-menu', 'item-click']
+    l_action_activator = Literal['none', 'default', 'context', 'click']
 
     def action(self, parent_id=None, icon=None, title=None, desc=None, type: l_action_type = 'standard', activator: l_action_activator = 'none'):
         def wrapper(func):

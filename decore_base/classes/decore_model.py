@@ -276,6 +276,7 @@ class Decore_model(Model):
             elif t_item:
                 t_data = {k: v for k, v in t_item.__data__.items() if v is not None}
                 if not self.__data__ == t_data:
+                    breakpoint()
                     try:
                         globals.keybase.commit(self.id)
                         super(Decore_model, self).save()
