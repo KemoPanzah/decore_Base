@@ -75,6 +75,7 @@ class Decore_pool(object):
             for key, value in p_value.__dict__.items():
                 t_return[key] = self.serialize(value)
         elif BackrefAccessor in inspect.getmro(p_value.__class__):
+            breakpoint()
             if hasattr(p_value.model, 'br_'+p_value.field.backref):
                 p_value.__dict__.update(getattr(p_value.model, 'br_'+p_value.field.backref).__dict__) 
             setattr(p_value,'class', p_value.__class__.__name__)

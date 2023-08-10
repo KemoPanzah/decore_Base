@@ -217,11 +217,11 @@ class Decore_model(Model):
             def __init__(self):
                 self.__item_s__ = []
             
-            def append(self, p_id, p_value):
+            def append(self, p_id, p_title):
                 for item in self.__item_s__:
-                    if item['value'] == p_value:
+                    if item['title'] == p_title:
                         return False
-                self.__item_s__.append({'key': p_id, 'value': p_value})
+                self.__item_s__.append({'id': p_id, 'title': p_title})
                 return True
 
         r_value = Options_return()

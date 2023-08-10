@@ -126,8 +126,7 @@ class BackRefMetaField(MetaField):
         
     def bind(self, model, name, set_attribute):
         super(BackRefMetaField, self).bind(model, name, set_attribute)
-        setattr(model,'br_'+name, getattr(model, name)) 
-        delattr(model, name)
+        setattr(model,'br_'+name, getattr(model, name))
 
 class BooleanField(BooleanField):
     pass
