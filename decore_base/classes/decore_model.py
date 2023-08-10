@@ -221,7 +221,7 @@ class Decore_model(Model):
                 for item in self.__item_s__:
                     if item['value'] == p_value:
                         return False
-                self.__item_s__.append({'id': p_id, 'value': p_value})
+                self.__item_s__.append({'key': p_id, 'value': p_value})
                 return True
 
         r_value = Options_return()
