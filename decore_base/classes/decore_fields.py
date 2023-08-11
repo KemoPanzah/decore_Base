@@ -161,7 +161,10 @@ class PasswordField(Field):
         Field.__init__(self, null=null, verbose_name=verbose_name, help_text=help_text)
 
 class ForeignKeyField(ForeignKeyField):
-    pass
+    def __init__(self, model, backref=None, null=False, verbose_name=None, help_text=None, filter_fields=[], options_query={}):
+        super().__init__(model, backref=backref, null=null, verbose_name=verbose_name, help_text=help_text)
+        self.filter_fields = filter_fields
+        self.options_query = options_query
 
 class IntegerField(IntegerField):
     pass
