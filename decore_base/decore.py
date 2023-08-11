@@ -107,6 +107,7 @@ class Decore(object):
                 i_base.rel_field_s = i_base.model.rel_field_s
                 i_base.start_shot()
                 i_base.start_work()
+            t_test_pool = self.pool.export()
             self.start_api()
         return wrapper
 
