@@ -12,7 +12,7 @@ from pykeepass.entry import Entry
 from ..globals import globals
 
 __all__ = [
-    'BackRefMetaField', 
+    'BackrefMetaField', 
     'BooleanField', 
     'CharField',
     'DateTimeField',
@@ -94,7 +94,7 @@ class PasswordFieldAccessor(object):
 
 ######################################################################################################
 
-class BackRefMetaField(MetaField):
+class BackrefMetaField(MetaField):
     ''' 
     .. warning:: The BackRefMetaField's name must match the name of the specified backref in the ForeignKey or ManyToMany field in the reference model.
 
@@ -125,7 +125,7 @@ class BackRefMetaField(MetaField):
         self.options_query = options_query
         
     def bind(self, model, name, set_attribute):
-        super(BackRefMetaField, self).bind(model, name, set_attribute)
+        super(BackrefMetaField, self).bind(model, name, set_attribute)
         setattr(model,'br_'+name, getattr(model, name))
 
 class BooleanField(BooleanField):

@@ -10,6 +10,7 @@ from .decore_list import Decore_list
 
 
 import inspect
+from .decore_fields import BackrefMetaField
 from peewee import Field, BackrefAccessor, ManyToManyField
 
 
@@ -70,17 +71,45 @@ class Decore_pool(object):
         if type(p_value) is dict:
             for key, value in p_value.items():
                 t_return[key] = self.serialize(value)
+        
         elif Decore_object in inspect.getmro(p_value.__class__):
             setattr(p_value,'class', p_value.__class__.__name__)
             for key, value in p_value.__dict__.items():
                 t_return[key] = self.serialize(value)
+        
+        elif BackrefMetaField in inspect.getmro(p_value.__class__):
+            if hasattr(p_value.model, p_value.name) and (isinstance(getattr(p_value.model, p_value.name), BackrefAccessor) or isinstance(getattr(p_value.model, p_value.name), ManyToManyField)):
+                p_value = getattr(p_value.model, p_value.name)
+
+                if BackrefAccessor in inspect.getmro(p_value.__class__):
+                    if hasattr(p_value.model, 'br_'+p_value.field.backref):
+                        p_value.__dict__.update(getattr(p_value.model, 'br_'+p_value.field.backref).__dict__) 
+                    setattr(p_value,'class', p_value.__class__.__name__)
+                    for key, value in p_value.__dict__.items():
+                        t_return[key] = self.serialize(value)
+                
+                elif ManyToManyField in inspect.getmro(p_value.__class__):
+                    breakpoint()
+                    if p_value._is_backref:
+                        if hasattr(p_value.model, 'br_'+p_value.name):
+                            p_value.__dict__.update(getattr(p_value.model, 'br_'+p_value.name).__dict__) 
+                    setattr(p_value,'class', p_value.__class__.__name__)
+                    for key, value in p_value.__dict__.items():
+                        t_return[key] = self.serialize(value)
+
+            else:
+                breakpoint()
+                setattr(p_value,'class', p_value.__class__.__name__)
+                for key, value in p_value.__dict__.items():
+                    t_return[key] = self.serialize(value)
+        
         elif BackrefAccessor in inspect.getmro(p_value.__class__):
-            breakpoint()
             if hasattr(p_value.model, 'br_'+p_value.field.backref):
                 p_value.__dict__.update(getattr(p_value.model, 'br_'+p_value.field.backref).__dict__) 
             setattr(p_value,'class', p_value.__class__.__name__)
             for key, value in p_value.__dict__.items():
                 t_return[key] = self.serialize(value)
+        
         elif ManyToManyField in inspect.getmro(p_value.__class__):
             breakpoint()
             if p_value._is_backref:
@@ -89,25 +118,31 @@ class Decore_pool(object):
             setattr(p_value,'class', p_value.__class__.__name__)
             for key, value in p_value.__dict__.items():
                 t_return[key] = self.serialize(value)
+        
         elif Field in inspect.getmro(p_value.__class__):
             setattr(p_value,'class', p_value.__class__.__name__)
             for key, value in p_value.__dict__.items():
                 t_return[key] = self.serialize(value)
         # TODO - depricated - Decore_list wird nicht mehr benötigt - entferne aus dem gesamten Framework
+        
         elif Decore_list in inspect.getmro(p_value.__class__):
             t_list = []
             for value in p_value:
                 t_list.append(self.serialize(value))
             return t_list
+        
         elif type(p_value) is list:
             t_list = []
             for value in p_value:
                 t_list.append(self.serialize(value))
             return t_list
+        
         elif type(p_value) is str or type(p_value) is bool or type(p_value) is int:
             return p_value
+        
         elif not p_value:
             return None
+        
         else:
             return str(p_value)
         
