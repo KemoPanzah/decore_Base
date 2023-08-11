@@ -201,13 +201,17 @@ class Decore_model(Model):
             t_item_s = cls.query(p_query)
 
         #MEMO - Items mit relationalen Daten erweitern
-        for i_item in t_item_s.dicts():
+        for i_item in t_item_s:
+            t_item = i_item.__data__
             for i_field in cls.field_s:
                 if type(i_field) == ForeignKeyField:
-                    i_item[i_field.name]=t_rel[i_field.name][i_item[i_field.name]]
+                    t_item[i_field.name]=t_rel[i_field.name][t_item[i_field.name]]
+
+            for i_rel_field in cls.rel_field_s:
+                t_item[i_rel_field.backref] = getattr(i_item, i_rel_field.backref).count()
             
-            if not i_item in t_dict_s:
-                t_dict_s.append(i_item)
+            if not t_item in t_dict_s:
+                t_dict_s.append(t_item)
         
         return {'item_s': t_dict_s, 'count': t_item_s.count()}
 
