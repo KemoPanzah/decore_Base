@@ -5,6 +5,7 @@ from functools import reduce
 from uuid import uuid1
 
 from cerberus import Validator
+from peewee import CharField as _CharField
 from peewee import DQ, FieldAccessor, Model, SqliteDatabase
 from playhouse.migrate import SqliteMigrator, migrate
 from playhouse.reflection import Introspector
@@ -16,13 +17,15 @@ from .decore_fields import *
 
 from .decore_translate import Decore_translate as t
 
+class IDField(_CharField):
+    pass
 
 class Decore_model(Model):
-    id = CharField(primary_key=True, unique=True, verbose_name="ID")
+    id = IDField(primary_key=True, unique=True, verbose_name="ID")
     title = CharField(verbose_name=t('Title'))
     desc = CharField(verbose_name=t('Description'), null=True)
-    item_type = CharField(verbose_name=t('Item type'), default='object')
-    parent_path = CharField(verbose_name=t('Parent path'), null=True)
+    # item_type = CharField(verbose_name=t('Item type'), default='object')
+    # parent_path = CharField(verbose_name=t('Parent path'), null=True)
     
     class Meta:
         # tbase = SqliteDatabase('state/database.db', pragmas=(('cache_size', -1024 * 64),('journal_mode', 'wal')))

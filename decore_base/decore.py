@@ -305,18 +305,21 @@ class Decore(object):
         return render_template('index.html', port=globals.config.app_port)
     
     def get_meta(self):
-        return jsonify(self.pool.export())
+        t_return = json.dumps(self.pool.export(), default=str)
+        return t_return, 200
     
     def get_default(self, p_source_id):
         t_source = self.pool.__data__[p_source_id]
         t_item = t_source.model().__data__
-        return jsonify(t_item), 200
+        t_return = json.dumps(t_item, default=str)
+        return t_return, 200
     
     def get_last(self, p_source_id):
         t_source = self.pool.__data__[p_source_id]
         if not len(t_source.model.select()) == 0:
             t_item = t_source.model.select()[-1].__data__
-            return jsonify(t_item), 200
+            t_return = json.dumps(t_item, default=str)
+            return t_return, 200
         else:
             return self.get_default(p_source_id)
 
@@ -327,7 +330,8 @@ class Decore(object):
         t_item_s = t_source.model.get_dict_s(t_query)
         t_end = perf_counter()
         logging.info('%s > %s %s' % ('dict_s created in', t_end - t_start, 'seconds'))
-        return jsonify(t_item_s), 200
+        t_return = json.dumps(t_item_s, default=str)
+        return t_return, 200
     
     def post_option_s(self, p_source_id):
         t_start = perf_counter()
@@ -339,7 +343,8 @@ class Decore(object):
         t_option_s = t_source.model.get_option_s(t_query, t_attr, t_rel_attr)
         t_end = perf_counter()
         logging.info('%s > %s %s' % ('option_s created in', t_end - t_start, 'seconds'))
-        return jsonify(t_option_s), 200
+        t_return = json.dumps(t_option_s, default=str)
+        return t_return, 200
     
     def post_action(self, p_action_id):
         t_action = self.pool.__data__[p_action_id]
@@ -386,7 +391,8 @@ class Decore(object):
 
         expand()
 
-        return jsonify(t_query_s)
+        t_return = json.dumps(t_query_s, default=str)
+        return t_return
     
     def post_save_query(self, p_base_id, p_view_id):
 

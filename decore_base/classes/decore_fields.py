@@ -4,9 +4,22 @@ from pathlib import Path, PosixPath, WindowsPath
 from shutil import move
 from uuid import UUID
 
-from peewee import (BooleanField, CharField, DateTimeField, Field, ForeignKeyField,
-                    IntegerField, ManyToManyField, MetaField, TextField,
-                    UUIDField)
+from peewee import (
+    BooleanField, 
+    CharField, 
+    DateField, 
+    DateTimeField, 
+    Field, 
+    FloatField, 
+    ForeignKeyField, 
+    IntegerField, 
+    ManyToManyField, 
+    MetaField, 
+    TextField, 
+    TimeField, 
+    UUIDField,
+    )
+
 from pykeepass.entry import Entry
 
 from ..globals import globals
@@ -15,61 +28,63 @@ __all__ = [
     'BackrefMetaField', 
     'BooleanField', 
     'CharField',
+    'DateField',
     'DateTimeField',
+    'FloatField',
     'ForeignKeyField', 
     'IntegerField', 
     'ManyToManyField', 
     'PasswordField', 
-    'TextField', 
+    'TextField',
     ]
 
-class FileFieldAccessor(object):
-    def __init__(self, model, field, name):
-        self.model = model
-        self.field = field
-        self.name = name
+# class FileFieldAccessor(object):
+#     def __init__(self, model, field, name):
+#         self.model = model
+#         self.field = field
+#         self.name = name
 
-    def __get__(self, instance, instance_type=None):
-        if instance is not None:
-            t_path = Path(globals.config['default']['state_path']).joinpath('filebase').joinpath(self.model.__name__).joinpath(instance.id).joinpath(self.name).joinpath(instance.__data__.get(self.name))
-            if t_path.exists():
-                return t_path.absolute()
-            else:
-                return None
-        return self.field
+#     def __get__(self, instance, instance_type=None):
+#         if instance is not None:
+#             t_path = Path(globals.config['default']['state_path']).joinpath('filebase').joinpath(self.model.__name__).joinpath(instance.id).joinpath(self.name).joinpath(instance.__data__.get(self.name))
+#             if t_path.exists():
+#                 return t_path.absolute()
+#             else:
+#                 return None
+#         return self.field
 
-    def __set__(self, instance, value):
-        if instance.id:
-            if type(value) == WindowsPath or type(value) == PosixPath:
-                t_path = Path(globals.config['default']['state_path']).joinpath('filebase').joinpath(self.model.__name__).joinpath(instance.id).joinpath(self.name).joinpath(value.name)
-                t_path.parent.mkdir(parents=True, exist_ok=True)
-                move(value, t_path)
-                instance.__data__[self.name] = value.name
-            else:
-                instance.__data__[self.name] = value
-        else:
-            logging.error('%s > %s' % (self.name, 'u can not store files while ur item id was not setted'))
-            instance.__data__[self.name] = None
-        instance._dirty.add(self.name)
+#     def __set__(self, instance, value):
+#         if instance.id:
+#             if type(value) == WindowsPath or type(value) == PosixPath:
+#                 t_path = Path(globals.config['default']['state_path']).joinpath('filebase').joinpath(self.model.__name__).joinpath(instance.id).joinpath(self.name).joinpath(value.name)
+#                 t_path.parent.mkdir(parents=True, exist_ok=True)
+#                 move(value, t_path)
+#                 instance.__data__[self.name] = value.name
+#             else:
+#                 instance.__data__[self.name] = value
+#         else:
+#             logging.error('%s > %s' % (self.name, 'u can not store files while ur item id was not setted'))
+#             instance.__data__[self.name] = None
+#         instance._dirty.add(self.name)
 
-class UUIDFieldAccessor(object):
-    def __init__(self, model, field, name):
-        self.model = model
-        self.field = field
-        self.name = name
+# class UUIDFieldAccessor(object):
+#     def __init__(self, model, field, name):
+#         self.model = model
+#         self.field = field
+#         self.name = name
 
-    def __get__(self, instance, instance_type=None):
-        if instance is not None:
-            return instance.__data__.get(self.name)
-        return self.field
+#     def __get__(self, instance, instance_type=None):
+#         if instance is not None:
+#             return instance.__data__.get(self.name)
+#         return self.field
 
-    def __set__(self, instance, value):
-        if isinstance(value, UUID):
-            instance.__data__[self.name] = value
-            instance._dirty.add(self.name)
-        else:
-            instance.__data__[self.name] = UUID(value) if value is not None else None
-            instance._dirty.add(self.name)
+#     def __set__(self, instance, value):
+#         if isinstance(value, UUID):
+#             instance.__data__[self.name] = value
+#             instance._dirty.add(self.name)
+#         else:
+#             instance.__data__[self.name] = UUID(value) if value is not None else None
+#             instance._dirty.add(self.name)
 
 class PasswordFieldAccessor(object):
     def __init__(self, model, field, name):
@@ -129,13 +144,36 @@ class BackrefMetaField(MetaField):
         setattr(model,'br_'+name, getattr(model, name))
 
 class BooleanField(BooleanField):
-    pass
+    '''
+    A field to store boolean values.
+
+    :param bool null: If True, the field is allowed to be null. Defaults to False.
+    :param bool default: The default value for the field. Defaults to None.
+    :param str help_text: Additional text to be displayed in **decore Front**.
+    :param str verbose_name: A human-readable name for the field.
+    '''
+    def __init__(self, null=False, default=None, help_text=None, verbose_name=None):
+        super().__init__(null=null, default=default, help_text=help_text, verbose_name=verbose_name)
 
 class CharField(CharField):
-    pass
+    '''
+    A field to store char values.
+
+    :param bool null: If True, the field is allowed to be null. Defaults to False.
+    :param bool default: The default value for the field. Defaults to None.
+    :param str help_text: Additional text to be displayed in **decore Front**.
+    :param str verbose_name: A human-readable name for the field.
+    '''
+    def __init__(self, null=False, default=None, choices=None, help_text=None, verbose_name=None):
+        super().__init__(null=null, default=default, choices=choices, help_text=help_text, verbose_name=verbose_name)
+
+class DateField(DateField):
+    def __init__(self, null=False, default=None, help_text=None, verbose_name=None):
+        super().__init__(null=null, default=default, help_text=help_text, verbose_name=verbose_name)
 
 class DateTimeField(DateTimeField):
-    pass
+    def __init__(self, null=False, default=None, help_text=None, verbose_name=None):
+        super().__init__(null=null, default=default, help_text=help_text, verbose_name=verbose_name)
 
 class PasswordField(Field):
     '''
@@ -205,9 +243,9 @@ class ManyToManyField(ManyToManyField):
 class TextField(TextField):
     pass
 
-class FileField(Field):
-    accessor_class = FileFieldAccessor
-    field_type = 'VARCHAR'
+# class FileField(Field):
+#     accessor_class = FileFieldAccessor
+#     field_type = 'VARCHAR'
 
-class UUIDField(UUIDField):
-    accessor_class = UUIDFieldAccessor
+# class UUIDField(UUIDField):
+#     accessor_class = UUIDFieldAccessor
