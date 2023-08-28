@@ -175,6 +175,10 @@ class DateTimeField(DateTimeField):
     def __init__(self, null=False, default=None, help_text=None, verbose_name=None):
         super().__init__(null=null, default=default, help_text=help_text, verbose_name=verbose_name)
 
+class FloatField(FloatField):
+    def __init__(self, null=False, default=None, help_text=None, verbose_name=None):
+        super().__init__(null=null, default=default, help_text=help_text, verbose_name=verbose_name)
+
 class PasswordField(Field):
     '''
     .. warning:: 
