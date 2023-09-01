@@ -134,8 +134,8 @@ class BackrefMetaField(MetaField):
             domain = CharField(verbose_name='Mail domain', default='example.com')
 
     '''
-    def __init__(self, verbose_name=None, help_text=None, filter_fields=[], options_query={}):
-        MetaField.__init__(self, verbose_name=verbose_name, help_text=help_text)
+    def __init__(self, help_text=None, verbose_name=None, filter_fields=[], options_query={}):
+        MetaField.__init__(self, help_text=help_text, verbose_name=verbose_name)
         self.filter_fields = filter_fields
         self.options_query = options_query
         
@@ -199,17 +199,18 @@ class PasswordField(Field):
     accessor_class = PasswordFieldAccessor
     field_type = 'VARCHAR'
 
-    def __init__(self, null=False, verbose_name=None, help_text=None):
+    def __init__(self, null=False, help_text=None, verbose_name=None):
         Field.__init__(self, null=null, verbose_name=verbose_name, help_text=help_text)
 
 class ForeignKeyField(ForeignKeyField):
-    def __init__(self, model, backref=None, null=False, verbose_name=None, help_text=None, filter_fields=[], options_query={}):
-        super().__init__(model, backref=backref, null=null, verbose_name=verbose_name, help_text=help_text)
+    def __init__(self, model, backref=None, null=False, default=None, help_text=None, verbose_name=None, filter_fields=[], options_query={}):
+        super().__init__(model, backref=backref, null=null, default=default, help_text=help_text, verbose_name=verbose_name)
         self.filter_fields = filter_fields
         self.options_query = options_query
 
 class IntegerField(IntegerField):
-    pass
+    def __init__(self, null=False, default=None, choices=None, help_text=None, verbose_name=None):
+        super().__init__(null=null, default=default, help_text=help_text, verbose_name=verbose_name)
 
 class ManyToManyField(ManyToManyField):
     '''
@@ -237,10 +238,10 @@ class ManyToManyField(ManyToManyField):
             accounts = BackRefMetaField(null=True, verbose_name='Accounts', options_query={'domain__eq': 'example.com'}
 
     '''
-    def __init__(self, model, backref=None, verbose_name=None, help_text=None, filter_fields=[], options_query={}):
+    def __init__(self, model, backref=None, help_text=None, verbose_name=None, filter_fields=[], options_query={}):
         super().__init__(model, backref=backref)
-        self.verbose_name = verbose_name
         self.help_text = help_text
+        self.verbose_name = verbose_name
         self.filter_fields = filter_fields
         self.options_query = options_query
     

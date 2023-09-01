@@ -112,26 +112,27 @@ class Decore_model(Model):
     def build_schema(cls):
         t_schema = {}
         for i_field in cls.field_s:
-            if i_field.field_type == 'UUID' and i_field.null == False:
-                t_schema[i_field.name] = {'empty': False}
-
-            if i_field.field_type == 'VARCHAR' and i_field.null == False:
-                t_schema[i_field.name] = {'type': 'string'}
-
-            if i_field.field_type == 'TEXT'and i_field.null == False:
-                t_schema[i_field.name] = {'type': 'string'}
 
             if i_field.field_type == 'BOOL'and i_field.null == False:
                 t_schema[i_field.name] = {'type': 'boolean'}
 
-            if i_field.field_type == 'INT'and i_field.null == False:
-                t_schema[i_field.name] = {'type': 'integer'}
+            if i_field.field_type == 'VARCHAR' and i_field.null == False:
+                t_schema[i_field.name] = {'type': 'string'}
+
+            if i_field.field_type == 'DATE'and i_field.null == False:
+                t_schema[i_field.name] = {'type': 'date'}
 
             if i_field.field_type == 'DATETIME'and i_field.null == False:
                 t_schema[i_field.name] = {'type': 'datetime'}
 
             if i_field.field_type == 'FLOAT'and i_field.null == False:
                 t_schema[i_field.name] = {'type': 'float'}
+
+            if i_field.field_type == 'INT'and i_field.null == False:
+                t_schema[i_field.name] = {'type': 'integer'}
+
+            if i_field.field_type == 'TEXT'and i_field.null == False:
+                t_schema[i_field.name] = {'type': 'string'}
 
         return t_schema
 
