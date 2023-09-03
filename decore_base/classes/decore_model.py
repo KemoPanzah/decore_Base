@@ -88,25 +88,25 @@ class Decore_model(Model):
             r_value.append(field)
         return r_value
     
-    @classmethod
-    @property
-    def full_field_s(cls):
-        r_value = []
-        for value in cls.__dict__.values():
-            if FieldAccessor in inspect.getmro(value.__class__):
-                r_value.append(value.field)
-        return r_value
+    # @classmethod
+    # @property
+    # def full_field_s(cls):
+    #     r_value = []
+    #     for value in cls.__dict__.values():
+    #         if FieldAccessor in inspect.getmro(value.__class__):
+    #             r_value.append(value.field)
+    #     return r_value
     
-    @classmethod
-    @property
-    def verbose_names(cls):
-        r_value = {}
-        for field in cls.full_field_s:
-            if not hasattr(field, 'ref_name') and hasattr(field, 'verbose_name'):
-                r_value[field.name] = str(field.verbose_name)
-            elif hasattr(field, 'ref_name'):
-                r_value[field.ref_name] = str(field.verbose_name)
-        return r_value
+    # @classmethod
+    # @property
+    # def verbose_names(cls):
+    #     r_value = {}
+    #     for field in cls.full_field_s:
+    #         if not hasattr(field, 'ref_name') and hasattr(field, 'verbose_name'):
+    #             r_value[field.name] = str(field.verbose_name)
+    #         elif hasattr(field, 'ref_name'):
+    #             r_value[field.ref_name] = str(field.verbose_name)
+    #     return r_value
 
     @classmethod
     def build_schema(cls):
