@@ -35,7 +35,7 @@ class Decore_model(Model):
         user_query = {}
 
     def __init__(self, *args, **kwargs):
-        Model.__init__(self, *args, **kwargs)
+        Model.__init__(self, *args, **kwargs)        
         if not self.id:
             self.id = str(uuid1())
 
@@ -259,7 +259,7 @@ class Decore_model(Model):
         t_schema = self.build_schema()
         #TODO - Schema as property and Validator as attribute in model
         t_val = Validator(t_schema, require_all=True, allow_unknown = True)
-        r_value =  t_val.validate(self.__data__)
+        r_value =  t_val.validate(self.export())
         if r_value == False:
             logging.error('%s > %s' % ('validate_model', str(t_val.errors)))
         return r_value
@@ -267,6 +267,18 @@ class Decore_model(Model):
     # TODO - Wer ruft das auf? was ist damit?
     # def to_dict(self):
     #     return model_to_dict(self, recurse=True, max_depth=1)
+
+    def update(self, p_data):
+        for field in self.field_s:
+            if field.name in p_data.keys():
+                if getattr(self, field.name) != p_data[field.name]:
+                    setattr(self, field.name, p_data[field.name])
+
+    def export(self):
+        r_value = {}
+        for field in self.field_s:
+            r_value[field.name] = getattr(self, field.name)
+        return r_value
 
     def save(self):
         #TODO - auf try except umstellen und raisen in validate.

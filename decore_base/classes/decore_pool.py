@@ -17,6 +17,7 @@ from peewee import Field, BackrefAccessor, ManyToManyField
 class Decore_pool(object):
     def __init__(self):
         self.__data__ = dict()
+        # TODO - was ist damit wird das noch benötigt - remove?
         self.base_s = []
         self.view_s = []
         self.dialog_s = []

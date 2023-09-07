@@ -10,6 +10,7 @@ from .classes.decore_query import Decore_query
 from .classes.decore_view import Decore_view
 from .classes.decore_widget import Decore_widget
 from .classes.decore_prompt import Decore_prompt
+from .classes.decore_actor import Pool_actor
 
 from . import globals
 
@@ -36,6 +37,7 @@ class Decore(object):
         if not globals.flags.production_mode:
             self.prompt = Decore_prompt()
         self.pool = Decore_pool()
+        self.actor = Pool_actor.register() 
         self.api = self.get_api()
         Decore_query.create_table(safe=True)
         
@@ -348,34 +350,36 @@ class Decore(object):
     
     def post_action(self, p_action_id):
         t_action = self.pool.__data__[p_action_id]
-        t_data = dict()
-        if request.data:
-            t_data.update(json.loads(request.data))
-        #OUT request.form wird nicht benötigt
-        if request.form:
-            t_data.update(json.loads(request.form['value']))
-        if request.files:
-            for key, value in request.files.items():
-                # TODO - temporyry aus config.json verwenden
-                t_path = Path('temporary').joinpath(value.filename)
-                t_path.parent.mkdir(parents=True, exist_ok=True)
-                value.save(t_path)
-                t_data['item'][key] = t_path
+        return self.actor.fire(self.pool.__data__[t_action.source_id], t_action, request)
 
-        t_return = t_action.func(self.pool.__data__[t_action.source_id], t_data)
+        # t_data = dict()
+        # if request.data:
+        #     t_data.update(json.loads(request.data))
+        # #OUT request.form wird nicht benötigt
+        # if request.form:
+        #     t_data.update(json.loads(request.form['value']))
+        # if request.files:
+        #     for key, value in request.files.items():
+        #         # TODO - temporyry aus config.json verwenden
+        #         t_path = Path('temporary').joinpath(value.filename)
+        #         t_path.parent.mkdir(parents=True, exist_ok=True)
+        #         value.save(t_path)
+        #         t_data['item'][key] = t_path
 
-        if t_action.type == 'standard':
-            return {'success': t_return[0], 'result': str(t_return[1])}, 200
+        # t_return = t_action.func(self.pool.__data__[t_action.source_id], t_data)
+
+        # if t_action.type == 'standard':
+        #     return {'success': t_return[0], 'result': str(t_return[1])}, 200
         
-        if t_action.type == 'submit':
-            return {'success': t_return[0], 'result': str(t_return[1])}, 200
+        # if t_action.type == 'submit':
+        #     return {'success': t_return[0], 'result': str(t_return[1])}, 200
 
-        elif t_action.type == 'check':
-            return {'success': t_return}, 200
+        # elif t_action.type == 'check':
+        #     return {'success': t_return}, 200
 
-        elif t_action.type == 'file':
-            t_path = Path(t_return)
-            return send_file(t_path, download_name=t_path.name)
+        # elif t_action.type == 'file':
+        #     t_path = Path(t_return)
+        #     return send_file(t_path, download_name=t_path.name)
         
     def get_query_s(self):
         def expand():
