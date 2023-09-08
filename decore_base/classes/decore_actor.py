@@ -30,10 +30,17 @@ class Pool_actor(Model):
     def register(cls):
         cls.create_table(safe=True)
         return cls
+    
+    @classmethod
+    def export_active_s(cls):
+        r_value = []
+        for i_active in cls.active_s:
+            r_value.append(i_active.__data__)
+        return r_value
 
     # Funktion um einen Actor-Entry zu erstellen und in die aktive Liste zu schreiben
     @classmethod
-    def create(cls, p_title, p_desc):
+    def create_entry(cls, p_title, p_desc):
         t_entry = cls()
         t_entry.title = p_title
         t_entry.desc = p_desc
@@ -55,7 +62,7 @@ class Pool_actor(Model):
    
     @classmethod
     def fire(cls, p_base:Decore_base, p_action:Decore_action, p_request):
-        t_entry = cls.create(p_action.title, p_action.desc)
+        t_entry = cls.create_entry(p_action.title, p_action.desc)
 
         t_data = dict()
         t_item = None
