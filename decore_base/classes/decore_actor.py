@@ -35,17 +35,25 @@ class Pool_actor(Model):
     def export_active_s(cls):
         r_value = []
         for i_active in cls.active_s:
-            r_value.append(i_active.__data__)
+            if not i_active.finished:
+                r_value.append(i_active.__data__)
         return r_value
+    
+    @classmethod
+    def export_item_s(cls):
+        r_value = []
+        for i_item in cls.select():
+            r_value.append(i_item.__data__)
+        return r_value        
 
     # Funktion um einen Actor-Entry zu erstellen und in die aktive Liste zu schreiben
     @classmethod
-    def create_entry(cls, p_title, p_desc):
-        t_entry = cls()
-        t_entry.title = p_title
-        t_entry.desc = p_desc
-        cls.active_s.append(t_entry)
-        return t_entry
+    def create_active(cls, p_title, p_desc):
+        t_active = cls()
+        t_active.title = p_title
+        t_active.desc = p_desc
+        cls.active_s.append(t_active)
+        return t_active
 
     # Funktion um ein Item aus den Request-Daten zu erhalten, wenn kein Item im Request ist wird None zurückgegeben
     @classmethod
@@ -62,12 +70,11 @@ class Pool_actor(Model):
    
     @classmethod
     def fire(cls, p_base:Decore_base, p_action:Decore_action, p_request):
-        t_entry = cls.create_entry(p_action.title, p_action.desc)
+        t_active = cls.create_active(p_action.title, p_action.desc)
 
         t_data = dict()
         t_item = None
         t_select_s = []
-        t_progress = t_entry.progress
         
         if p_action.type == 'standard':
             t_data.update(json.loads(p_request.data))
@@ -82,8 +89,8 @@ class Pool_actor(Model):
         else:
             return {'success': False, 'result': 'Action type ('+ p_action.type +') not supported', 'errors':{}}, 200
 
-        t_return = p_action.func(p_base, data=t_data, item=t_item, select_s=t_select_s, progress=t_progress)
-        t_entry.finish(t_return[0], t_return[1])
+        t_return = p_action.func(p_base, data=t_data, item=t_item, select_s=t_select_s, active=t_active)
+        t_active.finish(t_return[0], t_return[1])
         return {'success': t_return[0], 'result': str(t_return[1]), 'errors':{}}, 200
 
 

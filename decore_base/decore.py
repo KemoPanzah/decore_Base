@@ -68,6 +68,7 @@ class Decore(object):
         api.add_url_rule('/post_save_query/<p_base_id>/<p_view_id>', 'post_save_query', self.post_save_query, methods=['POST'])
         api.add_url_rule('/get_remove_query/<p_id>', 'get_remove_query', self.get_remove_query)
         api.add_url_rule('/get_actor_active_s', 'get_actor_active_s', self.get_actor_active_s)
+        api.add_url_rule('/get_actor_item_s', 'get_actor_item_s', self.get_actor_item_s)
         return api
 
     def start_api(self):
@@ -474,6 +475,10 @@ class Decore(object):
         
     def get_actor_active_s(self):
         t_return = json.dumps(self.actor.export_active_s(), default=str)
+        return t_return, 200
+    
+    def get_actor_item_s(self):
+        t_return = json.dumps(self.actor.export_item_s(), default=str)
         return t_return, 200
         
 decore = Decore()
