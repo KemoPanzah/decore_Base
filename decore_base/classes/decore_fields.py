@@ -203,8 +203,8 @@ class PasswordField(Field):
         Field.__init__(self, null=null, verbose_name=verbose_name, help_text=help_text)
 
 class ForeignKeyField(ForeignKeyField):
-    def __init__(self, model, backref=None, null=False, default=None, help_text=None, verbose_name=None, filter_fields=[], options_query={}):
-        super().__init__(model, backref=backref, null=null, default=default, help_text=help_text, verbose_name=verbose_name)
+    def __init__(self, model, backref=None, default=None, help_text=None, verbose_name=None, filter_fields=[], options_query={}):
+        super().__init__(model, backref=backref, null=True, default=default, help_text=help_text, verbose_name=verbose_name)
         self.filter_fields = filter_fields
         self.options_query = options_query
 

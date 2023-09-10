@@ -255,6 +255,13 @@ class Decore_model(Model):
         else:
             return r_value.__item_s__
 
+    @property
+    def errors(self):
+        t_schema = self.build_schema()
+        t_val = Validator(t_schema, require_all=True, allow_unknown = True)
+        t_val.validate(self.export())
+        return t_val.errors
+
     def validate(self):
         t_schema = self.build_schema()
         #TODO - Schema as property and Validator as attribute in model

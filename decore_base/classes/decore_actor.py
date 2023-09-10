@@ -85,12 +85,22 @@ class Pool_actor(Model):
             t_data.update(json.loads(p_request.data))
             t_item = cls.get_item(p_base.model, t_data[p_action.parent_id]['item'])
             t_select_s = t_data[p_action.parent_id]['select_s']
+            t_field_s = t_data[p_action.parent_id]['field_s']
+            if t_item.errors:
+                t_active_errors = {}
+                for i_field in t_field_s:
+                    if i_field['name'] in t_item.errors:
+                        t_active_errors[i_field['name']] = t_item.errors[i_field['name']]
+            if t_active_errors:
+                t_active.finish(False, 'Validation error!')
+                return {'success': False, 'result': 'validation', 'errors':t_active_errors}, 200
 
         else:
+            t_active.finish(False, 'Action type ('+ p_action.type +') not supported')
             return {'success': False, 'result': 'Action type ('+ p_action.type +') not supported', 'errors':{}}, 200
 
         t_return = p_action.func(p_base, data=t_data, item=t_item, select_s=t_select_s, active=t_active)
-        t_active.finish(t_return[0], t_return[1])
+        t_active.finish(t_return[0], str(t_return[1]))
         return {'success': t_return[0], 'result': str(t_return[1]), 'errors':{}}, 200
 
 
