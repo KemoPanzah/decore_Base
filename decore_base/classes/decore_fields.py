@@ -3,6 +3,7 @@ import logging
 from pathlib import Path, PosixPath, WindowsPath
 from shutil import move
 from uuid import UUID
+from datetime import datetime
 
 from peewee import (
     BooleanField, 
@@ -86,6 +87,87 @@ __all__ = [
 #             instance.__data__[self.name] = UUID(value) if value is not None else None
 #             instance._dirty.add(self.name)
 
+# class FieldAccessorTemplate(object):
+#     def __init__(self, model, field, name):
+#         self.model = model
+#         self.field = field
+#         self.name = name
+
+#     def __get__(self, instance, instance_type=None):
+#         if instance is not None:
+#             return instance.__data__.get(self.name)
+#         return self.field
+
+#     def __set__(self, instance, value):
+#         instance.__data__[self.name] = value
+#         instance._dirty.add(self.name)
+
+def to_datetime(p_value, p_mode):
+    r_value = None
+    
+    t_formats = [
+        '%Y-%m-%d %H:%M:%S.%f',
+        '%Y-%m-%d %H:%M:%S',
+        '%Y-%m-%d %H:%M', 
+        '%Y-%m-%d %H', 
+        '%Y-%m-%d'
+        ]
+    
+    for i_format in t_formats:
+        try:
+            r_value = datetime.strptime(str(p_value), i_format)
+        except Exception as error:
+            continue
+    
+    if r_value:
+        if p_mode == 'date':
+            r_value = r_value.date()
+
+        elif p_mode == 'time':
+            r_value = r_value.time()
+
+        elif p_mode == 'datetime':
+            r_value = r_value
+
+    return r_value
+
+
+class DateFieldAccessor(object):
+    def __init__(self, model, field, name):
+        self.model = model
+        self.field = field
+        self.name = name
+
+    def __get__(self, instance, instance_type=None):
+        if instance is not None:
+            if instance.__data__.get(self.name) is not None:
+                return to_datetime(instance.__data__.get(self.name), 'date')
+            else:
+                return None
+        return self.field
+
+    def __set__(self, instance, value):
+        instance.__data__[self.name] = value
+        instance._dirty.add(self.name)
+
+class DateTimeFieldAccessor(object):
+    def __init__(self, model, field, name):
+        self.model = model
+        self.field = field
+        self.name = name
+
+    def __get__(self, instance, instance_type=None):
+        if instance is not None:
+            if instance.__data__.get(self.name) is not None:
+                return to_datetime(instance.__data__.get(self.name), 'datetime')
+            else:
+                return None
+        return self.field
+
+    def __set__(self, instance, value):
+        instance.__data__[self.name] = value
+        instance._dirty.add(self.name)
+
 class PasswordFieldAccessor(object):
     def __init__(self, model, field, name):
         self.model = model
@@ -168,10 +250,16 @@ class CharField(CharField):
         super().__init__(null=null, default=default, choices=choices, help_text=help_text, verbose_name=verbose_name)
 
 class DateField(DateField):
+    accessor_class = DateFieldAccessor
+    field_type = 'DATE'
+
     def __init__(self, null=False, default=None, help_text=None, verbose_name=None):
         super().__init__(null=null, default=default, help_text=help_text, verbose_name=verbose_name)
 
 class DateTimeField(DateTimeField):
+    accessor_class = DateTimeFieldAccessor
+    field_type = 'DATETIME'
+
     def __init__(self, null=False, default=None, help_text=None, verbose_name=None):
         super().__init__(null=null, default=default, help_text=help_text, verbose_name=verbose_name)
 
@@ -203,8 +291,8 @@ class PasswordField(Field):
         Field.__init__(self, null=null, verbose_name=verbose_name, help_text=help_text)
 
 class ForeignKeyField(ForeignKeyField):
-    def __init__(self, model, backref=None, default=None, help_text=None, verbose_name=None, filter_fields=[], options_query={}):
-        super().__init__(model, backref=backref, null=True, default=default, help_text=help_text, verbose_name=verbose_name)
+    def __init__(self, model, backref=None, null=False, default=None, help_text=None, verbose_name=None, filter_fields=[], options_query={}):
+        super().__init__(model, backref=backref, null=null, default=default, help_text=help_text, verbose_name=verbose_name)
         self.filter_fields = filter_fields
         self.options_query = options_query
 

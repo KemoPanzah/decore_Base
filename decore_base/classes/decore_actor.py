@@ -64,7 +64,7 @@ class Pool_actor(Model):
             if not r_item:
                 r_item = p_model()
             
-            r_item.update(p_dict)
+            r_item.from_dict(p_dict)
         
         return r_item
    
@@ -86,8 +86,8 @@ class Pool_actor(Model):
             t_item = cls.get_item(p_base.model, t_data[p_action.parent_id]['item'])
             t_select_s = t_data[p_action.parent_id]['select_s']
             t_field_s = t_data[p_action.parent_id]['field_s']
+            t_active_errors = {}
             if t_item.errors:
-                t_active_errors = {}
                 for i_field in t_field_s:
                     if i_field['name'] in t_item.errors:
                         t_active_errors[i_field['name']] = t_item.errors[i_field['name']]

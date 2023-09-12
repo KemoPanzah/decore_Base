@@ -112,29 +112,58 @@ class Decore_model(Model):
     def build_schema(cls):
         t_schema = {}
         for i_field in cls.field_s:
+            t_schema[i_field.name] = {'nullable': i_field.null}
 
-            if i_field.field_type == 'BOOL'and i_field.null == False:
-                t_schema[i_field.name] = {'type': 'boolean'}
+            if isinstance(i_field, BooleanField):
+                t_schema[i_field.name]['type'] = 'boolean'
 
-            if i_field.field_type == 'VARCHAR' and i_field.null == False:
-                t_schema[i_field.name] = {'type': 'string'}
+            if isinstance(i_field, CharField):
+                t_schema[i_field.name]['type'] = 'string'
+                t_schema[i_field.name]['maxlength'] = i_field.max_length
 
-            if i_field.field_type == 'DATE'and i_field.null == False:
-                t_schema[i_field.name] = {'type': 'date'}
+            if isinstance(i_field, DateField):
+                t_schema[i_field.name]['type'] = 'date'
 
-            if i_field.field_type == 'DATETIME'and i_field.null == False:
-                t_schema[i_field.name] = {'type': 'datetime'}
+            if isinstance(i_field, DateTimeField):
+                t_schema[i_field.name]['type'] = 'datetime'
 
-            if i_field.field_type == 'FLOAT'and i_field.null == False:
-                t_schema[i_field.name] = {'type': 'float'}
+            if isinstance(i_field, FloatField):
+                t_schema[i_field.name]['type'] = 'float'
 
-            if i_field.field_type == 'INT'and i_field.null == False:
-                t_schema[i_field.name] = {'type': 'integer'}
+            if isinstance(i_field, ForeignKeyField):
+                t_schema[i_field.name]['type'] = 'dict'
 
-            if i_field.field_type == 'TEXT'and i_field.null == False:
-                t_schema[i_field.name] = {'type': 'string'}
+            if isinstance(i_field, IntegerField):
+                t_schema[i_field.name]['type'] = 'integer'
+
+            if isinstance(i_field, PasswordField):
+                t_schema[i_field.name]['type'] = 'string'
+
+            if isinstance(i_field, TextField):
+                t_schema[i_field.name]['type'] = 'string'
 
         return t_schema
+    
+            # if i_field.field_type == 'BOOL'and i_field.null == False:
+            #     t_schema[i_field.name] = {'type': 'boolean'}
+
+            # if i_field.field_type == 'VARCHAR' and i_field.null == False:
+            #     t_schema[i_field.name] = {'type': 'string'}
+
+            # if i_field.field_type == 'DATE'and i_field.null == False:
+            #     t_schema[i_field.name] = {'type': 'date'}
+
+            # if i_field.field_type == 'DATETIME'and i_field.null == False:
+            #     t_schema[i_field.name] = {'type': 'datetime'}
+
+            # if i_field.field_type == 'FLOAT'and i_field.null == False:
+            #     t_schema[i_field.name] = {'type': 'float'}
+
+            # if i_field.field_type == 'INT'and i_field.null == False:
+            #     t_schema[i_field.name] = {'type': 'integer'}
+
+            # if i_field.field_type == 'TEXT'and i_field.null == False:
+            #     t_schema[i_field.name] = {'type': 'string'}
 
     @classmethod
     def query(cls, p_query={}):
@@ -212,7 +241,10 @@ class Decore_model(Model):
                     t_item[i_field.name]=t_rel[i_field.name][t_item[i_field.name]]
 
             for i_rel_field in cls.rel_field_s:
-                t_item[i_rel_field.backref] = getattr(i_item, i_rel_field.backref).count()
+                if isinstance(i_rel_field, ForeignKeyField):
+                    t_item[i_rel_field.backref] = getattr(i_item, i_rel_field.backref).count()
+                elif isinstance(i_rel_field, ManyToManyField):
+                    t_item[i_rel_field.name] = getattr(i_item, i_rel_field.name).count()
             
             if not t_item in t_dict_s:
                 t_dict_s.append(t_item)
@@ -258,15 +290,15 @@ class Decore_model(Model):
     @property
     def errors(self):
         t_schema = self.build_schema()
-        t_val = Validator(t_schema, require_all=True, allow_unknown = True)
-        t_val.validate(self.export())
+        t_val = Validator(t_schema, allow_unknown = True)
+        t_val.validate(self.to_dict())
         return t_val.errors
 
     def validate(self):
         t_schema = self.build_schema()
         #TODO - Schema as property and Validator as attribute in model
-        t_val = Validator(t_schema, require_all=True, allow_unknown = True)
-        r_value =  t_val.validate(self.export())
+        t_val = Validator(t_schema, allow_unknown = True)
+        r_value =  t_val.validate(self.to_dict())
         if r_value == False:
             logging.error('%s > %s' % ('validate_model', str(t_val.errors)))
         return r_value
@@ -275,20 +307,34 @@ class Decore_model(Model):
     # def to_dict(self):
     #     return model_to_dict(self, recurse=True, max_depth=1)
 
-    def update(self, p_data):
+    def from_dict(self, p_dict):
         for field in self.field_s:
-            if field.name in p_data.keys():
-                if getattr(self, field.name) != p_data[field.name]:
-                    setattr(self, field.name, p_data[field.name])
+            if field.name in p_dict.keys():
+                if isinstance(field, ForeignKeyField):
+                    if not p_dict[field.name] == None:
+                        setattr(self, field.name, p_dict[field.name]['id'])
+                    else:
+                        setattr(self, field.name, None)
+                elif getattr(self, field.name) != p_dict[field.name]:
+                    setattr(self, field.name, p_dict[field.name])
 
-    def export(self):
+    def to_dict(self):
         r_value = {}
         for field in self.field_s:
-            r_value[field.name] = getattr(self, field.name)
+            if isinstance(field, ForeignKeyField):
+                try:
+                    t_item = {'id': getattr(self, field.name).id, 'title': getattr(self, field.name).title}
+                    r_value[field.name] = t_item
+                except Exception as error:
+                    r_value[field.name] = None
+            else:
+                r_value[field.name] = getattr(self, field.name)
         return r_value
 
     def save(self):
         #TODO - auf try except umstellen und raisen in validate.
+        #TODO - auf errors umstellen
+        #TODO - auf dirty_fields umstellen
         if self.validate():
             t_item = self.__class__.get_or_none(self.__class__.id == self.id)
             if not t_item:
@@ -301,9 +347,8 @@ class Decore_model(Model):
                 else:
                     return True
             elif t_item:
-                t_data = {k: v for k, v in t_item.__data__.items() if v is not None}
-                if not self.__data__ == t_data:
-                    breakpoint()
+                # t_data = {k: v for k, v in t_item.__data__.items() if v is not None}
+                if not self.to_dict() == t_item.to_dict():
                     try:
                         globals.keybase.commit(self.id)
                         super(Decore_model, self).save()

@@ -314,14 +314,14 @@ class Decore(object):
     
     def get_default(self, p_source_id):
         t_source = self.pool.__data__[p_source_id]
-        t_item = t_source.model().__data__
+        t_item = t_source.model().to_dict()
         t_return = json.dumps(t_item, default=str)
         return t_return, 200
     
     def get_last(self, p_source_id):
         t_source = self.pool.__data__[p_source_id]
         if not len(t_source.model.select()) == 0:
-            t_item = t_source.model.select()[-1].__data__
+            t_item = t_source.model.select()[-1].to_dict()
             t_return = json.dumps(t_item, default=str)
             return t_return, 200
         else:
