@@ -143,27 +143,6 @@ class Decore_model(Model):
                 t_schema[i_field.name]['type'] = 'string'
 
         return t_schema
-    
-            # if i_field.field_type == 'BOOL'and i_field.null == False:
-            #     t_schema[i_field.name] = {'type': 'boolean'}
-
-            # if i_field.field_type == 'VARCHAR' and i_field.null == False:
-            #     t_schema[i_field.name] = {'type': 'string'}
-
-            # if i_field.field_type == 'DATE'and i_field.null == False:
-            #     t_schema[i_field.name] = {'type': 'date'}
-
-            # if i_field.field_type == 'DATETIME'and i_field.null == False:
-            #     t_schema[i_field.name] = {'type': 'datetime'}
-
-            # if i_field.field_type == 'FLOAT'and i_field.null == False:
-            #     t_schema[i_field.name] = {'type': 'float'}
-
-            # if i_field.field_type == 'INT'and i_field.null == False:
-            #     t_schema[i_field.name] = {'type': 'integer'}
-
-            # if i_field.field_type == 'TEXT'and i_field.null == False:
-            #     t_schema[i_field.name] = {'type': 'string'}
 
     @classmethod
     def query(cls, p_query={}):

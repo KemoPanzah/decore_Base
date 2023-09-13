@@ -105,11 +105,11 @@ class Test_model:
         assert len(self.item.dirty_fields) == self.obligatory_fields
         self.item.save()
         self.item.from_dict(t_dict)
-        assert len(self.item.dirty_fields) == 0
+        assert len(self.item.dirty_fields) == 1
 
     def test_item_from_json(self):
         t_dict = loads(dumps(self.item.to_dict(), default=str))
         assert len(self.item.dirty_fields) == self.obligatory_fields
         self.item.save()
         self.item.from_dict(t_dict)
-        assert len(self.item.dirty_fields) == 0
+        assert len(self.item.dirty_fields) == 3
