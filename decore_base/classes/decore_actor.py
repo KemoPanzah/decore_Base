@@ -4,6 +4,8 @@ from datetime import datetime
 from peewee import (AutoField, BooleanField, CharField, DateTimeField,
                     IntegerField, Model, SqliteDatabase)
 
+from playhouse.shortcuts import update_model_from_dict, model_to_dict, dict_to_model
+
 from .decore_action import Decore_action
 from .decore_base import Decore_base
 

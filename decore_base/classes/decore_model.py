@@ -288,25 +288,37 @@ class Decore_model(Model):
     #     return model_to_dict(self, recurse=True, max_depth=1)
 
     def from_dict(self, p_dict):
-        for field in self.field_s:
+        for field in self.field_s + self.rel_field_s:
             if field.name in p_dict.keys():
                 if isinstance(field, ForeignKeyField):
                     if not p_dict[field.name] == None:
                         setattr(self, field.name, p_dict[field.name]['id'])
                     else:
                         setattr(self, field.name, None)
+                elif isinstance(field, ManyToManyField):
+                    mm_attr = getattr(self, field.name)
+                    t_dict_id_s, t_mm_attr_id_s = [item['id'] for item in p_dict[field.name]], [item.id for item in mm_attr] 
+                    t_remove_id_s, t_add_id_s = [item.id for item in mm_attr if item.id not in t_dict_id_s], [item for item in t_dict_id_s if item not in t_mm_attr_id_s]
+                    mm_attr.remove(t_remove_id_s)
+                    mm_attr.add(t_add_id_s)
                 elif getattr(self, field.name) != p_dict[field.name]:
                     setattr(self, field.name, p_dict[field.name])
 
     def to_dict(self):
         r_value = {}
-        for field in self.field_s:
+        for field in self.field_s + self.rel_field_s:
             if isinstance(field, ForeignKeyField):
-                try:
-                    t_item = {'id': getattr(self, field.name).id, 'title': getattr(self, field.name).title}
-                    r_value[field.name] = t_item
-                except Exception as error:
+                fk_attr = getattr(self, field.name)
+                if fk_attr:
+                    r_value[field.name] = {'id': fk_attr.id, 'title': fk_attr.title}
+                else:
                     r_value[field.name] = None
+            elif isinstance(field, ManyToManyField):
+                mm_attr = getattr(self, field.name)
+                if mm_attr:
+                    r_value[field.name] = [{'id': item.id, 'title': item.title} for item in mm_attr]
+                else:
+                    r_value[field.name] = []
             else:
                 r_value[field.name] = getattr(self, field.name)
         return r_value
