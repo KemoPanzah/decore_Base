@@ -78,6 +78,15 @@ class Test_model:
         self.item.datetime = "2021-01"
         assert self.item.datetime == None
 
+    def test_foreignkeyfield(self):
+        self.item.foreignkey = self.fk_item
+        assert isinstance(self.item.foreignkey, FKModel)
+
+        self.item.foreignkey = 'b93a739d-5249-11ee-ae5b-c2ff292859a4'
+        assert isinstance(self.item.foreignkey, FKModel)
+
+        self.item.foreignkey = {'id': 'b93a739d-5249-11ee-ae5b-c2ff292859a4', 'title': 'Test FK Item'}
+        assert isinstance(self.item.foreignkey, FKModel)
 
     def test_passwordfield(self):
         self.item.password = "12345678"
@@ -105,11 +114,11 @@ class Test_model:
         assert len(self.item.dirty_fields) == self.obligatory_fields
         self.item.save()
         self.item.from_dict(t_dict)
-        assert len(self.item.dirty_fields) == 1
+        assert len(self.item.dirty_fields) == 0
 
     def test_item_from_json(self):
         t_dict = loads(dumps(self.item.to_dict(), default=str))
         assert len(self.item.dirty_fields) == self.obligatory_fields
         self.item.save()
         self.item.from_dict(t_dict)
-        assert len(self.item.dirty_fields) == 3
+        assert len(self.item.dirty_fields) == 0
