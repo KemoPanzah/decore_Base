@@ -251,14 +251,12 @@ class CharField(CharField):
 
 class DateField(DateField):
     accessor_class = DateFieldAccessor
-    field_type = 'DATE'
 
     def __init__(self, null=False, default=None, help_text=None, verbose_name=None):
         super().__init__(null=null, default=default, help_text=help_text, verbose_name=verbose_name)
 
 class DateTimeField(DateTimeField):
     accessor_class = DateTimeFieldAccessor
-    field_type = 'DATETIME'
 
     def __init__(self, null=False, default=None, help_text=None, verbose_name=None):
         super().__init__(null=null, default=default, help_text=help_text, verbose_name=verbose_name)
