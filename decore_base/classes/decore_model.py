@@ -217,7 +217,8 @@ class Decore_model(Model):
             t_item = i_item.__data__
             for i_field in cls.field_s:
                 if type(i_field) == ForeignKeyField:
-                    t_item[i_field.name]=t_rel[i_field.name][t_item[i_field.name]]
+                    if t_item[i_field.name] in t_rel[i_field.name].keys():
+                        t_item[i_field.name]=t_rel[i_field.name][t_item[i_field.name]]
 
             for i_rel_field in cls.rel_field_s:
                 if isinstance(i_rel_field, ForeignKeyField):
