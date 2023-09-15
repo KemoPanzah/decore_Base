@@ -90,7 +90,6 @@ class Decore_pool(object):
                         t_return[key] = self.serialize(value)
                 
                 elif ManyToManyField in inspect.getmro(p_value.__class__):
-                    breakpoint()
                     if p_value._is_backref:
                         if hasattr(p_value.model, 'br_'+p_value.name):
                             p_value.__dict__.update(getattr(p_value.model, 'br_'+p_value.name).__dict__) 
@@ -99,7 +98,6 @@ class Decore_pool(object):
                         t_return[key] = self.serialize(value)
 
             else:
-                breakpoint()
                 setattr(p_value,'class', p_value.__class__.__name__)
                 for key, value in p_value.__dict__.items():
                     t_return[key] = self.serialize(value)
@@ -114,7 +112,6 @@ class Decore_pool(object):
         elif ManyToManyField in inspect.getmro(p_value.__class__):
             if p_value._is_backref:
                 if hasattr(p_value.model, 'br_'+p_value.name):
-                    breakpoint()
                     p_value.__dict__.update(getattr(p_value.model, 'br_'+p_value.name).__dict__) 
             setattr(p_value,'class', p_value.__class__.__name__)
             for key, value in p_value.__dict__.items():

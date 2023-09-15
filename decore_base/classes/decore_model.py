@@ -290,12 +290,14 @@ class Decore_model(Model):
     def from_dict(self, p_dict):
         for field in self.field_s + self.rel_field_s:
             if field.name in p_dict.keys():
-                if isinstance(field, ForeignKeyField):
+                #MEMO - Namensabfrage ist relevat weil der überschriebene Klassen gibt die nicht auf type geprüft werden können
+                if 'ForeignKeyField' in field.__class__.__name__:
                     if not p_dict[field.name] == None:
                         setattr(self, field.name, p_dict[field.name]['id'])
                     else:
                         setattr(self, field.name, None)
-                elif isinstance(field, ManyToManyField):
+                #MEMO - Namensabfrage ist relevat weil der überschriebene Klassen gibt die nicht auf type geprüft werden können
+                elif 'ManyToManyField' in field.__class__.__name__:
                     mm_attr = getattr(self, field.name)
                     t_dict_id_s, t_mm_attr_id_s = [item['id'] for item in p_dict[field.name]], [item.id for item in mm_attr] 
                     t_remove_id_s, t_add_id_s = [item.id for item in mm_attr if item.id not in t_dict_id_s], [item for item in t_dict_id_s if item not in t_mm_attr_id_s]
@@ -307,13 +309,23 @@ class Decore_model(Model):
     def to_dict(self):
         r_value = {}
         for field in self.field_s + self.rel_field_s:
-            if isinstance(field, ForeignKeyField):
-                fk_attr = getattr(self, field.name)
-                if fk_attr:
-                    r_value[field.name] = {'id': fk_attr.id, 'title': fk_attr.title}
+            #MEMO - Namensabfrage ist relevat weil der überschriebene Klassen gibt die nicht auf type geprüft werden können
+            if 'ForeignKeyField' in field.__class__.__name__:
+                if field.model == self.__class__:
+                    fk_attr = getattr(self, field.name)
+                    if fk_attr:
+                        r_value[field.name] = {'id': fk_attr.id, 'title': fk_attr.title}
+                    else:
+                        r_value[field.name] = None
                 else:
-                    r_value[field.name] = None
-            elif isinstance(field, ManyToManyField):
+                    br_attr = getattr(self, field.backref)
+                    if br_attr:
+                        r_value[field.backref] = [{'id': item.id, 'title': item.title} for item in br_attr]
+                    else:
+                        r_value[field.backref] = []
+            
+            #MEMO - Namensabfrage ist relevat weil der überschriebene Klassen gibt die nicht auf type geprüft werden können
+            elif 'ManyToManyField' in field.__class__.__name__:
                 mm_attr = getattr(self, field.name)
                 if mm_attr:
                     r_value[field.name] = [{'id': item.id, 'title': item.title} for item in mm_attr]
