@@ -312,10 +312,13 @@ class Decore_model(Model):
             #MEMO - Namensabfrage ist relevat weil der überschriebene Klassen gibt die nicht auf type geprüft werden können
             if 'ForeignKeyField' in field.__class__.__name__:
                 if field.model == self.__class__:
-                    fk_attr = getattr(self, field.name)
-                    if fk_attr:
-                        r_value[field.name] = {'id': fk_attr.id, 'title': fk_attr.title}
-                    else:
+                    try:
+                        fk_attr = getattr(self, field.name)
+                        if fk_attr:
+                            r_value[field.name] = {'id': fk_attr.id, 'title': fk_attr.title}
+                        else:
+                            r_value[field.name] = None
+                    except Exception as error:
                         r_value[field.name] = None
                 else:
                     br_attr = getattr(self, field.backref)
@@ -323,7 +326,7 @@ class Decore_model(Model):
                         r_value[field.backref] = [{'id': item.id, 'title': item.title} for item in br_attr]
                     else:
                         r_value[field.backref] = []
-            
+                    
             #MEMO - Namensabfrage ist relevat weil der überschriebene Klassen gibt die nicht auf type geprüft werden können
             elif 'ManyToManyField' in field.__class__.__name__:
                 mm_attr = getattr(self, field.name)
