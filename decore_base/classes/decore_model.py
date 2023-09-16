@@ -114,32 +114,32 @@ class Decore_model(Model):
         for i_field in cls.field_s:
             t_schema[i_field.name] = {'nullable': i_field.null}
 
-            if isinstance(i_field, BooleanField):
+            if 'BooleanField' in i_field.__class__.__name__:
                 t_schema[i_field.name]['type'] = 'boolean'
 
-            if isinstance(i_field, CharField):
+            if 'CharField' in i_field.__class__.__name__:
                 t_schema[i_field.name]['type'] = 'string'
                 t_schema[i_field.name]['maxlength'] = i_field.max_length
 
-            if isinstance(i_field, DateField):
+            if 'DateField' in i_field.__class__.__name__:
                 t_schema[i_field.name]['type'] = 'date'
 
-            if isinstance(i_field, DateTimeField):
+            if 'DateTimeField' in i_field.__class__.__name__:
                 t_schema[i_field.name]['type'] = 'datetime'
 
-            if isinstance(i_field, FloatField):
+            if 'FloatField' in i_field.__class__.__name__:
                 t_schema[i_field.name]['type'] = 'float'
 
-            if isinstance(i_field, ForeignKeyField):
+            if 'ForeignKeyField' in i_field.__class__.__name__:
                 t_schema[i_field.name]['type'] = 'dict'
 
-            if isinstance(i_field, IntegerField):
+            if 'IntegerField' in i_field.__class__.__name__:
                 t_schema[i_field.name]['type'] = 'integer'
 
-            if isinstance(i_field, PasswordField):
+            if 'PasswordField' in i_field.__class__.__name__:
                 t_schema[i_field.name]['type'] = 'string'
 
-            if isinstance(i_field, TextField):
+            if 'TextField' in i_field.__class__.__name__:
                 t_schema[i_field.name]['type'] = 'string'
 
         return t_schema
@@ -221,9 +221,9 @@ class Decore_model(Model):
                         t_item[i_field.name]=t_rel[i_field.name][t_item[i_field.name]]
 
             for i_rel_field in cls.rel_field_s:
-                if isinstance(i_rel_field, ForeignKeyField):
+                if 'ForeignKeyField' in i_rel_field.__class__.__name__:
                     t_item[i_rel_field.backref] = getattr(i_item, i_rel_field.backref).count()
-                elif isinstance(i_rel_field, ManyToManyField):
+                elif 'ManyToManyField' in i_rel_field.__class__.__name__:
                     t_item[i_rel_field.name] = getattr(i_item, i_rel_field.name).count()
             
             if not t_item in t_dict_s:

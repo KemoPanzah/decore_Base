@@ -146,9 +146,9 @@ class Decore_pool(object):
         
         return t_return
 
-    def get_names(self):
-        r_value = {}
-        for base in self.base_s:
-            for key, value in base.model.verbose_names.items():
-                r_value[key] = value
-        return r_value
+    # def get_names(self):
+    #     r_value = {}
+    #     for base in self.base_s:
+    #         for key, value in base.model.verbose_names.items():
+    #             r_value[key] = value
+    #     return r_value
