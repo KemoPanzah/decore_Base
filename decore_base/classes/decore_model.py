@@ -292,10 +292,30 @@ class Decore_model(Model):
             if field.name in p_dict.keys():
                 #MEMO - Namensabfrage ist relevat weil der überschriebene Klassen gibt die nicht auf type geprüft werden können
                 if 'ForeignKeyField' in field.__class__.__name__:
-                    if not p_dict[field.name] == None:
-                        setattr(self, field.name, p_dict[field.name]['id'])
+                    if field.model == self.__class__:
+                        if not p_dict[field.name] == None:
+                            setattr(self, field.name, p_dict[field.name]['id'])
+                        else:
+                            setattr(self, field.name, None)
                     else:
-                        setattr(self, field.name, None)
+                        br_attr = getattr(self, field.backref)
+                        t_dict_id_s, t_br_attr_id_s = [item['id'] for item in p_dict[field.backref]], [item.id for item in br_attr]
+                        t_remove_id_s, t_add_id_s = [item.id for item in br_attr if item.id not in t_dict_id_s], [item for item in t_dict_id_s if item not in t_br_attr_id_s]
+                        for i_remove_id in t_remove_id_s:
+                            t_item = field.model.get(field.model.id == i_remove_id)
+                            if field.null:
+                                setattr(t_item, field.name, None)
+                                t_item.save()
+                            else:
+                                t_item.delete_instance()
+                        for i_add_id in t_add_id_s:
+                            t_item = field.model.get(field.model.id == i_add_id)
+                            if not getattr(t_item, field.name):
+                                setattr(t_item, field.name, self.id)
+                                t_item.save()
+                            else:
+                                logging.error('%s > %s' % ('from_dict', 'ForeignKey not setable because field in use by ForeignKey from another entity'))
+            
                 #MEMO - Namensabfrage ist relevat weil der überschriebene Klassen gibt die nicht auf type geprüft werden können
                 elif 'ManyToManyField' in field.__class__.__name__:
                     mm_attr = getattr(self, field.name)
