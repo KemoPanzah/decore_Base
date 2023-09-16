@@ -79,6 +79,7 @@ class Decore_pool(object):
                 t_return[key] = self.serialize(value)
         
         elif BackrefMetaField in inspect.getmro(p_value.__class__):
+            # TODO - isinstance gegen stringabfrage __name__ tauschen
             if hasattr(p_value.model, p_value.name) and (isinstance(getattr(p_value.model, p_value.name), BackrefAccessor) or isinstance(getattr(p_value.model, p_value.name), ManyToManyField)):
                 p_value = getattr(p_value.model, p_value.name)
 
