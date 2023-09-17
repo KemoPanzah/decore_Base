@@ -288,74 +288,75 @@ class Decore_model(Model):
     #     return model_to_dict(self, recurse=True, max_depth=1)
 
     def from_dict(self, p_dict):
-        for field in self.field_s + self.rel_field_s:
+        for field in self.field_s:
             if field.name in p_dict.keys():
-                #MEMO - Namensabfrage ist relevat weil der überschriebene Klassen gibt die nicht auf type geprüft werden können
                 if 'ForeignKeyField' in field.__class__.__name__:
-                    if field.model == self.__class__:
-                        if not p_dict[field.name] == None:
-                            setattr(self, field.name, p_dict[field.name]['id'])
-                        else:
-                            setattr(self, field.name, None)
+                    if not p_dict[field.name] == None:
+                        setattr(self, field.name, p_dict[field.name]['id'])
                     else:
-                        br_attr = getattr(self, field.backref)
-                        t_dict_id_s, t_br_attr_id_s = [item['id'] for item in p_dict[field.backref]], [item.id for item in br_attr]
-                        t_remove_id_s, t_add_id_s = [item.id for item in br_attr if item.id not in t_dict_id_s], [item for item in t_dict_id_s if item not in t_br_attr_id_s]
-                        for i_remove_id in t_remove_id_s:
-                            t_item = field.model.get(field.model.id == i_remove_id)
-                            if field.null:
-                                setattr(t_item, field.name, None)
-                                t_item.save()
-                            else:
-                                t_item.delete_instance()
-                        for i_add_id in t_add_id_s:
-                            t_item = field.model.get(field.model.id == i_add_id)
-                            if not getattr(t_item, field.name):
-                                setattr(t_item, field.name, self.id)
-                                t_item.save()
-                            else:
-                                logging.error('%s > %s' % ('from_dict', 'ForeignKey not setable because field in use by ForeignKey from another entity'))
-            
-                #MEMO - Namensabfrage ist relevat weil der überschriebene Klassen gibt die nicht auf type geprüft werden können
-                elif 'ManyToManyField' in field.__class__.__name__:
-                    mm_attr = getattr(self, field.name)
-                    t_dict_id_s, t_mm_attr_id_s = [item['id'] for item in p_dict[field.name]], [item.id for item in mm_attr] 
-                    t_remove_id_s, t_add_id_s = [item.id for item in mm_attr if item.id not in t_dict_id_s], [item for item in t_dict_id_s if item not in t_mm_attr_id_s]
-                    mm_attr.remove(t_remove_id_s)
-                    mm_attr.add(t_add_id_s)
-                elif getattr(self, field.name) != p_dict[field.name]:
+                        setattr(self, field.name, None)
+                else:
                     setattr(self, field.name, p_dict[field.name])
+                        
+        for field in self.rel_field_s:
+            if field.backref in p_dict.keys() and 'ForeignKeyField' in field.__class__.__name__:
+                br_attr = getattr(self, field.backref)
+                t_dict_id_s, t_br_attr_id_s = [item['id'] for item in p_dict[field.backref]], [item.id for item in br_attr]
+                t_remove_id_s, t_add_id_s = [item.id for item in br_attr if item.id not in t_dict_id_s], [item for item in t_dict_id_s if item not in t_br_attr_id_s]
+                for i_remove_id in t_remove_id_s:
+                    t_item = field.model.get(field.model.id == i_remove_id)
+                    if field.null:
+                        setattr(t_item, field.name, None)
+                        t_item.save()
+                    else:
+                        t_item.delete_instance()
+                for i_add_id in t_add_id_s:
+                    t_item = field.model.get(field.model.id == i_add_id)
+                    if not getattr(t_item, field.name):
+                        setattr(t_item, field.name, self.id)
+                        t_item.save()
+                    else:
+                        logging.error('%s > %s' % ('from_dict', 'ForeignKey not setable because field in use by ForeignKey from another entity'))
+
+            #MEMO - Namensabfrage ist relevat weil der überschriebene Klassen gibt die nicht auf type geprüft werden können
+            elif field.name in p_dict.keys() and 'ManyToManyField' in field.__class__.__name__:
+                mm_attr = getattr(self, field.name)
+                t_dict_id_s, t_mm_attr_id_s = [item['id'] for item in p_dict[field.name]], [item.id for item in mm_attr] 
+                t_remove_id_s, t_add_id_s = [item.id for item in mm_attr if item.id not in t_dict_id_s], [item for item in t_dict_id_s if item not in t_mm_attr_id_s]
+                mm_attr.remove(t_remove_id_s)
+                mm_attr.add(t_add_id_s)
+                
 
     def to_dict(self):
         r_value = {}
-        for field in self.field_s + self.rel_field_s:
+        for field in self.field_s:
             #MEMO - Namensabfrage ist relevat weil der überschriebene Klassen gibt die nicht auf type geprüft werden können
             if 'ForeignKeyField' in field.__class__.__name__:
-                if field.model == self.__class__:
-                    try:
-                        fk_attr = getattr(self, field.name)
-                        if fk_attr:
-                            r_value[field.name] = {'id': fk_attr.id, 'title': fk_attr.title}
-                        else:
-                            r_value[field.name] = None
-                    except Exception as error:
-                        r_value[field.name] = None
-                else:
-                    br_attr = getattr(self, field.backref)
-                    if br_attr:
-                        r_value[field.backref] = [{'id': item.id, 'title': item.title} for item in br_attr]
+                try:
+                    fk_attr = getattr(self, field.name)
+                    if fk_attr:
+                        r_value[field.name] = {'id': fk_attr.id, 'title': fk_attr.title}
                     else:
-                        r_value[field.backref] = []
-                    
-            #MEMO - Namensabfrage ist relevat weil der überschriebene Klassen gibt die nicht auf type geprüft werden können
+                        r_value[field.name] = None
+                except Exception as error:
+                    r_value[field.name] = None
+            else:
+                r_value[field.name] = getattr(self, field.name)
+             
+        for field in self.rel_field_s:
+            if 'ForeignKeyField' in field.__class__.__name__:
+                br_attr = getattr(self, field.backref)
+                if br_attr:
+                    r_value[field.backref] = [{'id': item.id, 'title': item.title} for item in br_attr]
+                else:
+                    r_value[field.backref] = []
             elif 'ManyToManyField' in field.__class__.__name__:
                 mm_attr = getattr(self, field.name)
                 if mm_attr:
                     r_value[field.name] = [{'id': item.id, 'title': item.title} for item in mm_attr]
                 else:
                     r_value[field.name] = []
-            else:
-                r_value[field.name] = getattr(self, field.name)
+                
         return r_value
 
     def save(self):
