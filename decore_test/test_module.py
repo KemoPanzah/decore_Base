@@ -17,6 +17,9 @@ class Model(Conform_model):
     password = PasswordField()
     textfield = TextField()
 
+class Test_data:
+    pass
+
 class Test_model:
     
     obligatory_fields = 0
