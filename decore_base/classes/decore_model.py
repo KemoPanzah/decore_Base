@@ -36,6 +36,7 @@ class Decore_model(Model):
 
     def __init__(self, *args, **kwargs):
         Model.__init__(self, *args, **kwargs)        
+        self.backref_stage = {}
         if not self.id:
             self.id = str(uuid1())
 
@@ -297,36 +298,15 @@ class Decore_model(Model):
                         setattr(self, field.name, None)
                 else:
                     setattr(self, field.name, p_dict[field.name])
-                        
+        
         for field in self.rel_field_s:
             if field.backref in p_dict.keys() and 'ForeignKeyField' in field.__class__.__name__:
-                br_attr = getattr(self, field.backref)
-                t_dict_id_s, t_br_attr_id_s = [item['id'] for item in p_dict[field.backref]], [item.id for item in br_attr]
-                t_remove_id_s, t_add_id_s = [item.id for item in br_attr if item.id not in t_dict_id_s], [item for item in t_dict_id_s if item not in t_br_attr_id_s]
-                for i_remove_id in t_remove_id_s:
-                    t_item = field.model.get(field.model.id == i_remove_id)
-                    if field.null:
-                        setattr(t_item, field.name, None)
-                        t_item.save()
-                    else:
-                        t_item.delete_instance()
-                for i_add_id in t_add_id_s:
-                    t_item = field.model.get(field.model.id == i_add_id)
-                    if not getattr(t_item, field.name):
-                        setattr(t_item, field.name, self.id)
-                        t_item.save()
-                    else:
-                        logging.error('%s > %s' % ('from_dict', 'ForeignKey not setable because field in use by ForeignKey from another entity'))
-
-            #MEMO - Namensabfrage ist relevat weil der überschriebene Klassen gibt die nicht auf type geprüft werden können
+                self.backref_stage[field.backref] = p_dict[field.backref]
+            
             elif field.name in p_dict.keys() and 'ManyToManyField' in field.__class__.__name__:
-                mm_attr = getattr(self, field.name)
-                t_dict_id_s, t_mm_attr_id_s = [item['id'] for item in p_dict[field.name]], [item.id for item in mm_attr] 
-                t_remove_id_s, t_add_id_s = [item.id for item in mm_attr if item.id not in t_dict_id_s], [item for item in t_dict_id_s if item not in t_mm_attr_id_s]
-                mm_attr.remove(t_remove_id_s)
-                mm_attr.add(t_add_id_s)
-                
+                self.backref_stage[field.name] = p_dict[field.name]
 
+        
     def to_dict(self):
         r_value = {}
         for field in self.field_s:
@@ -363,6 +343,8 @@ class Decore_model(Model):
         #TODO - auf try except umstellen und raisen in validate.
         #TODO - auf errors umstellen
         #TODO - auf dirty_fields umstellen
+        r_value = 0
+
         if self.validate():
             t_item = self.__class__.get_or_none(self.__class__.id == self.id)
             if not t_item:
@@ -371,9 +353,9 @@ class Decore_model(Model):
                     super(Decore_model,self).save(force_insert=True)
                 except Exception as error:
                     logging.error('%s > %s > %s' % ('save_item', 'Insert error', error))
-                    return False
+                    r_value = 0
                 else:
-                    return True
+                    r_value = 1
             elif t_item:
                 # t_data = {k: v for k, v in t_item.__data__.items() if v is not None}
                 if not self.to_dict() == t_item.to_dict():
@@ -382,14 +364,47 @@ class Decore_model(Model):
                         super(Decore_model, self).save()
                     except Exception as error:
                         logging.error('%s > %s > %s' % ('save_item', 'Update error', error))
-                        return False
+                        r_value = 0
                     else:
-                        return True
+                        r_value = 2
                 else:
-                    return True
+                    r_value = 3
         else:
             logging.error('%s > %s' % ('save_item', 'Validation error'))
-            return False
+            r_value = 0
+
+        if r_value > 0 and self.backref_stage:
+            for field in self.rel_field_s:
+                if field.backref in self.backref_stage.keys() and 'ForeignKeyField' in field.__class__.__name__:
+                    br_attr = getattr(self, field.backref)
+                    t_dict_id_s, t_br_attr_id_s = [item['id'] for item in self.backref_stage[field.backref]], [item.id for item in br_attr]
+                    t_remove_id_s, t_add_id_s = [item.id for item in br_attr if item.id not in t_dict_id_s], [item for item in t_dict_id_s if item not in t_br_attr_id_s]
+                    for i_remove_id in t_remove_id_s:
+                        t_item = field.model.get(field.model.id == i_remove_id)
+                        if field.null:
+                            setattr(t_item, field.name, None)
+                            t_item.save()
+                        else:
+                            t_item.delete_instance()
+                    for i_add_id in t_add_id_s:
+                        t_item = field.model.get(field.model.id == i_add_id)
+                        if not getattr(t_item, field.name):
+                            setattr(t_item, field.name, self.id)
+                            t_item.save()
+                        else:
+                            logging.error('%s > %s' % ('from_dict', 'ForeignKey not setable because field in use by ForeignKey from another entity'))
+
+                #MEMO - Namensabfrage ist relevat weil der überschriebene Klassen gibt die nicht auf type geprüft werden können
+                elif field.name in self.backref_stage.keys() and 'ManyToManyField' in field.__class__.__name__:
+                    mm_attr = getattr(self, field.name)
+                    t_dict_id_s, t_mm_attr_id_s = [item['id'] for item in self.backref_stage[field.name]], [item.id for item in mm_attr] 
+                    t_remove_id_s, t_add_id_s = [item.id for item in mm_attr if item.id not in t_dict_id_s], [item for item in t_dict_id_s if item not in t_mm_attr_id_s]
+                    mm_attr.remove(t_remove_id_s)
+                    mm_attr.add(t_add_id_s)
+
+            self.backref_stage = {}
+
+        return r_value
 
     #TODO - return values prüfen; werden die eigentlich benötigt? > delete_instance
     def delete_instance(self):
