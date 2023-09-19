@@ -200,13 +200,13 @@ class BackrefMetaField(MetaField):
     :param str verbose_name: A human-readable name for the field.
     :param str help_text: Additional text to be displayed in **decore Front**.
     :param list filter_fields: A List of type string. Only the speciefied fields will be displayed in the filter. If None, all fields will be displayed.
-    :param dict options_query: A dictonary containing a query to be used when querying options (e.g. in selection fields in the frontend). The query always refers to the reference model.
+    :param dict choice_query: A dictonary containing a query to be used when querying options (e.g. in selection fields in the frontend). The query always refers to the reference model.
         
     .. code-block:: python
 
         class User(Conform_model):
             username = CharField(verbose_name='Username')
-            accounts = BackRefMetaField(null=True, verbose_name='Accounts', options_query={'domain__eq': 'example.com'}
+            accounts = BackRefMetaField(null=True, verbose_name='Accounts', choice_query={'domain__eq': 'example.com'}
     
     .. code-block:: python
 
@@ -216,10 +216,10 @@ class BackrefMetaField(MetaField):
             domain = CharField(verbose_name='Mail domain', default='example.com')
 
     '''
-    def __init__(self, help_text=None, verbose_name=None, filter_fields=[], options_query={}):
+    def __init__(self, help_text=None, verbose_name=None, filter_fields=[], choice_query={}):
         MetaField.__init__(self, help_text=help_text, verbose_name=verbose_name)
         self.filter_fields = filter_fields
-        self.options_query = options_query
+        self.choice_query = choice_query
         
     def bind(self, model, name, set_attribute):
         super(BackrefMetaField, self).bind(model, name, set_attribute)
@@ -289,14 +289,14 @@ class PasswordField(Field):
         Field.__init__(self, null=null, verbose_name=verbose_name, help_text=help_text)
 
 class ForeignKeyField(ForeignKeyField):
-    def __init__(self, model, backref=None, null=False, default=None, help_text=None, verbose_name=None, filter_fields=[], options_query={}):
+    def __init__(self, model, backref=None, null=False, default=None, help_text=None, verbose_name=None, filter_fields=[], choice_query={}):
         super().__init__(model, backref=backref, null=null, default=default, help_text=help_text, verbose_name=verbose_name)
         self.filter_fields = filter_fields
-        self.options_query = options_query
+        self.choice_query = choice_query
 
 class IntegerField(IntegerField):
     def __init__(self, null=False, default=None, choices=None, help_text=None, verbose_name=None):
-        super().__init__(null=null, default=default, help_text=help_text, verbose_name=verbose_name)
+        super().__init__(null=null, default=default, choices=choices, help_text=help_text, verbose_name=verbose_name)
 
 class ManyToManyField(ManyToManyField):
     '''
@@ -308,7 +308,7 @@ class ManyToManyField(ManyToManyField):
     :param str verbose_name: A human-readable name for the field.
     :param str help_text: Additional text to be displayed in **decore Front**.
     :param list filter_fields: A List of type string. Only the speciefied fields will be displayed in the filter. If None, all fields will be displayed.
-    :param dict options_query: A dictonary containing a query to be used when querying options (e.g. in selection fields in the frontend). The query always refers to the reference model.
+    :param dict choice_query: A dictonary containing a query to be used when querying choices (e.g. in selection fields in the frontend). The query always refers to the reference model.
 
     .. code-block:: python
 
@@ -321,15 +321,15 @@ class ManyToManyField(ManyToManyField):
 
         class User(Conform_model):
             username = CharField(verbose_name='Username')
-            accounts = BackRefMetaField(null=True, verbose_name='Accounts', options_query={'domain__eq': 'example.com'}
+            accounts = BackRefMetaField(null=True, verbose_name='Accounts', choice_query={'domain__eq': 'example.com'}
 
     '''
-    def __init__(self, model, backref=None, help_text=None, verbose_name=None, filter_fields=[], options_query={}):
+    def __init__(self, model, backref=None, help_text=None, verbose_name=None, filter_fields=[], choice_query={}):
         super().__init__(model, backref=backref)
         self.help_text = help_text
         self.verbose_name = verbose_name
         self.filter_fields = filter_fields
-        self.options_query = options_query
+        self.choice_query = choice_query
     
 class TextField(TextField):
     pass

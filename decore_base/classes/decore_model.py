@@ -268,6 +268,14 @@ class Decore_model(Model):
         else:
             return r_value.__item_s__
 
+    @classmethod
+    def get_minified_dict_s(cls, p_query):
+        r_value = []
+        t_item_s = cls.query(p_query)
+        for i_item in t_item_s:
+            r_value.append({'id': i_item.id, 'title': i_item.title})
+        return r_value
+
     @property
     def errors(self):
         t_schema = self.build_schema()

@@ -59,9 +59,11 @@ class Decore(object):
         api.add_url_rule('/', 'index', self.index, defaults={'p_path': ''})
         api.add_url_rule('/<path:p_path>', 'index', self.index)
         api.add_url_rule('/get_meta', 'get_meta', self.get_meta)
+        api.add_url_rule('/get_item/<p_source_id>/<p_id>', 'get_item', self.get_item)
         api.add_url_rule('/get_default/<p_source_id>', 'get_default', self.get_default)
         api.add_url_rule('/get_last/<p_source_id>', 'get_last', self.get_last)
         api.add_url_rule('/post_item_s/<p_source_id>', 'post_item_s', self.post_item_s, methods=['POST'])
+        api.add_url_rule('/post_rel_item_s/<p_source_id>', 'post_rel_item_s', self.post_rel_item_s, methods=['POST'])
         api.add_url_rule('/post_option_s/<p_source_id>', 'post_option_s', self.post_option_s, methods=['POST'])
         api.add_url_rule('/post_action/<p_action_id>', 'post_action', self.post_action, methods=['POST'])
         api.add_url_rule('/get_query_s', 'get_query_s', self.get_query_s)
@@ -312,6 +314,12 @@ class Decore(object):
         t_return = json.dumps(self.pool.export(), default=str)
         return t_return, 200
     
+    def get_item(self, p_source_id, p_id):
+        t_source = self.pool.__data__[p_source_id]
+        t_item = t_source.model.get_by_id(p_id).to_dict()
+        t_return = json.dumps(t_item, default=str)
+        return t_return, 200
+
     def get_default(self, p_source_id):
         t_source = self.pool.__data__[p_source_id]
         t_item = t_source.model().to_dict()
@@ -337,6 +345,12 @@ class Decore(object):
         t_return = json.dumps(t_item_s, default=str)
         return t_return, 200
     
+    def post_rel_item_s(self, p_source_id):
+        t_query = json.loads(request.data)
+        t_source = self.pool.__data__[p_source_id]
+        t_return = json.dumps(t_source.model.get_minified_dict_s(t_query), default=str)
+        return t_return, 200
+
     def post_option_s(self, p_source_id):
         t_start = perf_counter()
         t_data = json.loads(request.data)
@@ -349,7 +363,7 @@ class Decore(object):
         logging.info('%s > %s %s' % ('option_s created in', t_end - t_start, 'seconds'))
         t_return = json.dumps(t_option_s, default=str)
         return t_return, 200
-    
+
     def post_action(self, p_action_id):
         t_action = self.pool.__data__[p_action_id]
         return self.actor.fire(self.pool.__data__[t_action.source_id], t_action, request)
