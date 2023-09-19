@@ -64,7 +64,7 @@ class Decore(object):
         api.add_url_rule('/get_last/<p_source_id>', 'get_last', self.get_last)
         api.add_url_rule('/post_item_s/<p_source_id>', 'post_item_s', self.post_item_s, methods=['POST'])
         api.add_url_rule('/post_rel_item_s/<p_source_id>', 'post_rel_item_s', self.post_rel_item_s, methods=['POST'])
-        api.add_url_rule('/post_option_s/<p_source_id>', 'post_option_s', self.post_option_s, methods=['POST'])
+        api.add_url_rule('/post_filter_value_s/<p_source_id>', 'post_filter_value_s', self.post_filter_value_s, methods=['POST'])
         api.add_url_rule('/post_action/<p_action_id>', 'post_action', self.post_action, methods=['POST'])
         api.add_url_rule('/get_query_s', 'get_query_s', self.get_query_s)
         api.add_url_rule('/post_save_query/<p_base_id>/<p_view_id>', 'post_save_query', self.post_save_query, methods=['POST'])
@@ -351,16 +351,13 @@ class Decore(object):
         t_return = json.dumps(t_source.model.get_minified_dict_s(t_query), default=str)
         return t_return, 200
 
-    def post_option_s(self, p_source_id):
-        t_start = perf_counter()
+    def post_filter_value_s(self, p_source_id):
         t_data = json.loads(request.data)
         t_query = t_data['query']
         t_attr = t_data['attr']
         t_rel_attr = t_data['rel_attr']
         t_source = self.pool.__data__[p_source_id]
-        t_option_s = t_source.model.get_option_s(t_query, t_attr, t_rel_attr)
-        t_end = perf_counter()
-        logging.info('%s > %s %s' % ('option_s created in', t_end - t_start, 'seconds'))
+        t_option_s = t_source.model.get_attributed_value_s(t_query, t_attr, t_rel_attr)
         t_return = json.dumps(t_option_s, default=str)
         return t_return, 200
 

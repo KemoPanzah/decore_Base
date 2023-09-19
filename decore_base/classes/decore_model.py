@@ -233,40 +233,29 @@ class Decore_model(Model):
         return {'item_s': t_dict_s, 'count': t_item_s.count()}
 
     @classmethod
-    def get_option_s(cls, p_query, p_attr, p_rel_attr):
-        class Options_return:
-            def __init__(self):
-                self.__item_s__ = []
-            
-            def append(self, p_id, p_title):
-                for item in self.__item_s__:
-                    if item['title'] == p_title:
-                        return False
-                self.__item_s__.append({'id': p_id, 'title': p_title})
-                return True
-
-        r_value = Options_return()
+    def get_attributed_value_s(cls, p_query, p_attr, p_rel_attr):
+        r_value = {}
         t_item_s = cls.query(p_query)
         if p_attr:
             for item in t_item_s:
                 if p_rel_attr:
                     t_attr = getattr(item, p_attr) 
-                    #TODO - Hier bitte nach dem typen fragen und nicht auf exception setzen
+                    #TODO - Hier bitte auf iterable prüfen und nicht auf exception setzen
                     try:
                         for rel_item in t_attr:
                             t_value = rel_item.__data__[p_rel_attr]
-                            r_value.append(rel_item.id, t_value)
+                            r_value[str(t_value)] = t_value
 
                     except TypeError as error:
                         t_value = t_attr.__data__[p_rel_attr]
-                        r_value.append(t_attr.id, t_value)
+                        r_value[str(t_value)] = t_value
                 else:
                     t_value = item.__data__[p_attr]
-                    r_value.append(item.id, t_value)
+                    r_value[str(t_value)] = t_value
             
-            return r_value.__item_s__
+            return r_value
         else:
-            return r_value.__item_s__
+            return r_value
 
     @classmethod
     def get_minified_dict_s(cls, p_query):
