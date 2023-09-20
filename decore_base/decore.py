@@ -87,7 +87,7 @@ class Decore(object):
             logger.info(self.pool.app.title + ' now running on: http://' + str(HOST) + ':' + str(PORT))
             logger.info('Press CTRL+C to quit.')
             logger.setLevel(logging.WARNING)
-            serve(self.api, host=HOST, port=PORT)
+            serve(self.api, host=HOST, port=PORT, threads=32)
             
         else:
             self.api.run(HOST, PORT)
