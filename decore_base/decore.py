@@ -31,7 +31,7 @@ from collections import OrderedDict
 
 class Decore(object):
     '''
-    This class provides all the necessary functions to define a decore app and passes the collected information to the pool. It also holds the routes for communication with decore Front.
+    Diese Klasse stellt alle notwendigen Funktionen zur Verfügung, um eine decore Anwendung zu definieren. Sie hält auch die Routen für die Kommunikation mit dem Frontend.
     '''
     def __init__(self):
         if not globals.flags.production_mode:
@@ -94,9 +94,9 @@ class Decore(object):
 
     def app(self, title):
         '''
-        A function for opening an app. It is used as a decorator.
+        Eine Funktion zum eröffnen einer GUI-Dashboard-Anwendung. Sie wird als "Decorator" verwendet.
 
-        :param str title: The title of the app.
+        :param str title: Der Titel der App.
 
         .. code-block:: python
 
@@ -119,14 +119,14 @@ class Decore(object):
 
     def base(self, icon=None, title=None, desc=None, model=Decore_model):
         '''
-        A function for opening a base. It is used as a decorator.
+        Eine Funktion zum registrieren einer Basis in der GUI-Dashboard-Anwendung. Sie wird als "Decorator" verwendet.
 
-            The base is the carrier element for the view and the template for the data source.
+        Die Basis ist das Trägerelement für die Ansicht und die Vorlage für die Datenquelle im Frontend.
 
-        :param str icon: The icon of the base.
-        :param str title: The title of the base.
-        :param str desc: The description of the base.
-        :param Model model: The data model of the base. It forms a kind of context for all child elements of the base.
+        :param str icon: Das Symbol der Basis.
+        :param str title: Der Titel der Basis.
+        :param str desc: Die Beschreibung der Basis.
+        :param Model model: Das Datenmodell der Basis.
 
         .. code-block:: python
 
@@ -147,20 +147,22 @@ class Decore(object):
 
     def view(self, parent_id=None, icon=None, title=None, desc=None, type: l_view_type = 'table', fields=[], filters=[], query={}, pag_type: l_view_pag_type = 'client', pag_recs=16):
         '''
-        A function to register a view. It is used as a decorator.
+        Eine Funktion zur Registrierung einer Ansicht. Sie wird als "Decorator" verwendet.
 
-            A view is a container for displaying data.
+        Eine Ansicht ist ein Container für die Anzeige von Daten.
         
-        :param str parent_id: The ID of the parent element. Only to be set if the view is to be rendered in another base.
-        :param str icon: The icon of the view.
-        :param str title: The title of the view.
-        :param str desc: The description of the view.
-        :param str type: The type of the view.
-        :param list fields: The active fields of the view.
-        :param list filters: The fields that are used in filter.
-        :param dict query: The default query of the view.
-        :param str pag_type: The pagination type of the view.
-        :param int pag_recs: The pagination records of the view.
+        :param str parent_id: Die ID des übergeordneten Elements. Nur zu setzen, wenn die Ansicht in einer anderen Basis gerendert werden soll.
+        :param str icon: Das Symbol der Ansicht.
+        :param str title: Der Titel der Ansicht.
+        :param str desc: Die Beschreibung der Ansicht.
+        :param str type: Gibt an wie die Datensätze angezeigt werden. Der Wert ``table`` stellt die Datensätze in einer Tabelle dar.
+        :type type: Literal['table']
+        :param list fields: Die Felder, die in der Ansicht angezeigt werden.
+        :param list filters: Die Filter, die in der Ansicht angezeigt werden.
+        :param dict query: Die Abfrage, die in der Ansicht angezeigt wird.
+        :param str pag_type: Wählt die Methode wie die Datensätze der View geladen werden. Der Wert ``client`` lädt alle Datensätze auf einmal und überlässt den Seitenaufbau dem Frontend.
+        :type pag_type: Literal['client']
+        :param int pag_recs: Gibt an wieviele Datensätze auf einer Seite der Ansicht angezeigt werden sollen. ``16`` ist die Standardeinstellung.
 
         .. code-block:: python
 
@@ -179,24 +181,26 @@ class Decore(object):
             func()
         return wrapper
 
-    l_dialog_type = Literal['standard', 'tabs', 'stepper']
+    l_dialog_type = Literal['standard']
     l_dialog_display = Literal['modal', 'drawer']
     l_dialog_activator = Literal['none', 'default', 'context', 'click']
 
     # TODO - Überprüfen ob element mit gleicher ID schon vorhanden ist und Execption
     def dialog(self, parent_id=None, icon=None, title=None, desc=None, type: l_dialog_type = 'standard', display: l_dialog_display = 'drawer', activator: l_dialog_activator = 'none'):
         '''
-        A function to register a dialog. It is used as a decorator.
+        Eine Funktion zur Registrierung eines Dialogs. Sie wird als "Decorator" verwendet.
 
-            A dialog is a carrier for widgets.
+        Der Dialog ist das Trägerelement für Widgets 
 
-        :param str parent_id: The ID of the parent element. Only to be set if the dialog is to be rendered in a view of another base.
-        :param str icon: The icon of the dialog.
-        :param str title: The title of the dialog.
-        :param str desc: The description of the dialog.
-        :param str type: The type of the dialog.
-        :param str display: The display type of the dialog.
-        :param str activator: The activator type of the dialog.
+        :param str parent_id: Die ID des übergeordneten Elements. Nur zu setzen, wenn der Dialog in einer Ansicht einer anderen Basis gerendert werden soll.
+        :param str icon: Das Symbol des Dialogs.
+        :param str title: Der Titel des Dialogs.
+        :param str desc: Die Beschreibung des Dialogs.
+        :param str type: Gibt an wie der Dialog die Widgets darstellen wird. Der Wert ``standard`` stellt die untergeordneten Widgets und Sub-Widgets untereinander dar.
+        :type type: Literal['standard']
+        :param str display: Der Anzeigetyp des Dialogs.
+        :param str activator: Der Aktivatortyp des Dialogs. Über den Wert ``none`` wird der Dialog sofort beim OnLoad Ereignis der View angezeigt. Der Wert ``default`` stellt den Dialog im Top-Menu der View dar. Der Wert ``context`` stellt den Dialog im Kontextmenü eines Items der View dar. Der Wert ``click`` zeigt den Dialog dann an wenn man einen Datensatz anklickt.
+        :type activator: Literal['none', 'default', 'context', 'click']
 
         .. code-block:: python
 
@@ -220,17 +224,21 @@ class Decore(object):
 
     def widget(self, parent_id=None, icon=None, title=None, desc=None, type: l_widget_type = 'default', layout='cera', fields=[]):
         '''
-        A function to register a widget. It is used as a decorator.
+        Eine Funktion zur Registrierung eines Widgets. Sie wird als "Decorator" verwendet.
 
-            A widget is an element for displaying or editing a single item from the data.
+        Ein Widget dient zur Darstellung und Interaktion mit dem Datensatz. Es erhält die Daten, die der Dialog-Aktivator vorgibt. Der Wert ``none`` übergibt den letzten Datensatz der Datenbanktabelle. Der Wert ``default`` übergibt einen nur mit Default-Werten gefüllten Datensatz. Beim Wert ``context`` übergibt es den Datensatz, der im Kontextmenü der Ansicht ausgewählt wurde. Und ``click`` übergibt den Datensatz, der angeklickt wurde. 
 
-        :param str parent_id: The ID of the parent element. Only to be set if the widget is to be rendered in a dialog of another base.
-        :param str icon: The icon of the widget.
-        :param str title: The title of the widget.
-        :param str desc: The description of the widget.
-        :param str type: The type of the widget.
-        :param str layout: The layout of the widget.
-        :param list fields: The active fields of the widget.
+        Widgets, welche aus einer fremden Basis einem Dialog zugeordnet werden, ergänzen die relationalen Felder eines Default-Items der fremden Datenquelle mit den Daten des aktivierten Items. (Der Satz ist Scheiße zu verstehen, aber er trifft genau das, was es tut). In der Sample Anwendung verwende ich das beim Zuweisen von "Contracts" zu einer "Person". 
+
+        Es gibt aber auch Widgets, die mehrere Datensätze darstellen können, wie im Beispiel davor werden hier auch die Relationen verwendet, um nur Daten abzubilden, die etwas mit dem gewählten Item zu tun haben.
+
+        :param str parent_id: Die ID des übergeordneten Elements. Nur zu setzen, wenn das Widget in einem Dialog einer anderen Basis gerendert werden soll.
+        :param str icon: Das Symbol des Widgets.
+        :param str title: Der Titel des Widgets.
+        :param str desc: Die Beschreibung des Widgets.
+        :param str type: Gibt an wie das Widget die Daten darstellen wird.
+        :type type: Literal['default', 'info', 'form', 'table']
+        :param list fields: Die Felder, die in dem Widget angezeigt werden.
 
         .. code-block:: python
         
@@ -250,6 +258,43 @@ class Decore(object):
             func()
         return wrapper
 
+    l_action_type = Literal['standard', 'submit']
+    l_action_activator = Literal['none', 'default', 'context', 'click']
+
+    def action(self, parent_id=None, icon=None, title=None, desc=None, type: l_action_type = 'standard', activator: l_action_activator = 'none'):
+        '''
+        Eine Funktion zur Registrierung einer Aktion. Sie wird als "Decorator" verwendet.
+
+        Eine Aktion ist die tatsächliche Interaktion zwischen dem Benutzer und dem Backend.
+
+        :param str parent_id: Die ID des übergeordneten Elements. Nur zu setzen, wenn die Aktion in einem Widget einer anderen Basis gerendert werden soll.
+        :param str icon: Das Symbol der Aktion.
+        :param str title: Der Titel der Aktion.
+        :param str desc: Die Beschreibung der Aktion.
+        :param str type: Gibt an was die Aktion kann.
+        :type type: Literal['standard', 'submit', 'check', 'response', 'file', 'download']
+        :param str activator: Gib an, wie die Aktion ausgelöst wird.
+        :type activator: Literal['none', 'default', 'context', 'click']
+
+        .. code-block:: python
+            
+            @decore.action(icon='mdi-account', title='Person', desc='A action for managing personal data', type='submit')
+            def sample_action(item, **kwargs):
+                pass
+        
+        Die Aktionen durchlaufen ein Modul, welches die erhaltenen Daten aufbereitet und als Keyword-Parameter an die dekorierte Funktion übergibt. Es ist alles in den ``kwargs`` zu finden und man macht sich diese einfach verfügbar. Der Parameter ``item`` ist ein Beispiel dafür und repräsentiert den vom Frontend zurückgegebenen Datensatz. Um herauszufinden, was alles noch in den ``kwargs`` steckt, bitte den Debugger benutzen.
+        '''
+
+        def wrapper(func):
+            t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
+            if not parent_id:
+                t_parent_id = t_parent_s[-2]
+            else:
+                t_parent_id = parent_id
+            t_source_id = t_parent_s[0]
+            self.pool.register(Decore_action(func.__name__, t_parent_id, t_source_id, icon, title, desc, func.__doc__, type, activator, func))
+        return wrapper
+
     l_element_type = Literal['p', 'checkbox']
 
     def element(self, parent_id=None, icon=None, title=None, desc=None, type: l_element_type = 'text', default=None, disable=False, schema=None):
@@ -263,23 +308,23 @@ class Decore(object):
             self.pool.register(Decore_element(func.__name__, t_parent_id, t_source_id, icon, title, desc, type, default, disable, schema, func))
         return wrapper
 
-    l_action_type = Literal['standard', 'submit', 'check', 'response', 'file', 'download']
-    l_action_activator = Literal['none', 'default', 'context', 'click']
-
-    def action(self, parent_id=None, icon=None, title=None, desc=None, type: l_action_type = 'standard', activator: l_action_activator = 'none'):
-        def wrapper(func):
-            t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
-            if not parent_id:
-                t_parent_id = t_parent_s[-2]
-            else:
-                t_parent_id = parent_id
-            t_source_id = t_parent_s[0]
-            self.pool.register(Decore_action(func.__name__, t_parent_id, t_source_id, icon, title, desc, func.__doc__, type, activator, func))
-        return wrapper
-
     l_function_type = Literal['shot', 'work']
   
     def function(self, type:l_function_type = 'shot'):
+        '''
+        Eine Funktion zur Registrierung einer Funktion in der übergeordneten Base. Sie wird als "Decorator" verwendet.
+
+        Eine Funktion wird direkt nach der Zusammenstellung des Metadaten-Pool ausgeführt. Mit Funktionen kann man die Logik erweitern, Dinge vorbereiten oder Hintergrundaufgaben erledigen. Sie agieren als Instanzmethoden der Basis und erhalten damit den objektorientierten Ansatz.
+
+        :param str type: Gibt an wie eine Funktion ausgeführt wird. Mit dem Wert ``shot`` wird sie nur einmal ausgeführt. Der Wert ``work`` wird in einem Thread ausgeführt und kann somit Schleifen abarbeiten die niemals enden bis der Main-Thread endet.
+        :type type: Literal['shot', 'work']
+
+        .. code-block:: python
+            
+            @decore.function(type='shot')
+            def sample_function(self):
+                pass
+        '''
         def wrapper(func):
             t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
             t_parent_id = t_parent_s[-2]
