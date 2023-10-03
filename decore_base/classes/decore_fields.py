@@ -250,18 +250,44 @@ class CharField(CharField):
         super().__init__(null=null, default=default, choices=choices, help_text=help_text, verbose_name=verbose_name)
 
 class DateField(DateField):
+    '''
+    A field to store date values.
+
+    :param bool null: If True, the field is allowed to be null. Defaults to False.
+    :param bool default: The default value for the field. Defaults to None.
+    :param str help_text: Additional text to be displayed in **decore Front**.
+    :param str verbose_name: A human-readable name for the field.
+    '''
+
     accessor_class = DateFieldAccessor
 
     def __init__(self, null=False, default=None, help_text=None, verbose_name=None):
         super().__init__(null=null, default=default, help_text=help_text, verbose_name=verbose_name)
 
 class DateTimeField(DateTimeField):
+    '''
+    A field to store datetime values.
+
+    :param bool null: If True, the field is allowed to be null. Defaults to False.
+    :param bool default: The default value for the field. Defaults to None.
+    :param str help_text: Additional text to be displayed in **decore Front**.
+    :param str verbose_name: A human-readable name for the field.
+    '''
+
     accessor_class = DateTimeFieldAccessor
 
     def __init__(self, null=False, default=None, help_text=None, verbose_name=None):
         super().__init__(null=null, default=default, help_text=help_text, verbose_name=verbose_name)
 
 class FloatField(FloatField):
+    '''
+    A field to store float values.
+
+    :param bool null: If True, the field is allowed to be null. Defaults to False.
+    :param bool default: The default value for the field. Defaults to None.
+    :param str help_text: Additional text to be displayed in **decore Front**.
+    :param str verbose_name: A human-readable name for the field.
+    '''
     def __init__(self, null=False, default=None, help_text=None, verbose_name=None):
         super().__init__(null=null, default=default, help_text=help_text, verbose_name=verbose_name)
 
@@ -289,12 +315,31 @@ class PasswordField(Field):
         Field.__init__(self, null=null, verbose_name=verbose_name, help_text=help_text)
 
 class ForeignKeyField(ForeignKeyField):
+    '''
+    A field to represent a one-to-many relationship between two models.
+
+    :param Model model: The model to which the relationship is to be established.
+    :param str backref: The name of the field in the reference model that represents the relationship to the model.
+    :param bool null: If True, the field is allowed to be null. Defaults to False.
+    :param str verbose_name: A human-readable name for the field.
+    :param str help_text: Additional text to be displayed in **decore Front**.
+    :param list filter_fields: A List of type string. Only the speciefied fields will be displayed in the filter. If None, all fields will be displayed.
+    :param dict choice_query: A dictonary containing a query to be used when querying choices (e.g. in selection fields in the frontend). The query always refers to the reference model.
+    '''
     def __init__(self, model, backref=None, null=False, default=None, help_text=None, verbose_name=None, filter_fields=[], choice_query={}):
         super().__init__(model, backref=backref, null=null, default=default, help_text=help_text, verbose_name=verbose_name)
         self.filter_fields = filter_fields
         self.choice_query = choice_query
 
 class IntegerField(IntegerField):
+    '''
+    A field to store integer values.
+
+    :param bool null: If True, the field is allowed to be null. Defaults to False.
+    :param bool default: The default value for the field. Defaults to None.
+    :param str help_text: Additional text to be displayed in **decore Front**.
+    :param str verbose_name: A human-readable name for the field.
+    '''
     def __init__(self, null=False, default=None, choices=None, help_text=None, verbose_name=None):
         super().__init__(null=null, default=default, choices=choices, help_text=help_text, verbose_name=verbose_name)
 
@@ -332,6 +377,14 @@ class ManyToManyField(ManyToManyField):
         self.choice_query = choice_query
     
 class TextField(TextField):
+    '''
+    A field to store text values.
+
+    :param bool null: If True, the field is allowed to be null. Defaults to False.
+    :param bool default: The default value for the field. Defaults to None.
+    :param str help_text: Additional text to be displayed in **decore Front**.
+    :param str verbose_name: A human-readable name for the field.
+    '''
     pass
 
 # class FileField(Field):
