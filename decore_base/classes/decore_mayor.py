@@ -2,9 +2,8 @@ from peewee import (AutoField, BooleanField, CharField, DateTimeField, Model,
                     SqliteDatabase)
 
 
-class decore_Mayor(Model):
-    id = AutoField(primary_key=True)
-    username = CharField()
+class Decore_mayor(Model):
+    username = CharField(unique=True)
     password = CharField()
 
     class Meta:
@@ -14,6 +13,10 @@ class decore_Mayor(Model):
     @classmethod
     def register(cls):
         cls.create_table(safe=True)
+        if cls.get_or_none(cls.username == 'guest') is None:
+            guest = cls()
+            guest.username = 'guest'
+            guest.password = 'guest'
+            guest.save()
         return cls
-    
     

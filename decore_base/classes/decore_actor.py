@@ -10,7 +10,7 @@ from .decore_action import Decore_action
 from .decore_base import Decore_base
 
 
-class Pool_actor(Model):
+class Decore_actor(Model):
     
     active_s = []
 

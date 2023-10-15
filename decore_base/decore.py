@@ -10,7 +10,8 @@ from .classes.decore_query import Decore_query
 from .classes.decore_view import Decore_view
 from .classes.decore_widget import Decore_widget
 from .classes.decore_prompt import Decore_prompt
-from .classes.decore_actor import Pool_actor
+from .classes.decore_mayor import Decore_mayor
+from .classes.decore_actor import Decore_actor
 
 from . import globals
 
@@ -21,6 +22,7 @@ from time import perf_counter
 
 from flask import Flask, render_template, request, jsonify, send_file
 from flask_wtf.csrf import generate_csrf
+from flask_jwt_extended import JWTManager, create_access_token
 from flask_cors import CORS
 
 import json, logging
@@ -30,14 +32,12 @@ from collections import OrderedDict
 
 
 class Decore(object):
-    '''
-    Diese Klasse stellt alle notwendigen Funktionen zur Verfügung, um eine decore Anwendung zu definieren. Sie hält auch die Routen für die Kommunikation mit dem Frontend.
-    '''
     def __init__(self):
         if not globals.flags.production_mode:
             self.prompt = Decore_prompt()
         self.pool = Decore_pool()
-        self.actor = Pool_actor.register() 
+        self.mayor = Decore_mayor.register()
+        self.actor = Decore_actor.register() 
         self.api = self.get_api()
         Decore_query.create_table(safe=True)
         
@@ -45,19 +45,18 @@ class Decore(object):
         t_static_folder = Path('spa/static')
         t_template_folder = Path('spa/templates')
         api = Flask(__name__, static_folder=t_static_folder.absolute(), template_folder=t_template_folder.absolute())
-        
-        if globals.flags.dev_mode:
-            CORS(api, expose_headers=["Content-Disposition"])
+        # TOSO - jwt String auslagern und aus der Versionskontrolle nehmen, oder ein zufälligen in der config generieren
+        api.config['JWT_SECRET_KEY'] = 'super-secret'
+        # CORS(api, expose_headers=["Content-Disposition"])
+        CORS(api)
+        self.jwt = JWTManager(api)
             
-        elif not globals.flags.dev_mode: 
-            api.config['SECRET_KEY'] = '325245hkhf486axcv5719bf9397cbn69xv'
-            api.config['WTF_CSRF_ENABLED'] = False  # TODO - csrf enable when not cors
-        
         # print('APP_ROOT_FOLDER >> ' + str(api.root_path))
         # print('STATIC_FOLDER >> ' + str(api.static_folder))
         # print('TEMPLATE_FOLDER >> ' + str(api.template_folder))
         api.add_url_rule('/', 'index', self.index, defaults={'p_path': ''})
         api.add_url_rule('/<path:p_path>', 'index', self.index)
+        api.add_url_rule('/login', 'login', self.login, methods=['POST'])
         api.add_url_rule('/get_meta', 'get_meta', self.get_meta)
         api.add_url_rule('/get_item/<p_source_id>/<p_id>', 'get_item', self.get_item)
         api.add_url_rule('/get_default/<p_source_id>', 'get_default', self.get_default)
@@ -355,6 +354,9 @@ class Decore(object):
     def index(self, p_path):
         return render_template('index.html', port=globals.config.app_port)
     
+    def login(self):
+        return {'success': True, 'access_token': create_access_token(identity='guest')}, 200
+
     def get_meta(self):
         t_return = json.dumps(self.pool.export(), default=str)
         return t_return, 200
@@ -382,6 +384,7 @@ class Decore(object):
 
     def post_item_s(self, p_source_id):
         t_start = perf_counter()
+        # TODO - Umstellen auf request.json - Das ist viel schöner.
         t_query = json.loads(request.data)
         t_source = self.pool.__data__[p_source_id]
         t_item_s = t_source.model.get_dict_s(t_query)
@@ -391,12 +394,14 @@ class Decore(object):
         return t_return, 200
     
     def post_rel_item_s(self, p_source_id):
+        # TODO - Umstellen auf request.json - Das ist viel schöner.
         t_query = json.loads(request.data)
         t_source = self.pool.__data__[p_source_id]
         t_return = json.dumps(t_source.model.get_minified_dict_s(t_query), default=str)
         return t_return, 200
 
     def post_filter_value_s(self, p_source_id):
+        # TODO - Umstellen auf request.json - Das ist viel schöner.
         t_data = json.loads(request.data)
         t_query = t_data['query']
         t_attr = t_data['attr']
