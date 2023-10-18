@@ -246,8 +246,8 @@ class CharField(CharField):
     :param str help_text: Additional text to be displayed in **decore Front**.
     :param str verbose_name: A human-readable name for the field.
     '''
-    def __init__(self, null=False, default=None, choices=None, help_text=None, verbose_name=None):
-        super().__init__(null=null, default=default, choices=choices, help_text=help_text, verbose_name=verbose_name)
+    def __init__(self, null=False, unique=False, default=None, choices=None, help_text=None, verbose_name=None):
+        super().__init__(null=null, unique=unique, default=default, choices=choices, help_text=help_text, verbose_name=verbose_name)
 
 class DateField(DateField):
     '''

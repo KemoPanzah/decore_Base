@@ -24,8 +24,6 @@ class Decore_model(Model):
     id = IDField(primary_key=True, unique=True, verbose_name="ID")
     title = CharField(verbose_name=t('Title'))
     desc = CharField(verbose_name=t('Description'), null=True)
-    # item_type = CharField(verbose_name=t('Item type'), default='object')
-    # parent_path = CharField(verbose_name=t('Parent path'), null=True)
     
     class Meta:
         # tbase = SqliteDatabase('state/database.db', pragmas=(('cache_size', -1024 * 64),('journal_mode', 'wal')))

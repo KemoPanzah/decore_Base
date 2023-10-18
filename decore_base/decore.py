@@ -22,7 +22,6 @@ from time import perf_counter
 
 from flask import Flask, render_template, request, jsonify, send_file
 from flask_wtf.csrf import generate_csrf
-from flask_jwt_extended import JWTManager, create_access_token
 from flask_cors import CORS
 
 import json, logging
@@ -36,20 +35,20 @@ class Decore(object):
         if not globals.flags.production_mode:
             self.prompt = Decore_prompt()
         self.pool = Decore_pool()
-        self.mayor = Decore_mayor.register()
         self.actor = Decore_actor.register() 
         self.api = self.get_api()
+        self.mayor = Decore_mayor.register(self.api)
         Decore_query.create_table(safe=True)
         
     def get_api(self):
         t_static_folder = Path('spa/static')
         t_template_folder = Path('spa/templates')
         api = Flask(__name__, static_folder=t_static_folder.absolute(), template_folder=t_template_folder.absolute())
-        # TOSO - jwt String auslagern und aus der Versionskontrolle nehmen, oder ein zufälligen in der config generieren
+        # TODO - jwt String auslagern und aus der Versionskontrolle nehmen, oder ein zufälligen in der config generieren
+        # TODO - JWT Einstellungen nach Decore_mayor.register() verschieben
         api.config['JWT_SECRET_KEY'] = 'super-secret'
         # CORS(api, expose_headers=["Content-Disposition"])
         CORS(api)
-        self.jwt = JWTManager(api)
             
         # print('APP_ROOT_FOLDER >> ' + str(api.root_path))
         # print('STATIC_FOLDER >> ' + str(api.static_folder))
@@ -91,20 +90,21 @@ class Decore(object):
         else:
             self.api.run(HOST, PORT)
 
-    def app(self, title):
+    def app(self, title, allow_guest=True):
         '''
         Eine Funktion zum eröffnen einer GUI-Dashboard-Anwendung. Sie wird als "Decorator" verwendet.
 
         :param str title: Der Titel der App.
+        :param bool allow_guest: Gibt an, ob der Gastzugang (Anonynus) erlaubt ist. Der Wert ``True`` erlaubt den automatischen Login als Gast. Der Wert ``False`` verweigert das senden der Metadaten an das Frontend und verweist auf die Login-Seite.
 
         .. code-block:: python
 
-            @decore.app(title='My App')
+            @decore.app(title='My App', allow_guest=False)
             def main():
                 pass
         '''
         def wrapper(func):
-            self.pool.register(Decore_app('app', None, None, None, title, None, func.__doc__))
+            self.pool.register(Decore_app('app', None, None, None, title, None, allow_guest))
             self.pool.extend()
             i_base: Decore_base
             for i_base in self.pool.base_s:
@@ -176,7 +176,7 @@ class Decore(object):
             else:
                 t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_view(func.__name__, t_parent_id, t_source_id, icon, title, desc, func.__doc__, type, fields, filters, query, pag_type, pag_recs))
+            self.pool.register(Decore_view(func.__name__, t_parent_id, t_source_id, icon, title, desc, type, fields, filters, query, pag_type, pag_recs))
             func()
         return wrapper
 
@@ -215,7 +215,7 @@ class Decore(object):
             else:
                 t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_dialog(func.__name__, t_parent_id, t_source_id, icon, title, desc, func.__doc__, type, display, activator))
+            self.pool.register(Decore_dialog(func.__name__, t_parent_id, t_source_id, icon, title, desc, type, display, activator))
             func()
         return wrapper
 
@@ -253,7 +253,7 @@ class Decore(object):
             else:
                 t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_widget(func.__name__, t_parent_id, t_source_id, icon, title, desc, func.__doc__, type, layout, fields))
+            self.pool.register(Decore_widget(func.__name__, t_parent_id, t_source_id, icon, title, desc, type, layout, fields))
             func()
         return wrapper
 
@@ -291,7 +291,7 @@ class Decore(object):
             else:
                 t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_action(func.__name__, t_parent_id, t_source_id, icon, title, desc, func.__doc__, type, activator, func))
+            self.pool.register(Decore_action(func.__name__, t_parent_id, t_source_id, icon, title, desc, type, activator, func))
         return wrapper
 
     l_element_type = Literal['p', 'checkbox']
@@ -328,7 +328,7 @@ class Decore(object):
             t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
             t_parent_id = t_parent_s[-2]
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_function(func.__name__, t_parent_id, t_source_id, None, None, None, func.__doc__, type, func))
+            self.pool.register(Decore_function(func.__name__, t_parent_id, t_source_id, None, None, None, type, func))
         return wrapper
 
     def get_base_by_id(self, p_id):
@@ -355,7 +355,7 @@ class Decore(object):
         return render_template('index.html', port=globals.config.app_port)
     
     def login(self):
-        return {'success': True, 'access_token': create_access_token(identity='guest')}, 200
+        return self.mayor.login(request)
 
     def get_meta(self):
         t_return = json.dumps(self.pool.export(), default=str)
