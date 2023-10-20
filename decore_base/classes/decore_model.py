@@ -15,6 +15,7 @@ from playhouse.shortcuts import model_to_dict
 from ..globals import globals
 from .decore_fields import *
 
+from .model_validator import Model_validator
 from .decore_translate import Decore_translate as t
 
 class IDField(_CharField):
@@ -33,7 +34,8 @@ class Decore_model(Model):
         user_query = {}
 
     def __init__(self, *args, **kwargs):
-        Model.__init__(self, *args, **kwargs)        
+        Model.__init__(self, *args, **kwargs)     
+        self.validator = Model_validator(self.__class__, self.build_schema(), allow_unknown = True)
         self.backref_stage = {}
         if not self.id:
             self.id = str(uuid1())
@@ -118,6 +120,7 @@ class Decore_model(Model):
 
             if 'CharField' in i_field.__class__.__name__:
                 t_schema[i_field.name]['type'] = 'string'
+                t_schema[i_field.name]['unique'] = i_field.unique
                 t_schema[i_field.name]['maxlength'] = i_field.max_length
 
             if 'DateField' in i_field.__class__.__name__:
@@ -265,18 +268,13 @@ class Decore_model(Model):
 
     @property
     def errors(self):
-        t_schema = self.build_schema()
-        t_val = Validator(t_schema, allow_unknown = True)
-        t_val.validate(self.to_dict())
-        return t_val.errors
+        self.validator.validate(self.to_dict())
+        return self.validator.errors
 
     def validate(self):
-        t_schema = self.build_schema()
-        #TODO - Schema as property and Validator as attribute in model
-        t_val = Validator(t_schema, allow_unknown = True)
-        r_value =  t_val.validate(self.to_dict())
+        r_value =  self.validator.validate(self.to_dict())
         if r_value == False:
-            logging.error('%s > %s' % ('validate_model', str(t_val.errors)))
+            logging.error('%s > %s' % ('validate_model', str(self.validator.errors)))
         return r_value
 
     # TODO - Wer ruft das auf? was ist damit?

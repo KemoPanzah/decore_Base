@@ -242,6 +242,7 @@ class CharField(CharField):
     A field to store char values.
 
     :param bool null: If True, the field is allowed to be null. Defaults to False.
+    :param bool unique: If True, the field must be unique in database table. Defaults to False.
     :param bool default: The default value for the field. Defaults to None.
     :param str help_text: Additional text to be displayed in **decore Front**.
     :param str verbose_name: A human-readable name for the field.

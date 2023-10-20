@@ -23,6 +23,7 @@ from time import perf_counter
 from flask import Flask, render_template, request, jsonify, send_file
 from flask_wtf.csrf import generate_csrf
 from flask_cors import CORS
+from flask_jwt_extended import jwt_required
 
 import json, logging
 from str2type import str2type

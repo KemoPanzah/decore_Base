@@ -8,7 +8,7 @@ class FKModel(Conform_model):
 
 class Model(Conform_model):
     booelean = BooleanField()
-    charfield = CharField()
+    charfield = CharField(unique=True)
     date = DateField()
     datetime = DateTimeField()
     floatfield = FloatField()
@@ -60,6 +60,16 @@ class Test_model:
 
     def teardown_method(self):
         self.item.delete_instance()
+
+    def test_charfield(self):
+        self.item.charfield = "char char baby"
+        self.item.save()
+        assert not self.item.errors
+
+        t_second_item = Model()
+        t_second_item.charfield = "char char baby"
+        t_second_item.save()
+        assert t_second_item.errors['charfield']
 
     def test_datefield(self):
         self.item.date = "2021-01-01"
