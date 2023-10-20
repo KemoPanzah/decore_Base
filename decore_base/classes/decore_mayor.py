@@ -17,9 +17,11 @@ class Decore_mayor(Decore_model):
         cls.jwt = JWTManager(api)
         if cls.get_or_none(cls.username == 'guest') is None:
             guest = cls()
+            guest.title = 'Guest'
             guest.username = 'guest'
             guest.password = 'guest'
             guest.save()
+
         return cls
     
     def login(self, request):
