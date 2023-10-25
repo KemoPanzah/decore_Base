@@ -23,7 +23,7 @@ from time import perf_counter
 from flask import Flask, render_template, request, jsonify, send_file
 from flask_wtf.csrf import generate_csrf
 from flask_cors import CORS
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager, jwt_required
 
 import json, logging
 from str2type import str2type
@@ -36,9 +36,9 @@ class Decore(object):
         if not globals.flags.production_mode:
             self.prompt = Decore_prompt()
         self.pool = Decore_pool()
-        self.actor = Decore_actor.register() 
+        self.actor = Decore_actor.register()
+        self.mayor = Decore_mayor()
         self.api = self.get_api()
-        self.mayor = Decore_mayor.register(self.api)
         Decore_query.create_table(safe=True)
         
     def get_api(self):
@@ -46,8 +46,8 @@ class Decore(object):
         t_template_folder = Path('spa/templates')
         api = Flask(__name__, static_folder=t_static_folder.absolute(), template_folder=t_template_folder.absolute())
         # TODO - jwt String auslagern und aus der Versionskontrolle nehmen, oder ein zufälligen in der config generieren
-        # TODO - JWT Einstellungen nach Decore_mayor.register() verschieben
         api.config['JWT_SECRET_KEY'] = 'super-secret'
+        jwt = JWTManager(api)
         # CORS(api, expose_headers=["Content-Disposition"])
         CORS(api)
             
@@ -60,6 +60,7 @@ class Decore(object):
         api.add_url_rule('/get_meta', 'get_meta', self.get_meta)
         api.add_url_rule('/get_item/<p_source_id>/<p_id>', 'get_item', self.get_item)
         api.add_url_rule('/get_default/<p_source_id>', 'get_default', self.get_default)
+        api.add_url_rule('/get_first/<p_source_id>', 'get_first', self.get_first)
         api.add_url_rule('/get_last/<p_source_id>', 'get_last', self.get_last)
         api.add_url_rule('/post_item_s/<p_source_id>', 'post_item_s', self.post_item_s, methods=['POST'])
         api.add_url_rule('/post_rel_item_s/<p_source_id>', 'post_rel_item_s', self.post_rel_item_s, methods=['POST'])
@@ -142,7 +143,7 @@ class Decore(object):
             self.pool.register(t_base)
         return wrapper
 
-    l_view_type = Literal['table']
+    l_view_type = Literal['blank', 'table']
     l_view_pag_type = Literal['client']
 
     def view(self, parent_id=None, icon=None, title=None, desc=None, type: l_view_type = 'table', fields=[], filters=[], query={}, pag_type: l_view_pag_type = 'client', pag_recs=16):
@@ -183,7 +184,7 @@ class Decore(object):
 
     l_dialog_type = Literal['standard']
     l_dialog_display = Literal['modal', 'drawer']
-    l_dialog_activator = Literal['none', 'default', 'context', 'click']
+    l_dialog_activator = Literal['empty', 'first', 'last', 'default', 'context', 'click']
 
     # TODO - Überprüfen ob element mit gleicher ID schon vorhanden ist und Execption
     def dialog(self, parent_id=None, icon=None, title=None, desc=None, type: l_dialog_type = 'standard', display: l_dialog_display = 'drawer', activator: l_dialog_activator = 'none'):
@@ -258,8 +259,8 @@ class Decore(object):
             func()
         return wrapper
 
-    l_action_type = Literal['standard', 'submit']
-    l_action_activator = Literal['none', 'default', 'context', 'click']
+    l_action_type = Literal['standard', 'submit', 'login']
+    l_action_activator = Literal['load', 'default', 'context', 'click']
 
     def action(self, parent_id=None, icon=None, title=None, desc=None, type: l_action_type = 'standard', activator: l_action_activator = 'none'):
         '''
@@ -356,8 +357,14 @@ class Decore(object):
         return render_template('index.html', port=globals.config.app_port)
     
     def login(self):
-        return self.mayor.login(request)
+        t_username = request.json['username']
+        t_password = request.json['password']
+        if self.mayor.login(t_username, t_password):
+            return {'success': True, 'result': self.mayor.login(t_username, t_password), 'errors':{}}, 200
+        else:
+            return {'success': False, 'result':'Invalid username or password', 'errors':{}}, 401
 
+    @jwt_required()
     def get_meta(self):
         t_return = json.dumps(self.pool.export(), default=str)
         return t_return, 200
@@ -374,6 +381,15 @@ class Decore(object):
         t_return = json.dumps(t_item, default=str)
         return t_return, 200
     
+    def get_first(self, p_source_id):
+        t_source = self.pool.__data__[p_source_id]
+        if not len(t_source.model.select()) == 0:
+            t_item = t_source.model.select()[0].to_dict()
+            t_return = json.dumps(t_item, default=str)
+            return t_return, 200
+        else:
+            return self.get_default(p_source_id)
+
     def get_last(self, p_source_id):
         t_source = self.pool.__data__[p_source_id]
         if not len(t_source.model.select()) == 0:

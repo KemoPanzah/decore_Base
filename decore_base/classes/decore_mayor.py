@@ -1,37 +1,18 @@
-from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required
+from flask_jwt_extended import create_access_token
 import bcrypt
 
-from .decore_model import *
+from ..models.bi_account_model import BI_Account_model as Model
 
-
-class Decore_mayor(Decore_model):
-    username = CharField(unique=True, verbose_name='Username')
-    password = CharField(verbose_name='Password')
-    role = CharField(verbose_name='Role', default='guest')
-
-    class Meta:
-        database = SqliteDatabase('state/mayorbase.db')
-
-    # Funktion um die Tabelle zu erstellen und die Klasse zurückzugeben
-    @classmethod
-    def register(cls, api):
-        super(Decore_mayor, cls).register()
-        cls.jwt = JWTManager(api)
-        if cls.get_or_none(cls.username == 'guest@decore.base') is None:
-            guest = cls()
-            guest.title = 'Guest Account'
-            guest.desc = 'Account to log in automatically as user with guest role'
-            guest.username = 'guest@decore.base'
-            guest.password = cls.hash_password('password')
-            guest.save()
-        return cls
-    
-    @classmethod
-    def hash_password(cls, password):
+class Decore_mayor:    
+    def hash_password(self, password):
         return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    
+    def check_password(self, password, hashed):
+        return bcrypt.checkpw(password.encode('utf-8'), hashed.encode('utf-8'))
 
-    @classmethod
-    def login(cls, request):
-        username = request.json['username']
-        password = request.json['password']
-        return {'success': True, 'access_token': create_access_token(identity='guest')}, 200
+    def login(self, username, password):
+        t_account = Model.get_or_none(Model.username == username)
+        if t_account is None:
+            return None
+        elif self.check_password(password, t_account.password):
+            return create_access_token(identity=t_account.username)
