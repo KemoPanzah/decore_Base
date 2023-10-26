@@ -110,11 +110,9 @@ class Decore(object):
             self.pool.extend()
             i_base: Decore_base
             for i_base in self.pool.base_s:
-                #TODO - erweitere auch das Modell im Pool und passe decore_Front darauf an. Dann können die nächste Zeile wieder raus
                 i_base.rel_field_s = i_base.model.rel_field_s
                 i_base.start_shot()
                 i_base.start_work()
-            t_test_pool = self.pool.export()
             self.start_api()
         return wrapper
 
