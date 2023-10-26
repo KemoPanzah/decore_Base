@@ -23,7 +23,7 @@ from time import perf_counter
 from flask import Flask, render_template, request, jsonify, send_file
 from flask_wtf.csrf import generate_csrf
 from flask_cors import CORS
-from flask_jwt_extended import JWTManager, jwt_required
+from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 
 import json, logging
 from str2type import str2type
@@ -55,7 +55,7 @@ class Decore(object):
         # print('TEMPLATE_FOLDER >> ' + str(api.template_folder))
         api.add_url_rule('/', 'index', self.index, defaults={'p_path': ''})
         api.add_url_rule('/<path:p_path>', 'index', self.index)
-        api.add_url_rule('/login', 'login', self.login, methods=['POST'])
+        api.add_url_rule('/guest_login', 'guest_login', self.guest_login, methods=['POST'])
         api.add_url_rule('/get_meta', 'get_meta', self.get_meta)
         api.add_url_rule('/get_item/<p_source_id>/<p_id>', 'get_item', self.get_item)
         api.add_url_rule('/get_default/<p_source_id>', 'get_default', self.get_default)
@@ -91,7 +91,7 @@ class Decore(object):
         else:
             self.api.run(HOST, PORT)
 
-    def app(self, title, allow_guest=True):
+    def app(self, title, desc=None, allow_guest=True):
         '''
         Eine Funktion zum eröffnen einer GUI-Dashboard-Anwendung. Sie wird als "Decorator" verwendet.
 
@@ -105,7 +105,7 @@ class Decore(object):
                 pass
         '''
         def wrapper(func):
-            self.pool.register(Decore_app('app', None, None, None, title, None, allow_guest))
+            self.pool.register(Decore_app(title, desc, allow_guest))
             self.pool.extend()
             i_base: Decore_base
             for i_base in self.pool.base_s:
@@ -115,7 +115,7 @@ class Decore(object):
             self.start_api()
         return wrapper
 
-    def base(self, icon=None, title=None, desc=None, model=Decore_model):
+    def base(self, icon=None, title=None, desc=None, role=0, model=Decore_model):
         '''
         Eine Funktion zum registrieren einer Basis in der GUI-Dashboard-Anwendung. Sie wird als "Decorator" verwendet.
 
@@ -133,7 +133,7 @@ class Decore(object):
                 pass
         '''
         def wrapper(cls):
-            t_base = Decore_base(cls.__name__, icon, title, desc, model)
+            t_base = Decore_base(cls.__name__, icon, title, desc, role, model)
             t_base.__class__ = type(cls.__name__, (Decore_base, cls), {
                 '__init__': cls.__init__(t_base),
             })
@@ -143,7 +143,7 @@ class Decore(object):
     l_view_type = Literal['blank', 'table']
     l_view_pag_type = Literal['client']
 
-    def view(self, parent_id=None, icon=None, title=None, desc=None, type: l_view_type = 'table', fields=[], filters=[], query={}, pag_type: l_view_pag_type = 'client', pag_recs=16):
+    def view(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_view_type = 'table', fields=[], filters=[], query={}, pag_type: l_view_pag_type = 'client', pag_recs=16):
         '''
         Eine Funktion zur Registrierung einer Ansicht. Sie wird als "Decorator" verwendet.
 
@@ -175,7 +175,7 @@ class Decore(object):
             else:
                 t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_view(func.__name__, t_parent_id, t_source_id, icon, title, desc, type, fields, filters, query, pag_type, pag_recs))
+            self.pool.register(Decore_view(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, type, fields, filters, query, pag_type, pag_recs))
             func()
         return wrapper
 
@@ -184,7 +184,7 @@ class Decore(object):
     l_dialog_activator = Literal['empty', 'first', 'last', 'default', 'context', 'click']
 
     # TODO - Überprüfen ob element mit gleicher ID schon vorhanden ist und Execption
-    def dialog(self, parent_id=None, icon=None, title=None, desc=None, type: l_dialog_type = 'standard', display: l_dialog_display = 'drawer', activator: l_dialog_activator = 'none'):
+    def dialog(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_dialog_type = 'standard', display: l_dialog_display = 'drawer', activator: l_dialog_activator = 'none'):
         '''
         Eine Funktion zur Registrierung eines Dialogs. Sie wird als "Decorator" verwendet.
 
@@ -214,13 +214,13 @@ class Decore(object):
             else:
                 t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_dialog(func.__name__, t_parent_id, t_source_id, icon, title, desc, type, display, activator))
+            self.pool.register(Decore_dialog(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, type, display, activator))
             func()
         return wrapper
 
     l_widget_type = Literal['default', 'info', 'form', 'table']
 
-    def widget(self, parent_id=None, icon=None, title=None, desc=None, type: l_widget_type = 'default', layout='cera', fields=[]):
+    def widget(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_widget_type = 'default', layout='cera', fields=[]):
         '''
         Eine Funktion zur Registrierung eines Widgets. Sie wird als "Decorator" verwendet.
 
@@ -252,14 +252,14 @@ class Decore(object):
             else:
                 t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_widget(func.__name__, t_parent_id, t_source_id, icon, title, desc, type, layout, fields))
+            self.pool.register(Decore_widget(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, type, layout, fields))
             func()
         return wrapper
 
     l_action_type = Literal['standard', 'submit', 'login']
     l_action_activator = Literal['load', 'default', 'context', 'click']
 
-    def action(self, parent_id=None, icon=None, title=None, desc=None, type: l_action_type = 'standard', activator: l_action_activator = 'none'):
+    def action(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_action_type = 'standard', activator: l_action_activator = 'none'):
         '''
         Eine Funktion zur Registrierung einer Aktion. Sie wird als "Decorator" verwendet.
 
@@ -290,12 +290,12 @@ class Decore(object):
             else:
                 t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_action(func.__name__, t_parent_id, t_source_id, icon, title, desc, type, activator, func))
+            self.pool.register(Decore_action(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, type, activator, func))
         return wrapper
 
     l_element_type = Literal['p', 'checkbox']
 
-    def element(self, parent_id=None, icon=None, title=None, desc=None, type: l_element_type = 'text', default=None, disable=False, schema=None):
+    def element(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_element_type = 'text', default=None, disable=False, schema=None):
         def wrapper(func):
             t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
             if not parent_id:
@@ -303,7 +303,7 @@ class Decore(object):
             else:
                 t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_element(func.__name__, t_parent_id, t_source_id, icon, title, desc, type, default, disable, schema, func))
+            self.pool.register(Decore_element(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, type, default, disable, schema, func))
         return wrapper
 
     l_function_type = Literal['shot', 'work']
@@ -353,7 +353,7 @@ class Decore(object):
     def index(self, p_path):
         return render_template('index.html', port=globals.config.app_port)
     
-    def login(self):
+    def guest_login(self):
         t_username = request.json['username']
         t_password = request.json['password']
         t_token = Mayor.login(t_username, t_password)
@@ -364,7 +364,9 @@ class Decore(object):
 
     @jwt_required()
     def get_meta(self):
-        t_return = json.dumps(self.pool.export(), default=str)
+        t_identity = get_jwt_identity()
+        t_role = Mayor.get_account_from_identity(t_identity).role
+        t_return = json.dumps(self.pool.export(t_role), default=str)
         return t_return, 200
     
     def get_item(self, p_source_id, p_id):

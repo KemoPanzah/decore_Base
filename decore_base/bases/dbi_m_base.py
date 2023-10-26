@@ -2,9 +2,9 @@ from ..decore import decore
 from ..classes.decore_mayor import Decore_mayor as Mayor
 
 @decore.base(title='Mayor', model=Mayor)
-class dbi_mayor:
+class dbi_m_base:
     @decore.function(type='shot')
-    def bi_acc_fu1(self):
+    def dbi_m_init(self):
         if Mayor.get_or_none(Mayor.username == 'guest@decore.base') is None:
             guest = Mayor()
             guest.title = 'Guest Account'

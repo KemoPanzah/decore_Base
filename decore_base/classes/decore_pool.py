@@ -17,13 +17,7 @@ from peewee import Field, BackrefAccessor, ManyToManyField
 class Decore_pool(object):
     def __init__(self):
         self.__data__ = dict()
-        # TODO - was ist damit wird das noch benötigt - remove?
         self.base_s = []
-        self.view_s = []
-        self.dialog_s = []
-        self.widget_s = []
-        self.action_s = []
-        self.element_s = []
 
     @property
     def app(self):
@@ -41,30 +35,34 @@ class Decore_pool(object):
             if Decore_base in inspect.getmro(value.__class__):
                 if not self.__data__['app'].base_id:
                     self.__data__['app'].base_id = value.id
-                self.__data__[value.parent_id].base_id_s.append(value.id)
+                # self.__data__[value.parent_id].base_id_s.append(value.id)
                 self.base_s.append(value)
             if Decore_view in inspect.getmro(value.__class__):
                 if not self.__data__['app'].view_id:
                     self.__data__['app'].view_id = value.id
-                self.__data__[value.parent_id].view_id_s.append(value.id)
-                self.view_s.append(value)
+                value.role = self.__data__[value.parent_id].role
+                # self.__data__[value.parent_id].view_id_s.append(value.id)
             if Decore_dialog in inspect.getmro(value.__class__):
-                self.__data__[value.parent_id].dialog_id_s.append(value.id)
-                self.dialog_s.append(value)
+                value.role = self.__data__[value.parent_id].role
+                # self.__data__[value.parent_id].dialog_id_s.append(value.id)
             if Decore_widget in inspect.getmro(value.__class__):
-                self.__data__[value.parent_id].widget_id_s.append(value.id)
-                self.widget_s.append(value)
+                value.role = self.__data__[value.parent_id].role
+                # self.__data__[value.parent_id].widget_id_s.append(value.id)
             if Decore_action in inspect.getmro(value.__class__):
-                self.__data__[value.parent_id].action_id_s.append(value.id)
-                self.action_s.append(value)
+                value.role = self.__data__[value.parent_id].role
+                # self.__data__[value.parent_id].action_id_s.append(value.id)
             if Decore_element in inspect.getmro(value.__class__):
-                self.__data__[value.parent_id].element_id_s.append(value.id)
-                self.element_s.append(value)
+                value.role = self.__data__[value.parent_id].role
+                # self.__data__[value.parent_id].element_id_s.append(value.id)
             if Decore_function in inspect.getmro(value.__class__):
                 self.__data__[value.parent_id].function_s.append(value)
 
-    def export(self):
-        return self.serialize(self.__data__)
+    def export(self, p_role):
+        t_export_dict = {}
+        for key, value in self.__data__.items():
+            if p_role >= value.role:
+                t_export_dict[key] = value
+        return self.serialize(t_export_dict)
 
     def serialize(self, p_value):
         t_return = {}
@@ -74,6 +72,7 @@ class Decore_pool(object):
                 t_return[key] = self.serialize(value)
         
         elif Decore_object in inspect.getmro(p_value.__class__):
+            # TODO - entferne class so allmählich aus dem gesamten Framework wir überprüfen ab dann über 'kind' und 'kind' wird direkt beim erstellen der klassen als attribut gesetzt.
             setattr(p_value,'class', p_value.__class__.__name__)
             for key, value in p_value.__dict__.items():
                 t_return[key] = self.serialize(value)

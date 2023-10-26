@@ -333,7 +333,6 @@ class Decore_model(Model):
         return r_value
 
     def save(self):
-        #TODO - auf try except umstellen und raisen in validate.
         #TODO - auf errors umstellen
         #TODO - auf dirty_fields umstellen
         r_value = 0
@@ -350,7 +349,6 @@ class Decore_model(Model):
                 else:
                     r_value = 1
             elif t_item:
-                # t_data = {k: v for k, v in t_item.__data__.items() if v is not None}
                 if not self.to_dict() == t_item.to_dict():
                     try:
                         globals.keybase.commit(self.id)

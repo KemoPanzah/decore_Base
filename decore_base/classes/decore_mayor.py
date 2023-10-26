@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import bcrypt
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, get_jwt_identity
 
 from .decore_model import *
 
@@ -31,6 +31,14 @@ class Decore_mayor(Decore_model):
     @classmethod
     def check_password(cls, password, hashed):
         return bcrypt.checkpw(password.encode('utf-8'), hashed.encode('utf-8'))
+    
+    @classmethod
+    def get_account_from_identity(cls, p_identity):
+        t_account = cls.get_or_none(cls.username == p_identity)
+        if t_account is None:
+            return None
+        else:
+            return t_account
 
     @classmethod
     def login(cls, username, password):
