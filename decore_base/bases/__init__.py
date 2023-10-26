@@ -1,1 +1,1 @@
-from .bi_account_base import BI_Account_base
+from .dbi_mayor import dbi_mayor

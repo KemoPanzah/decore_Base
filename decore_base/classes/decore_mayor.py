@@ -1,18 +1,41 @@
-from flask_jwt_extended import create_access_token
+from pathlib import Path
+
 import bcrypt
+from flask_jwt_extended import create_access_token
 
-from ..models.bi_account_model import BI_Account_model as Model
+from .decore_model import *
 
-class Decore_mayor:    
-    def hash_password(self, password):
+
+class Decore_mayor(Decore_model):
+
+    username = CharField(unique=True, verbose_name='Username')
+    password = CharField(verbose_name='Password')
+    role = IntegerField(verbose_name='Role', default=0)
+
+    class Meta:
+        # TODO - diese Zeile wieder einsetzen wenn alle Relationen zwischen conform und perform passen
+        # database = SqliteDatabase('state/database.db', pragmas=(('cache_size', -1024 * 64),('journal_mode', 'wal')))
+        db_path = Path(globals.config.state_path).joinpath('database.db')
+        database = SqliteDatabase(db_path)
+
+    @classmethod
+    def register(cls):
+        super(Decore_mayor, cls).register()
+        cls.migrate_database()
+        return cls
+
+    @classmethod
+    def hash_password(cls, password):
         return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     
-    def check_password(self, password, hashed):
+    @classmethod
+    def check_password(cls, password, hashed):
         return bcrypt.checkpw(password.encode('utf-8'), hashed.encode('utf-8'))
 
-    def login(self, username, password):
-        t_account = Model.get_or_none(Model.username == username)
+    @classmethod
+    def login(cls, username, password):
+        t_account = cls.get_or_none(cls.username == username)
         if t_account is None:
             return None
-        elif self.check_password(password, t_account.password):
+        elif cls.check_password(password, t_account.password):
             return create_access_token(identity=t_account.username)

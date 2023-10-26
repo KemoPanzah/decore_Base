@@ -10,7 +10,7 @@ from .classes.decore_query import Decore_query
 from .classes.decore_view import Decore_view
 from .classes.decore_widget import Decore_widget
 from .classes.decore_prompt import Decore_prompt
-from .classes.decore_mayor import Decore_mayor
+from .classes.decore_mayor import Decore_mayor as Mayor
 from .classes.decore_actor import Decore_actor
 
 from . import globals
@@ -37,7 +37,6 @@ class Decore(object):
             self.prompt = Decore_prompt()
         self.pool = Decore_pool()
         self.actor = Decore_actor.register()
-        self.mayor = Decore_mayor()
         self.api = self.get_api()
         Decore_query.create_table(safe=True)
         
@@ -357,8 +356,9 @@ class Decore(object):
     def login(self):
         t_username = request.json['username']
         t_password = request.json['password']
-        if self.mayor.login(t_username, t_password):
-            return {'success': True, 'result': self.mayor.login(t_username, t_password), 'errors':{}}, 200
+        t_token = Mayor.login(t_username, t_password)
+        if t_token:
+            return {'success': True, 'result': t_token, 'errors':{}}, 200
         else:
             return {'success': False, 'result':'Invalid username or password', 'errors':{}}, 401
 
