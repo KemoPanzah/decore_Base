@@ -41,7 +41,7 @@ class Decore_mayor(Decore_model):
             return t_account
 
     @classmethod
-    def login(cls, username, password):
+    def get_token(cls, username, password):
         t_account = cls.get_or_none(cls.username == username)
         if t_account is None:
             return None

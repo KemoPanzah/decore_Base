@@ -356,7 +356,7 @@ class Decore(object):
     def guest_login(self):
         t_username = request.json['username']
         t_password = request.json['password']
-        t_token = Mayor.login(t_username, t_password)
+        t_token = Mayor.get_token(t_username, t_password)
         if t_token:
             return {'success': True, 'result': t_token, 'errors':{}}, 200
         else:

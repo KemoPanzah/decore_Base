@@ -33,7 +33,7 @@ class dbi_m_base:
             def bi_login_form():
                 @decore.action(title='Login', icon='mdi-login' , type='login', activator='default')
                 def bi_login_action(self, item, **kwargs):
-                    t_token = Mayor.login(item.username, item.password)
+                    t_token = Mayor.get_token(item.username, item.password)
                     if t_token:
                         return True, 'Loging in ' + item.username, t_token
                     else:
