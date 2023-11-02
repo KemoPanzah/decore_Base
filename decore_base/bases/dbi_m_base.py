@@ -22,9 +22,14 @@ class dbi_m_base:
             admin.role = 10
             admin.save()
 
+    @decore.dialog(parent_id='app', icon='mdi-account' ,activator='last')
+    def bi_account_dialog():
+        pass
+
     @decore.view(title='Accounts', type='table', fields=Mayor.field_s)
     def bi_accounts_view():
         pass
+    
     @decore.view(title='Login', type='empty')
     def bi_login_view():
         @decore.dialog(title='Login', type='standard', activator='empty')

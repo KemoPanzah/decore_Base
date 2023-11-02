@@ -44,6 +44,7 @@ class Decore_pool(object):
                 # self.__data__[value.parent_id].view_id_s.append(value.id)
             if Decore_dialog in inspect.getmro(value.__class__):
                 value.role = self.__data__[value.parent_id].role
+                value.parent_kind = self.__data__[value.parent_id].kind
                 # self.__data__[value.parent_id].dialog_id_s.append(value.id)
             if Decore_widget in inspect.getmro(value.__class__):
                 value.role = self.__data__[value.parent_id].role
