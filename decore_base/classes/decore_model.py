@@ -23,6 +23,7 @@ class IDField(_CharField):
 
 class Decore_model(Model):
     id = IDField(primary_key=True, unique=True, verbose_name="ID")
+    owner_id = CharField(verbose_name=t('Owner ID'), null=True, default=None)
     title = CharField(verbose_name=t('Title'))
     desc = CharField(verbose_name=t('Description'), null=True)
     

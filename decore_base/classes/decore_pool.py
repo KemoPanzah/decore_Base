@@ -35,25 +35,35 @@ class Decore_pool(object):
             if Decore_base in inspect.getmro(value.__class__):
                 if not self.__data__['app'].base_id:
                     self.__data__['app'].base_id = value.id
-                # self.__data__[value.parent_id].base_id_s.append(value.id)
+                value.parent_kind = self.__data__[value.parent_id].kind    
+                # self.__data__[value.parent_id].base_id_s.append(value.id)      
                 self.base_s.append(value)
             if Decore_view in inspect.getmro(value.__class__):
                 if not self.__data__['app'].view_id:
                     self.__data__['app'].view_id = value.id
-                value.role = self.__data__[value.parent_id].role
+                if value.role < self.__data__[value.parent_id].role:
+                    value.role = self.__data__[value.parent_id].role
+                value.parent_kind = self.__data__[value.parent_id].kind
                 # self.__data__[value.parent_id].view_id_s.append(value.id)
             if Decore_dialog in inspect.getmro(value.__class__):
-                value.role = self.__data__[value.parent_id].role
+                if value.role < self.__data__[value.parent_id].role:
+                    value.role = self.__data__[value.parent_id].role
                 value.parent_kind = self.__data__[value.parent_id].kind
                 # self.__data__[value.parent_id].dialog_id_s.append(value.id)
             if Decore_widget in inspect.getmro(value.__class__):
-                value.role = self.__data__[value.parent_id].role
+                if value.role < self.__data__[value.parent_id].role:
+                    value.role = self.__data__[value.parent_id].role
+                value.parent_kind = self.__data__[value.parent_id].kind
                 # self.__data__[value.parent_id].widget_id_s.append(value.id)
             if Decore_action in inspect.getmro(value.__class__):
-                value.role = self.__data__[value.parent_id].role
+                if value.role < self.__data__[value.parent_id].role:
+                    value.role = self.__data__[value.parent_id].role
+                value.parent_kind = self.__data__[value.parent_id].kind
                 # self.__data__[value.parent_id].action_id_s.append(value.id)
             if Decore_element in inspect.getmro(value.__class__):
-                value.role = self.__data__[value.parent_id].role
+                if value.role < self.__data__[value.parent_id].role:
+                    value.role = self.__data__[value.parent_id].role
+                value.parent_kind = self.__data__[value.parent_id].kind
                 # self.__data__[value.parent_id].element_id_s.append(value.id)
             if Decore_function in inspect.getmro(value.__class__):
                 self.__data__[value.parent_id].function_s.append(value)

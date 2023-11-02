@@ -2,11 +2,12 @@ from ..decore import decore
 from ..classes.decore_mayor import Decore_mayor as Mayor
 
 @decore.base(title='Mayor', model=Mayor)
-class dbi_m_base:
+class dbi_mayor:
     @decore.function(type='shot')
-    def dbi_m_init(self):
+    def dbi_mayor_init(self):
         if Mayor.get_or_none(Mayor.username == 'guest@decore.base') is None:
             guest = Mayor()
+            guest.owner_id = guest.id
             guest.title = 'Guest Account'
             guest.desc = 'Account to log in automatically as user with guest role'
             guest.username = 'guest@decore.base'
@@ -15,6 +16,7 @@ class dbi_m_base:
         
         if Mayor.get_or_none(Mayor.username == 'admin@decore.base') is None:
             admin = Mayor()
+            admin.owner_id = admin.id
             admin.title = 'Admin Account'
             admin.desc = 'Account to log in as user with admin role'
             admin.username = 'admin@decore.base'
@@ -22,12 +24,8 @@ class dbi_m_base:
             admin.role = 10
             admin.save()
 
-    @decore.dialog(parent_id='app', icon='mdi-account' ,activator='last')
-    def bi_account_dialog():
-        pass
-
     @decore.view(title='Accounts', type='table', fields=Mayor.field_s)
-    def bi_accounts_view():
+    def dbi_accounts_view():
         pass
     
     @decore.view(title='Login', type='empty')
@@ -44,3 +42,11 @@ class dbi_m_base:
                     else:
                         return False, 'Wrong username or password'
                 
+@decore.base(title='Mayor private', model=Mayor, private=True)
+class dbi_mayor_private:
+    @decore.dialog(parent_id='app', icon='mdi-account' ,activator='last', role=0)
+    def dbi_account_dialog():
+        @decore.widget(title='Account Info', type='info', fields=[Mayor.title, Mayor.username, Mayor.desc, Mayor.role])
+        def dbi_account_info():
+            pass
+        

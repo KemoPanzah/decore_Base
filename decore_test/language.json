@@ -6,5 +6,13 @@
     "Description": {
         "en": "Description",
         "de": "Beschreibung"
+    },
+    "Owner": {
+        "en": "Owner",
+        "de": "Eigent\u00fcmer"
+    },
+    "Owner ID": {
+        "en": "Owner ID",
+        "de": "Eigent\u00fcmer-ID"
     }
 }

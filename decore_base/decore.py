@@ -115,7 +115,7 @@ class Decore(object):
             self.start_api()
         return wrapper
 
-    def base(self, icon=None, title=None, desc=None, role=0, model=Decore_model):
+    def base(self, icon=None, title=None, desc=None, role=0, model=Decore_model, private=False):
         '''
         Eine Funktion zum registrieren einer Basis in der GUI-Dashboard-Anwendung. Sie wird als "Decorator" verwendet.
 
@@ -133,7 +133,7 @@ class Decore(object):
                 pass
         '''
         def wrapper(cls):
-            t_base = Decore_base(cls.__name__, icon, title, desc, role, model)
+            t_base = Decore_base(cls.__name__, icon, title, desc, role, model, private)
             t_base.__class__ = type(cls.__name__, (Decore_base, cls), {
                 '__init__': cls.__init__(t_base),
             })
@@ -369,31 +369,50 @@ class Decore(object):
         t_return = json.dumps(self.pool.export(t_role), default=str)
         return t_return, 200
     
+    @jwt_required()
     def get_item(self, p_source_id, p_id):
+        t_identity = get_jwt_identity()
+        t_user_id = Mayor.get_account_from_identity(t_identity).id
         t_source = self.pool.__data__[p_source_id]
-        t_item = t_source.model.get_by_id(p_id).to_dict()
+        if t_source.private:
+            t_item = t_source.model.select().where(t_source.model.id == p_id and t_source.model.owner_id == t_user_id)[0].to_dict()
+        else:    
+            t_item = t_source.model.get_by_id(p_id).to_dict()
         t_return = json.dumps(t_item, default=str)
         return t_return, 200
 
+    @jwt_required()
     def get_default(self, p_source_id):
         t_source = self.pool.__data__[p_source_id]
         t_item = t_source.model().to_dict()
         t_return = json.dumps(t_item, default=str)
         return t_return, 200
     
+    @jwt_required()    
     def get_first(self, p_source_id):
+        t_identity = get_jwt_identity()
+        t_user_id = Mayor.get_account_from_identity(t_identity).id
         t_source = self.pool.__data__[p_source_id]
-        if not len(t_source.model.select()) == 0:
-            t_item = t_source.model.select()[0].to_dict()
+        if t_source.model.select().count() > 0:
+            if t_source.private:
+                t_item = t_source.model.select().where(t_source.model.owner_id == t_user_id)[0].to_dict()
+            else:
+                t_item = t_source.model.select()[0].to_dict()
             t_return = json.dumps(t_item, default=str)
             return t_return, 200
         else:
             return self.get_default(p_source_id)
 
+    @jwt_required()
     def get_last(self, p_source_id):
+        t_identity = get_jwt_identity()
+        t_user_id = Mayor.get_account_from_identity(t_identity).id
         t_source = self.pool.__data__[p_source_id]
-        if not len(t_source.model.select()) == 0:
-            t_item = t_source.model.select()[-1].to_dict()
+        if t_source.model.select().count() > 0:
+            if t_source.private:
+                t_item = t_source.model.select().where(t_source.model.owner_id == t_user_id)[-1].to_dict()
+            else:
+                t_item = t_source.model.select()[-1].to_dict()
             t_return = json.dumps(t_item, default=str)
             return t_return, 200
         else:

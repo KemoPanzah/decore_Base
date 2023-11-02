@@ -3,8 +3,7 @@ from .decore_list import Decore_list
 
 class Decore_dialog(Decore_object):
     def __init__(self, p_id, p_parent_id, p_source_id, p_icon, p_title, p_desc, p_role, p_type, p_display, p_activator):
-        Decore_object.__init__(self, p_id, p_parent_id, p_source_id, p_icon, p_title, p_desc, p_role)
-        self.kind = 'dialog'
+        Decore_object.__init__(self, 'dialog', p_id, p_parent_id, p_source_id, p_icon, p_title, p_desc, p_role)
         self.type = p_type
         self.display = p_display
         self.activator = p_activator
