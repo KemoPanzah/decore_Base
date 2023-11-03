@@ -180,7 +180,7 @@ class Decore(object):
         return wrapper
 
     l_dialog_type = Literal['standard']
-    l_dialog_display = Literal['modal', 'drawer']
+    l_dialog_display = Literal['modal', 'draw-half', 'draw-full']
     l_dialog_activator = Literal['empty', 'first', 'last', 'default', 'context', 'click']
 
     # TODO - Überprüfen ob element mit gleicher ID schon vorhanden ist und Execption
@@ -257,7 +257,7 @@ class Decore(object):
         return wrapper
 
     l_action_type = Literal['standard', 'submit', 'login']
-    l_action_activator = Literal['load', 'default', 'context', 'click']
+    l_action_activator = Literal['default', 'context', 'click']
 
     def action(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_action_type = 'standard', activator: l_action_activator = 'none'):
         '''

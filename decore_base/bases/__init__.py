@@ -1,1 +1,1 @@
-from .dbi_mayor import dbi_mayor, dbi_mayor_private
+from .dbi_mayor import dbi_mayor, dbi_mayor_priv
