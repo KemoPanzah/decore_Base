@@ -7,9 +7,10 @@ from threading import Thread
 
 
 class Decore_base(Decore_object):
-    def __init__(self, p_id, p_icon, p_title, p_desc, p_role, p_model, p_private):
+    def __init__(self, p_id, p_icon, p_title, p_desc, p_role, p_model, p_private, p_stretch):
         Decore_object.__init__(self, 'base', p_id, 'app', None, p_icon, p_title, p_desc, p_role)
         self.private = p_private
+        self.stretch = p_stretch
         self.model = p_model.register()
         self.field_s = p_model.field_s
         self.rel_field_s = p_model.rel_field_s

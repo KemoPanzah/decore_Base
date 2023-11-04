@@ -120,6 +120,7 @@ class Decore_model(Model):
                 t_schema[i_field.name]['type'] = 'boolean'
 
             if 'CharField' in i_field.__class__.__name__:
+                t_schema[i_field.name]['empty'] = i_field.null
                 t_schema[i_field.name]['type'] = 'string'
                 t_schema[i_field.name]['unique'] = i_field.unique
                 t_schema[i_field.name]['maxlength'] = i_field.max_length

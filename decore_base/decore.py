@@ -115,7 +115,7 @@ class Decore(object):
             self.start_api()
         return wrapper
 
-    def base(self, icon=None, title=None, desc=None, role=0, model=Decore_model, private=False):
+    def base(self, icon=None, title=None, desc=None, role=0, model=Decore_model, private=False, stretch=False):
         '''
         Eine Funktion zum registrieren einer Basis in der GUI-Dashboard-Anwendung. Sie wird als "Decorator" verwendet.
 
@@ -133,7 +133,7 @@ class Decore(object):
                 pass
         '''
         def wrapper(cls):
-            t_base = Decore_base(cls.__name__, icon, title, desc, role, model, private)
+            t_base = Decore_base(cls.__name__, icon, title, desc, role, model, private, stretch)
             t_base.__class__ = type(cls.__name__, (Decore_base, cls), {
                 '__init__': cls.__init__(t_base),
             })
@@ -184,7 +184,7 @@ class Decore(object):
     l_dialog_activator = Literal['empty', 'first', 'last', 'default', 'context', 'click']
 
     # TODO - Überprüfen ob element mit gleicher ID schon vorhanden ist und Execption
-    def dialog(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_dialog_type = 'standard', display: l_dialog_display = 'drawer', activator: l_dialog_activator = 'none'):
+    def dialog(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_dialog_type = 'standard', display: l_dialog_display = 'draw-half', activator: l_dialog_activator = 'none'):
         '''
         Eine Funktion zur Registrierung eines Dialogs. Sie wird als "Decorator" verwendet.
 
@@ -196,7 +196,8 @@ class Decore(object):
         :param str desc: Die Beschreibung des Dialogs.
         :param str type: Gibt an wie der Dialog die Widgets darstellen wird. Der Wert ``standard`` stellt die untergeordneten Widgets und Sub-Widgets untereinander dar.
         :type type: Literal['standard']
-        :param str display: Der Anzeigetyp des Dialogs.
+        :param str display: Der Anzeigetyp des Dialogs. Standardwert ist ``draw-half``.
+        :type display: Literal['modal', 'draw-half', 'draw-full']
         :param str activator: Der Aktivatortyp des Dialogs. Über den Wert ``none`` wird der Dialog sofort beim OnLoad Ereignis der View angezeigt. Der Wert ``default`` stellt den Dialog im Top-Menu der View dar. Der Wert ``context`` stellt den Dialog im Kontextmenü eines Items der View dar. Der Wert ``click`` zeigt den Dialog dann an wenn man einen Datensatz anklickt.
         :type activator: Literal['none', 'default', 'context', 'click']
 
@@ -234,7 +235,7 @@ class Decore(object):
         :param str icon: Das Symbol des Widgets.
         :param str title: Der Titel des Widgets.
         :param str desc: Die Beschreibung des Widgets.
-        :param str type: Gibt an wie das Widget die Daten darstellen wird.
+        :param str type: Gibt an wie das Widget die Daten darstellen wird. Standardwert ist ``default``.
         :type type: Literal['default', 'info', 'form', 'table']
         :param list fields: Die Felder, die in dem Widget angezeigt werden.
 
@@ -256,10 +257,10 @@ class Decore(object):
             func()
         return wrapper
 
-    l_action_type = Literal['standard', 'submit', 'login']
+    l_action_type = Literal['standard', 'submit']
     l_action_activator = Literal['default', 'context', 'click']
 
-    def action(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_action_type = 'standard', activator: l_action_activator = 'none'):
+    def action(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_action_type = 'standard', activator: l_action_activator = 'none', errors=True):
         '''
         Eine Funktion zur Registrierung einer Aktion. Sie wird als "Decorator" verwendet.
 
@@ -269,10 +270,11 @@ class Decore(object):
         :param str icon: Das Symbol der Aktion.
         :param str title: Der Titel der Aktion.
         :param str desc: Die Beschreibung der Aktion.
-        :param str type: Gibt an was die Aktion kann.
-        :type type: Literal['standard', 'submit', 'check', 'response', 'file', 'download']
+        :param str type: Gibt an was die Aktion kann. Standardwert ist ``standard``.
+        :type type: Literal['standard', 'submit']
         :param str activator: Gib an, wie die Aktion ausgelöst wird.
-        :type activator: Literal['none', 'default', 'context', 'click']
+        :type activator: Literal['default', 'context', 'click']
+        :param bool errors: Gibt an, ob die Aktion Validierungsfehler zurückgeben kann. Standardwert ist ``True``. (Im Augenblick wirkt sich das nur auf den Typen ``submit`` aus.)
 
         .. code-block:: python
             
@@ -290,7 +292,7 @@ class Decore(object):
             else:
                 t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_action(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, type, activator, func))
+            self.pool.register(Decore_action(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, type, activator, errors, func))
         return wrapper
 
     l_element_type = Literal['p', 'checkbox']
@@ -358,9 +360,9 @@ class Decore(object):
         t_password = request.json['password']
         t_token = Mayor.get_token(t_username, t_password)
         if t_token:
-            return {'success': True, 'result': t_token, 'errors':{}}, 200
+            return {'success': True, 'result': 'Login successfully', 'token': t_token, 'errors':{}}, 200
         else:
-            return {'success': False, 'result':'Invalid username or password', 'errors':{}}, 401
+            return {'success': False, 'result':'Invalid username or password', 'token': None, 'errors':{}}, 401
 
     @jwt_required()
     def get_meta(self):

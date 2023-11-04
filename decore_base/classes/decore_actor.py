@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+import logging
 
 from peewee import (AutoField, BooleanField, CharField, DateTimeField,
                     IntegerField, Model, SqliteDatabase)
@@ -62,9 +63,14 @@ class Decore_actor(Model):
     def get_item(cls, p_model, p_dict):
         r_item = None
         if p_dict:
-            r_item = p_model.get_or_none(p_model.id == p_dict['id'])
-            if not r_item:
-                r_item = p_model()
+            try:
+                r_item = p_model.get_or_none(p_model.id == p_dict['id'])
+            except Exception as error:
+                logging.error('%s > %s' % ('decore_actor > get_item', str(error)))
+                t_item = p_model()
+            else:
+                if not r_item:
+                    r_item = p_model()
             
             r_item.from_dict(p_dict)
         
@@ -82,20 +88,20 @@ class Decore_actor(Model):
             t_data.update(json.loads(p_request.data))
             t_item = cls.get_item(p_base.model, t_data[p_action.parent_id]['item'])
             t_select_s = t_data[p_action.parent_id]['select_s']
-        
+
         elif p_action.type == 'submit':
             t_data.update(json.loads(p_request.data))
             t_item = cls.get_item(p_base.model, t_data[p_action.parent_id]['item'])
             t_select_s = t_data[p_action.parent_id]['select_s']
             t_field_s = t_data[p_action.parent_id]['field_s']
-            t_active_errors = {}
-            if t_item.errors:
+            t_field_errors = {}
+            if p_action.errors and t_item.errors:
                 for i_field in t_field_s:
                     if i_field['name'] in t_item.errors:
-                        t_active_errors[i_field['name']] = t_item.errors[i_field['name']]
-            if t_active_errors:
+                        t_field_errors[i_field['name']] = t_item.errors[i_field['name']]
+            if t_field_errors:
                 t_active.finish(False, 'Validation error!')
-                return {'success': False, 'result': 'validation', 'errors':t_active_errors}, 200
+                return {'success': False, 'result': 'validation', 'token': None, 'errors':t_field_errors}, 200
             
         elif p_action.type == 'login':
             t_data.update(json.loads(p_request.data))
@@ -113,9 +119,9 @@ class Decore_actor(Model):
             return {'success': False, 'result': 'Action type ('+ p_action.type +') not supported', 'errors':{}}, 200
 
         t_return = p_action.func(p_base, data=t_data, item=t_item, select_s=t_select_s, active=t_active)
+        t_token = t_return[2] if len(t_return) == 3 else None
         t_active.finish(t_return[0], str(t_return[1]))
-        return {'success': t_return[0], 'result': str(t_return[1]), 'errors':{}}, 200
-
+        return {'success': t_return[0], 'result': str(t_return[1]), 'token': t_token, 'errors':{}}, 200
 
     def finish(self, p_success, p_result):
         self.success = p_success
