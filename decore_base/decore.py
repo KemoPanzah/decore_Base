@@ -46,7 +46,7 @@ class Decore(object):
         api = Flask(__name__, static_folder=t_static_folder.absolute(), template_folder=t_template_folder.absolute())
         # TODO - jwt String auslagern und aus der Versionskontrolle nehmen, oder ein zufälligen in der config generieren
         api.config['JWT_SECRET_KEY'] = 'super-secret'
-        jwt = JWTManager(api)
+        JWTManager(api)
         # CORS(api, expose_headers=["Content-Disposition"])
         CORS(api)
             
@@ -115,7 +115,8 @@ class Decore(object):
             self.start_api()
         return wrapper
 
-    def base(self, icon=None, title=None, desc=None, role=0, model=Decore_model, private=False, stretch=False):
+    l_base_navigation = Literal['hide', 'main-top', 'main-bottom']
+    def base(self, icon=None, title=None, desc=None, role=0, model=Decore_model, private=False, stretch=False, navigation: l_base_navigation='main-top'):
         '''
         Eine Funktion zum registrieren einer Basis in der GUI-Dashboard-Anwendung. Sie wird als "Decorator" verwendet.
 
@@ -133,7 +134,7 @@ class Decore(object):
                 pass
         '''
         def wrapper(cls):
-            t_base = Decore_base(cls.__name__, icon, title, desc, role, model, private, stretch)
+            t_base = Decore_base(cls.__name__, icon, title, desc, role, model, private, stretch, navigation)
             t_base.__class__ = type(cls.__name__, (Decore_base, cls), {
                 '__init__': cls.__init__(t_base),
             })
@@ -358,7 +359,7 @@ class Decore(object):
     def guest_login(self):
         t_username = request.json['username']
         t_password = request.json['password']
-        t_token = Mayor.get_token(t_username, t_password)
+        t_token = Mayor.get_token(t_username, t_password, False)
         if t_token:
             return {'success': True, 'result': 'Login successfully', 'token': t_token, 'errors':{}}, 200
         else:

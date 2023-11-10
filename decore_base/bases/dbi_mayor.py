@@ -1,7 +1,7 @@
 from ..decore import decore
 from ..classes.decore_mayor import Decore_mayor as Mayor
 
-@decore.base(title='Mayor', model=Mayor)
+@decore.base(title='Mayor', icon='mdi-security' ,model=Mayor, role=10)
 class dbi_mayor:
     @decore.function(type='shot')
     def dbi_mayor_init(self):
@@ -28,9 +28,9 @@ class dbi_mayor:
     def dbi_accounts_view():
         pass
     
-@decore.base(title='Mayor private', model=Mayor, private=True, stretch=True)
+@decore.base(title='Mayor private', model=Mayor, private=True, stretch=True, navigation='hide')
 class dbi_mayor_priv:
-    @decore.dialog(parent_id='app', icon='mdi-account' ,activator='last', role=1)
+    @decore.dialog(parent_id='app', icon='mdi-account-settings' ,activator='last', role=1)
     def dbi_account_dialog():
         @decore.widget(title='Account Info', type='info', fields=[Mayor.title, Mayor.username, Mayor.desc, Mayor.role])
         def dbi_account_info():

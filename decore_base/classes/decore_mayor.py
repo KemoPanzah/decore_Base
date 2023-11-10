@@ -9,11 +9,11 @@ from .decore_model import *
 class Decore_mayor(Decore_model):
 
     username = CharField(unique=True, verbose_name='Username')
-    password = CharField(verbose_name='Password')
+    password = PasswordField(verbose_name='Password')
     role = IntegerField(verbose_name='Role', default=0)
 
     class Meta:
-        # TODO - diese Zeile wieder einsetzen wenn alle Relationen zwischen conform und perform passen
+        # TODO - diese Zeile wieder einsetzen
         # database = SqliteDatabase('state/database.db', pragmas=(('cache_size', -1024 * 64),('journal_mode', 'wal')))
         db_path = Path(globals.config.state_path).joinpath('database.db')
         database = SqliteDatabase(db_path)
@@ -41,9 +41,9 @@ class Decore_mayor(Decore_model):
             return t_account
 
     @classmethod
-    def get_token(cls, username, password):
+    def get_token(cls, username, password, p_expires_delta=None):
         t_account = cls.get_or_none(cls.username == username)
         if t_account is None:
             return None
         elif cls.check_password(password, t_account.password):
-            return create_access_token(identity=t_account.username)
+            return create_access_token(identity=t_account.username, expires_delta=p_expires_delta)

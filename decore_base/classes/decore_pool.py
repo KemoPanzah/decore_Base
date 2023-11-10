@@ -33,14 +33,14 @@ class Decore_pool(object):
         value: Decore_object
         for value in self.__data__.values():
             if Decore_base in inspect.getmro(value.__class__):
-                if not self.__data__['app'].base_id:
-                    self.__data__['app'].base_id = value.id
-                value.parent_kind = self.__data__[value.parent_id].kind    
-                # self.__data__[value.parent_id].base_id_s.append(value.id)      
+                # if not self.__data__['app'].start_base_id and value.navigation!='hide':
+                #     self.__data__['app'].start_base_id = value.id
+                value.parent_kind = self.__data__[value.parent_id].kind
+                # self.__data__[value.parent_id].base_id_s.append(value.id)
                 self.base_s.append(value)
             if Decore_view in inspect.getmro(value.__class__):
-                if not self.__data__['app'].view_id:
-                    self.__data__['app'].view_id = value.id
+                # if not self.__data__['app'].view_id:
+                #     self.__data__['app'].view_id = value.id
                 if value.role < self.__data__[value.parent_id].role:
                     value.role = self.__data__[value.parent_id].role
                 value.parent_kind = self.__data__[value.parent_id].kind
