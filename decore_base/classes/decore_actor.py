@@ -62,18 +62,13 @@ class Decore_actor(Model):
     @classmethod
     def get_item(cls, p_model, p_dict):
         r_item = None
-        if p_dict:
-            try:
-                r_item = p_model.get_or_none(p_model.id == p_dict['id'])
-            except Exception as error:
-                logging.error('%s > %s' % ('decore_actor > get_item', str(error)))
-                t_item = p_model()
-            else:
-                if not r_item:
-                    r_item = p_model()
-            
-            r_item.from_dict(p_dict)
-        
+        if p_dict and 'id' in p_dict:
+            r_item = p_model.get_or_none(p_model.id == p_dict['id'])
+    
+        if not r_item:
+            r_item = p_model()
+  
+        r_item.from_dict(p_dict)
         return r_item
    
     @classmethod
