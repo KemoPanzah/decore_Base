@@ -201,7 +201,7 @@ class Decore_model(Model):
         return r_item_s
 
     @classmethod
-    def get_dict_s(cls, p_query=None, p_pag=None):
+    def get_dict_s(cls, p_query={}, p_pag=None):
         t_dict_s = []
         t_item_s = None
         
@@ -236,6 +236,41 @@ class Decore_model(Model):
         return {'item_s': t_dict_s, 'count': t_item_s.count()}
 
     @classmethod
+    def get_dict(cls, p_item_id=None, p_query={}):
+        if not p_item_id or p_item_id == 'empty':
+            return {}
+        elif p_item_id == 'default':
+            t_item = cls()
+            return t_item.to_dict()
+        elif p_item_id == 'first':
+            t_item_s = cls.query(p_query)
+            if t_item_s.count() > 0:
+                t_item = t_item_s[0]
+                return t_item.to_dict()
+            else:
+                return cls.get_dict('default', p_query)            
+        elif p_item_id == 'last':
+            t_item_s = cls.query(p_query)
+            if t_item_s.count() > 0:
+                t_item = t_item_s[-1]       
+                return t_item.to_dict()
+            else:
+                return cls.get_dict('default', p_query)
+        else:
+            p_query['id'] = p_item_id
+            t_item_s = cls.query(p_query)
+            if t_item_s.count() > 0:
+                t_item = t_item_s[0]
+                return t_item.to_dict()
+            else:
+                del p_query['id']
+                return cls.get_dict('last', p_query)        
+
+ 
+
+
+    @classmethod
+    # TODO - Default Values p_query = {}, p_attr = None, p_rel_attr = None
     def get_attributed_value_s(cls, p_query, p_attr, p_rel_attr):
         r_value = {}
         t_item_s = cls.query(p_query)

@@ -57,10 +57,7 @@ class Decore(object):
         api.add_url_rule('/<path:p_path>', 'index', self.index)
         api.add_url_rule('/guest_login', 'guest_login', self.guest_login, methods=['POST'])
         api.add_url_rule('/get_meta', 'get_meta', self.get_meta)
-        api.add_url_rule('/get_item/<p_source_id>/<p_id>', 'get_item', self.get_item)
-        api.add_url_rule('/get_default/<p_source_id>', 'get_default', self.get_default)
-        api.add_url_rule('/get_first/<p_source_id>', 'get_first', self.get_first)
-        api.add_url_rule('/get_last/<p_source_id>', 'get_last', self.get_last)
+        api.add_url_rule('/post_item/<p_source_id>/<p_item_id>', 'post_item', self.post_item, methods=['POST'])
         api.add_url_rule('/post_item_s/<p_source_id>', 'post_item_s', self.post_item_s, methods=['POST'])
         api.add_url_rule('/post_rel_item_s/<p_source_id>', 'post_rel_item_s', self.post_rel_item_s, methods=['POST'])
         api.add_url_rule('/post_filter_value_s/<p_source_id>', 'post_filter_value_s', self.post_filter_value_s, methods=['POST'])
@@ -373,54 +370,17 @@ class Decore(object):
         return t_return, 200
     
     @jwt_required()
-    def get_item(self, p_source_id, p_id):
-        t_identity = get_jwt_identity()
-        t_user_id = Mayor.get_account_from_identity(t_identity).id
+    def post_item(self, p_source_id, p_item_id):
+        t_jwt_user_id = Mayor.get_account_from_identity(get_jwt_identity()).id
+        t_query = request.json
         t_source = self.pool.__data__[p_source_id]
         if t_source.private:
-            t_item = t_source.model.select().where(t_source.model.id == p_id and t_source.model.owner_id == t_user_id)[0].to_dict()
-        else:    
-            t_item = t_source.model.get_by_id(p_id).to_dict()
+            t_query['owner_id'] = t_jwt_user_id
+        t_item = t_source.model.get_dict(p_item_id, t_query)
         t_return = json.dumps(t_item, default=str)
         return t_return, 200
 
-    @jwt_required()
-    def get_default(self, p_source_id):
-        t_source = self.pool.__data__[p_source_id]
-        t_item = t_source.model().to_dict()
-        t_return = json.dumps(t_item, default=str)
-        return t_return, 200
-    
     @jwt_required()    
-    def get_first(self, p_source_id):
-        t_identity = get_jwt_identity()
-        t_user_id = Mayor.get_account_from_identity(t_identity).id
-        t_source = self.pool.__data__[p_source_id]
-        if t_source.model.select().count() > 0:
-            if t_source.private:
-                t_item = t_source.model.select().where(t_source.model.owner_id == t_user_id)[0].to_dict()
-            else:
-                t_item = t_source.model.select()[0].to_dict()
-            t_return = json.dumps(t_item, default=str)
-            return t_return, 200
-        else:
-            return self.get_default(p_source_id)
-
-    @jwt_required()
-    def get_last(self, p_source_id):
-        t_identity = get_jwt_identity()
-        t_user_id = Mayor.get_account_from_identity(t_identity).id
-        t_source = self.pool.__data__[p_source_id]
-        if t_source.model.select().count() > 0:
-            if t_source.private:
-                t_item = t_source.model.select().where(t_source.model.owner_id == t_user_id)[-1].to_dict()
-            else:
-                t_item = t_source.model.select()[-1].to_dict()
-            t_return = json.dumps(t_item, default=str)
-            return t_return, 200
-        else:
-            return self.get_default(p_source_id)
-
     def post_item_s(self, p_source_id):
         t_start = perf_counter()
         # TODO - Umstellen auf request.json - Das ist viel schöner.
