@@ -1,3 +1,5 @@
 from .globals import globals
 from .decore import decore
-from .bases import *
+
+if globals.flags.production_mode or globals.flags.dev_mode:
+    from .bases import *
