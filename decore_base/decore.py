@@ -32,6 +32,9 @@ from collections import OrderedDict
 
 
 class Decore(object):
+    '''
+    Objekt der Klasse Decore ist die Hauptklasse des Frameworks. Sie ist für die Registrierung der Elemente zuständig und stellt die API zur Verfügung.
+    '''
     def __init__(self):
         if not globals.flags.production_mode:
             self.prompt = Decore_prompt()
