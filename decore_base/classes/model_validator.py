@@ -6,7 +6,7 @@ class Model_validator(Validator):
         Validator.__init__(self, *args, **kwargs)
 
     def _validate_unique(self, unique, field, value):
-        # TODO keine Ahnung was das hier soll, bitte nochmal genau nachlesen aber ohne den DocString gibt es eine Warung
+        # TODO keine Ahnung was das hier soll, bitte nochmal genau nachlesen aber ohne den DocString gibt es eine Warnung
         "{'type': 'boolean'}"
         if unique:
             t_item = self.model.get_or_none(getattr(self.model, field) == value)
