@@ -3,7 +3,7 @@
     "configurations": [
         {
             "name": "[dev] decore Base development",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "program": "app.py",
             "args": ["--dev"],
