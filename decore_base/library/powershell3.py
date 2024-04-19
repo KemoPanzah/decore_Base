@@ -1817,20 +1817,74 @@ l_cmdlet_name = Literal[
                     ]
 
 
-class Ps_process:
+class Ps_process(Popen):
 
-    def __init__(self) -> None:
-        self.process = Popen(["powershell", "-NoLogo"], stdin=PIPE, stdout=PIPE, stderr=PIPE, text=True, encoding='ISO-8859-1')
+    def __init__(self):
+        Popen.__init__(self,["powershell", "-NoLogo"], stdin=PIPE, stdout=PIPE, stderr=PIPE, text=True, encoding='ISO-8859-1')
+
+    def __del__(self):
+        self.stdin.close()
+        self.stdout.close()
+        self.stderr.close()
+        self.terminate()
+
+    def execute(self, p_cmd, p_depth=1):
+        r_value: list = []
+        t_output = ''
+
+        try:
+            self.stdin.write('Clear-Host;')
+            self.stdin.write('$ErrorActionPreference = "SilentlyContinue";')
+            self.stdin.write('$WarningPreference = "SilentlyContinue";')
+            self.stdin.write('$InformationPreference = "SilentlyContinue";')
+            self.stdin.write('$DebugPreference = "SilentlyContinue";')
+            self.stdin.write('$VerbosePreference = "SilentlyContinue";')
+            
+            self.stdin.write('$Error[0]=$null;')
+            self.stdin.write('$out = $null;')
+            self.stdin.write('$out = ' + p_cmd.__cmd__ + ' 3>$null 4>$null 5>$null 6>$null;')
+            self.stdin.write('Write-Output "####BOO####";')
+            self.stdin.write('Write-Output $out | ConvertTo-Json -Depth '+str(p_depth)+';')
+            self.stdin.write('Write-Output $Error[0] | ConvertTo-Json -Depth 1;')
+            self.stdin.write('Write-Output "####EOO####";\n')
+            self.stdin.flush()
+
+            start_output = False
+            while True:
+                line = self.stdout.readline()
+                if line == '####BOO####\n':
+                    start_output = True
+                
+                elif line == '####EOO####\n':
+                    break
+                
+                elif start_output:
+                    t_output += line
+
+            if t_output:
+                t_value = json.loads(t_output)
+                
+                if 'Exception' in t_value:
+                    return Return_value(False, t_value['Exception']['Message'])
+        
+                if not isinstance(t_value, list):
+                    r_value.append(t_value)
+                else:
+                    r_value = t_value
+                return Return_value(True, r_value)
+            else:
+                return Return_value(True, [])
+
+        except Exception as error:
+            return Return_value(False, error)
 
 class PS_command(object):
 
-    def __init__(self):
+    def __init__(self, p_cmd: l_cmdlet_name = None, **kwargs):
         self.__cmd__ = ''
-        
-
-    def __del__(self):
-        self.process.terminate()
-        
+        if p_cmd:
+            self.add_cmdlet(p_cmd, **kwargs)
+            
     def add_cmdlet(self, p_cmd, **kwargs):
 
         if not self.__cmd__:
@@ -1866,50 +1920,6 @@ class PS_command(object):
             elif type(value) == bool:
                 self.__cmd__ += ' $' + str(value).lower()
 
-
     def cmd(self, p_cmd: l_cmdlet_name, **kwargs):
         self.add_cmdlet(p_cmd, **kwargs)
         return self
-
-    def exe(self, p_depth=1):
-        r_value: list = []
-        t_command = 'Clear-Host; ' + self.__cmd__ + ' | ConvertTo-Json -Depth ' + str(p_depth) + ' -WarningAction SilentlyContinue;'
-        try:
-            ps_process.stdin.write(t_command + "\n")
-            ps_process.stdin.flush()
-            stdout = ""
-            
-            # Überspringen Sie die erste Zeile
-            if self.process.poll() is None:
-                self.process.stdout.readline()
-            else:
-                print("BOF - Keine Zeile zum Lesen verfügbar.")
-
-            while True:
-                if self.process.poll() is None:
-                    line = self.process.stdout.readline()
-                    stdout += line
-                else:
-                    print("EOF - Keine Zeile zum Lesen verfügbar.")
-                    break
-            
-            if self.process.poll() is None:
-                stderr = self.process.stdout.readline()
-            else:
-                print("STDERR - Keine Zeile zum Lesen verfügbar.")
-            
-            if stdout:
-                t_value = json.loads(stdout)
-                if not isinstance(t_value, list):
-                    r_value.append(t_value)
-                else:
-                    r_value = t_value
-                return Return_value(True, r_value)
-            elif stderr:
-                raise Exception(stderr)
-            else:
-                raise Exception('No output')
-        except Exception as error:
-            return Return_value(False, error)
-        
-ps_process = Ps_process()
