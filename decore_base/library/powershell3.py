@@ -1820,7 +1820,7 @@ l_cmdlet_name = Literal[
 class Ps_process(Popen):
 
     def __init__(self):
-        Popen.__init__(self,["powershell", "-NoLogo"], stdin=PIPE, stdout=PIPE, stderr=PIPE, text=True, encoding='ISO-8859-1')
+        Popen.__init__(self,['powershell', '-NoLogo', '-NonInteractive'], stdin=PIPE, stdout=PIPE, stderr=PIPE, text=True, encoding='ISO-8859-1')
 
     def __del__(self):
         self.stdin.close()
@@ -1880,12 +1880,15 @@ class Ps_process(Popen):
 
 class PS_command(object):
 
-    def __init__(self, p_cmd: l_cmdlet_name = None, **kwargs):
+    def __init__(self, p_cmd: l_cmdlet_name ='', block=None, value=None, key=None, pipekey=None,  **kwargs):
         self.__cmd__ = ''
         if p_cmd:
-            self.add_cmdlet(p_cmd, **kwargs)
+            self._add(p_cmd, block, value, key, pipekey, **kwargs)
             
-    def add_cmdlet(self, p_cmd, **kwargs):
+    def _add(self, p_cmd, p_block, p_value, p_key, p_pipekey, **kwargs):
+
+        if sum(arg is not None for arg in [p_block, p_value, p_key, p_pipekey]) > 1:
+            raise ValueError('Only one of the arguments "block", "value", "key", and "pipekey" can be used at a time. They cannot be used simultaneously.')
 
         if not self.__cmd__:
             self.__cmd__ += p_cmd
@@ -1898,28 +1901,20 @@ class PS_command(object):
 
             if type(value) == list:
                 for index, value2 in enumerate(value):
-
-                    if '$_.' in value2:
-                        value2 = '$_."' + value2.replace('$_.', '') + '"'
-                    else:
-                        value2 = '"' + value2 + '"'
-
                     if index == 0:
                         self.__cmd__ += ' '+value2
                     elif not index == 0:
                         self.__cmd__ += ', '+value2
-
-            elif type(value) == str:
-                if '$_.' in value:
-                    value = '$_."' + value.replace('$_.', '') + '"'
-                else:
-                    value = '"' + value + '"'
-
-                self.__cmd__ += ' '+value
             
             elif type(value) == bool:
                 self.__cmd__ += ' $' + str(value).lower()
 
-    def cmd(self, p_cmd: l_cmdlet_name, **kwargs):
-        self.add_cmdlet(p_cmd, **kwargs)
+            else:
+                self.__cmd__ += ' '+value
+
+    def cmd(self, p_cmd: l_cmdlet_name ='', block=None, value=None, key=None, pipekey=None,  **kwargs):
+        '''
+        
+        '''
+        self._add(p_cmd, block, value, key, pipekey, **kwargs)
         return self
