@@ -1,4 +1,4 @@
-from .return_value import Return_value
+from ..return_value import Return_value
 import json
 from subprocess import Popen, run, PIPE
 from typing import Literal
@@ -1880,20 +1880,17 @@ class Ps_process(Popen):
 
 class PS_command(object):
 
-    def __init__(self, p_cmd: l_cmdlet_name ='', block=None, value=None, key=None, pipekey=None,  **kwargs):
+    def __init__(self, p_cmd: l_cmdlet_name ='', value=None, block=None, **kwargs):
         self.__cmd__ = ''
         if p_cmd:
-            self._add(p_cmd, block, value, key, pipekey, **kwargs)
+            self._add(p_cmd, value, block, **kwargs)
             
-    def _add(self, p_cmd, p_block, p_value, p_key, p_pipekey, **kwargs):
+    def _add(self, p_cmd, p_value, p_block, **kwargs):
 
-        if sum(arg is not None for arg in [p_block, p_value, p_key, p_pipekey]) > 1:
-            raise ValueError('Only one of the arguments "block", "value", "key", and "pipekey" can be used at a time. They cannot be used simultaneously.')
+        if p_block is not None and not isinstance(p_block, PS_command):
+            raise TypeError('p_block must be an instance of PS_command')
 
-        if not self.__cmd__:
-            self.__cmd__ += p_cmd
-        elif self.__cmd__:
-            self.__cmd__ += ' | ' + p_cmd
+        self.__cmd__ += (' | ' if self.__cmd__ else '') + p_cmd
 
         for key, value in kwargs.items():
 
@@ -1902,19 +1899,22 @@ class PS_command(object):
             if type(value) == list:
                 for index, value2 in enumerate(value):
                     if index == 0:
-                        self.__cmd__ += ' '+value2
+                        self.__cmd__ += ' '+str(value2)
                     elif not index == 0:
-                        self.__cmd__ += ', '+value2
+                        self.__cmd__ += ', '+str(value2)
             
             elif type(value) == bool:
                 self.__cmd__ += ' $' + str(value).lower()
 
             else:
-                self.__cmd__ += ' '+value
+                self.__cmd__ += ' '+str(value)
+            
+        if p_value:
+            self.__cmd__ += ' ' + str(p_value)
 
-    def cmd(self, p_cmd: l_cmdlet_name ='', block=None, value=None, key=None, pipekey=None,  **kwargs):
-        '''
+        if p_block:
+            self.__cmd__ += ' {' + p_block.__cmd__ + '}'
         
-        '''
-        self._add(p_cmd, block, value, key, pipekey, **kwargs)
+    def cmd(self, p_cmd: l_cmdlet_name ='', value=None, block=None, **kwargs):
+        self._add(p_cmd, value, block, **kwargs)
         return self
