@@ -98,18 +98,19 @@ class Decore_actor(Model):
                 t_active.finish(False, 'Validation error!')
                 return {'success': False, 'result': 'validation', 'token': None, 'errors':t_field_errors}, 200
             
-        elif p_action.type == 'login':
-            t_data.update(json.loads(p_request.data))
-            t_item = cls.get_item(p_base.model, t_data[p_action.parent_id]['item'])
-            t_select_s = t_data[p_action.parent_id]['select_s']
-            t_return = p_action.func(p_base, data=t_data, item=t_item, select_s=t_select_s, active=t_active)
-            t_active.finish(t_return[0], str(t_return[1]))
-            if t_return[0]:
-                return {'success': True, 'result': t_return[2], 'errors':{}}, 200
-            else:
-                return {'success': False, 'result': str(t_return[1]), 'errors':{}}, 200
+        # elif p_action.type == 'login':
+        #     t_data.update(json.loads(p_request.data))
+        #     t_item = cls.get_item(p_base.model, t_data[p_action.parent_id]['item'])
+        #     t_select_s = t_data[p_action.parent_id]['select_s']
+        #     t_return = p_action.func(p_base, data=t_data, item=t_item, select_s=t_select_s, active=t_active)
+        #     t_active.finish(t_return[0], str(t_return[1]))
+        #     if t_return[0]:
+        #         return {'success': True, 'result': t_return[2], 'errors':{}}, 200
+        #     else:
+        #         return {'success': False, 'result': str(t_return[1]), 'errors':{}}, 200
 
         else:
+            # TODO: Kann abgebaut werden und direkt beim Funktionsdekoriren auf den type geprüft werden. Wenn nicht im literal dann Fehlermeldung 
             t_active.finish(False, 'Action type ('+ p_action.type +') not supported')
             return {'success': False, 'result': 'Action type ('+ p_action.type +') not supported', 'errors':{}}, 200
 
