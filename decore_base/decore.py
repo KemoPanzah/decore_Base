@@ -9,6 +9,7 @@ from .classes.decore_pool import Decore_pool
 from .classes.decore_query import Decore_query
 from .classes.decore_view import Decore_view
 from .classes.decore_widget import Decore_widget
+from .classes.decore_template import Decore_template
 from .classes.decore_prompt import Decore_prompt
 from .classes.decore_mayor import Decore_mayor as Mayor
 from .classes.decore_actor import Decore_actor
@@ -20,8 +21,8 @@ from uuid import uuid1
 from typing import Literal
 from time import perf_counter
 
-from flask import Flask, render_template, request, jsonify, send_file
-from flask_wtf.csrf import generate_csrf
+from flask import Flask, render_template, request, jsonify, send_file, render_template_string
+from flask_wtf import CSRFProtect
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 
@@ -47,11 +48,19 @@ class Decore(object):
         t_static_folder = Path('spa/static')
         t_template_folder = Path('spa/templates')
         api = Flask(__name__, static_folder=t_static_folder.absolute(), template_folder=t_template_folder.absolute())
+
+        # TODO - CRSF implementation
+        # TODO - Alle Requests mit verschlüsseltem HASH versehen und auf der Client-Seite entschlüsseln und prüfen
+
         # TODO - jwt String auslagern und aus der Versionskontrolle nehmen, oder ein zufälligen in der config generieren
         api.config['JWT_SECRET_KEY'] = 'super-secret'
         JWTManager(api)
-        # CORS(api, expose_headers=["Content-Disposition"])
-        CORS(api)
+        
+        if globals.flags.dev_mode:
+            # CORS(api, expose_headers=["Content-Disposition"])
+            CORS(api)
+            logging.info('CORS enabled while in development mode')
+
             
         # print('APP_ROOT_FOLDER >> ' + str(api.root_path))
         # print('STATIC_FOLDER >> ' + str(api.static_folder))
@@ -70,6 +79,7 @@ class Decore(object):
         api.add_url_rule('/get_remove_query/<p_id>', 'get_remove_query', self.get_remove_query)
         api.add_url_rule('/get_actor_active_s', 'get_actor_active_s', self.get_actor_active_s)
         api.add_url_rule('/get_actor_item_s', 'get_actor_item_s', self.get_actor_item_s)
+        api.add_url_rule('/get_template/<p_template_id>', 'get_template', self.get_template)
         return api
 
     def start_api(self):
@@ -141,10 +151,10 @@ class Decore(object):
             self.pool.register(t_base)
         return wrapper
 
-    l_view_type = Literal['blank', 'table']
+    l_view_type = Literal['default', 'table']
     l_view_pag_type = Literal['client']
 
-    def view(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_view_type = 'table', fields=[], filters=[], query={}, pag_type: l_view_pag_type = 'client', pag_recs=16):
+    def view(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_view_type = 'default', fields=[], filters=[], query={}, pag_type: l_view_pag_type = 'client', pag_recs=16):
         '''
         Eine Funktion zur Registrierung einer Ansicht. Sie wird als "Decorator" verwendet.
 
@@ -155,7 +165,7 @@ class Decore(object):
         :param str title: Der Titel der Ansicht.
         :param str desc: Die Beschreibung der Ansicht.
         :param str type: Gibt an wie die Datensätze angezeigt werden. Der Wert ``table`` stellt die Datensätze in einer Tabelle dar.
-        :type type: Literal['table']
+        :type type: Literal['default']
         :param list fields: Die Felder, die in der Ansicht angezeigt werden.
         :param list filters: Die Filter, die in der Ansicht angezeigt werden.
         :param dict query: Die Abfrage, die in der Ansicht angezeigt wird.
@@ -185,7 +195,7 @@ class Decore(object):
     l_dialog_activator = Literal['empty', 'first', 'last', 'default', 'context', 'click']
 
     # TODO - Überprüfen ob element mit gleicher ID schon vorhanden ist und Execption
-    def dialog(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_dialog_type = 'standard', display: l_dialog_display = 'draw-half', activator: l_dialog_activator = 'none'):
+    def dialog(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_dialog_type = 'standard', display: l_dialog_display = 'draw-half', activator: l_dialog_activator = 'empty'):
         '''
         Eine Funktion zur Registrierung eines Dialogs. Sie wird als "Decorator" verwendet.
 
@@ -222,7 +232,7 @@ class Decore(object):
 
     l_widget_type = Literal['default', 'info', 'form', 'table']
 
-    def widget(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_widget_type = 'default', layout='cera', fields=[]):
+    def widget(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_widget_type = 'default', layout='ceta', fields=[]):
         '''
         Eine Funktion zur Registrierung eines Widgets. Sie wird als "Decorator" verwendet.
 
@@ -258,7 +268,35 @@ class Decore(object):
             func()
         return wrapper
 
-    l_action_type = Literal['standard', 'submit']
+    def template(self, parent_id=None, icon=None, title=None, desc=None, role=0, name=None):
+        '''
+        Eine Funktion zur Registrierung einer Vorlage. Sie wird als "Decorator" verwendet.
+
+        Eine Vorlage ist HTML.Code der in einem bestimmten Layout-Bereich des Widgets gerendert wird.
+
+        :param str parent_id: Die ID des übergeordneten Elements. Nur zu setzen, wenn die Vorlage in einem Dialog einer anderen Basis gerendert werden soll.
+        :param str icon: Das Symbol der Vorlage.
+        :param str title: Der Titel der Vorlage.
+        :param str desc: Die Beschreibung der Vorlage.
+        :param str name: Der Name der Vorlage.
+
+        .. code-block:: python
+
+            @decore.template(icon='mdi-account', title='Person', desc='A html template', name='person_template')
+            def person_template():
+                pass
+        '''
+        def wrapper(func):
+            t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
+            if not parent_id:
+                t_parent_id = t_parent_s[-2]
+            else:
+                t_parent_id = parent_id
+            t_source_id = t_parent_s[0]
+            self.pool.register(Decore_template(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, func))
+        return wrapper
+
+    l_action_type = Literal['standard', 'submit', 'hook']
     l_action_activator = Literal['default', 'context', 'click']
 
     def action(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_action_type = 'standard', activator: l_action_activator = 'none', errors=True):
@@ -542,6 +580,16 @@ class Decore(object):
     
     def get_actor_item_s(self):
         t_return = json.dumps(self.actor.export_item_s(), default=str)
+        return t_return, 200
+
+    @jwt_required()
+    def get_template(self, p_template_id):
+        t_template = self.pool.__data__[p_template_id]
+        t_base = self.pool.__data__[t_template.source_id]
+        t_identity = get_jwt_identity()
+        t_user = Mayor.get_account_from_identity(t_identity) 
+        t_template_data = t_template.func(t_base, user=t_user)      
+        t_return = render_template_string(t_template_data[0], **t_template_data[1])
         return t_return, 200
         
 decore = Decore()

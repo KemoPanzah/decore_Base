@@ -19,5 +19,6 @@ class Decore_object(object):
         self.view_s = []
         self.dialog_s = []
         self.widget_s = []
+        self.template_s = []
         self.action_s = []
         self.element_s = []
