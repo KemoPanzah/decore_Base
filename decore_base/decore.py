@@ -10,6 +10,7 @@ from .classes.decore_query import Decore_query
 from .classes.decore_view import Decore_view
 from .classes.decore_widget import Decore_widget
 from .classes.decore_template import Decore_template
+from .classes.decore_hook import Decore_hook
 from .classes.decore_prompt import Decore_prompt
 from .classes.decore_mayor import Decore_mayor as Mayor
 from .classes.decore_actor import Decore_actor
@@ -80,6 +81,7 @@ class Decore(object):
         api.add_url_rule('/get_actor_active_s', 'get_actor_active_s', self.get_actor_active_s)
         api.add_url_rule('/get_actor_item_s', 'get_actor_item_s', self.get_actor_item_s)
         api.add_url_rule('/get_template/<p_template_id>', 'get_template', self.get_template)
+        api.add_url_rule('/post_hook/<p_hook_id>', 'post_hook', self.post_hook, methods=['POST'])
         return api
 
     def start_api(self):
@@ -268,11 +270,11 @@ class Decore(object):
             func()
         return wrapper
 
-    def template(self, parent_id=None, icon=None, title=None, desc=None, role=0, name=None):
+    def template(self, parent_id=None, icon=None, title=None, desc=None, role=0):
         '''
         Eine Funktion zur Registrierung einer Vorlage. Sie wird als "Decorator" verwendet.
 
-        Eine Vorlage ist HTML.Code der in einem bestimmten Layout-Bereich des Widgets gerendert wird.
+        Eine Vorlage ist HTML-Code der im Layout der View oder des Widgets gerendert wird.
 
         :param str parent_id: Die ID des übergeordneten Elements. Nur zu setzen, wenn die Vorlage in einem Dialog einer anderen Basis gerendert werden soll.
         :param str icon: Das Symbol der Vorlage.
@@ -294,6 +296,34 @@ class Decore(object):
                 t_parent_id = parent_id
             t_source_id = t_parent_s[0]
             self.pool.register(Decore_template(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, func))
+        return wrapper
+    
+    def hook(self, parent_id=None, icon=None, title=None, desc=None, role=0):
+        '''
+        Eine Funktion zur Registrierung eines "Hakens". Sie wird als "Decorator" verwendet. 
+
+        Ein Haken ist eine Funktion zum abfangen von Ereignissen aus dem Frontend. Es wird immer dann ausgeführt, wenn ein beliebiges Ereignis eintritt, sofern sie definiert ist.
+
+        :param str parent_id: Die ID des übergeordneten Elements. Nur zu setzen, wenn der Haken in einem Dialog einer anderen Basis gerendert werden soll.
+        :param str icon: Das Symbol des Hakens.
+        :param str title: Der Titel des Hakens.
+        :param str desc: Die Beschreibung des Hakens.
+        :param str name: Der Name des Hakens.
+
+        .. code-block:: python
+            
+            @decore.hook(icon='mdi-account', title='Person', desc='A hook to catch events')
+                pass
+
+        '''
+        def wrapper(func):
+            t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
+            if not parent_id:
+                t_parent_id = t_parent_s[-2]
+            else:
+                t_parent_id = parent_id
+            t_source_id = t_parent_s[0]
+            self.pool.register(Decore_hook(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, func))
         return wrapper
 
     l_action_type = Literal['standard', 'submit', 'hook']
@@ -591,6 +621,10 @@ class Decore(object):
         t_template_data = t_template.func(t_base, user=t_user)      
         t_return = render_template_string(t_template_data[0], **t_template_data[1])
         return t_return, 200
+    
+    @jwt_required()
+    def post_hook(self, p_hook_id):
+        pass
         
 decore = Decore()
 

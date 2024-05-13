@@ -4,6 +4,8 @@ from .decore_view import Decore_view
 from .decore_dialog import Decore_dialog
 from .decore_widget import Decore_widget
 from .decore_action import Decore_action
+from .decore_template import Decore_template
+from .decore_hook import Decore_hook
 from .decore_element import Decore_element
 from .decore_function import Decore_function
 from .decore_list import Decore_list
@@ -60,6 +62,16 @@ class Decore_pool(object):
                     value.role = self.__data__[value.parent_id].role
                 value.parent_kind = self.__data__[value.parent_id].kind
                 # self.__data__[value.parent_id].action_id_s.append(value.id)
+            if Decore_template in inspect.getmro(value.__class__):
+                if value.role < self.__data__[value.parent_id].role:
+                    value.role = self.__data__[value.parent_id].role
+                value.parent_kind = self.__data__[value.parent_id].kind
+                # self.__data__[value.parent_id].template_id_s.append(value.id)
+            if Decore_hook in inspect.getmro(value.__class__):
+                if value.role < self.__data__[value.parent_id].role:
+                    value.role = self.__data__[value.parent_id].role
+                value.parent_kind = self.__data__[value.parent_id].kind
+                # self.__data__[value.parent_id].hook_id_s.append(value.id)
             if Decore_element in inspect.getmro(value.__class__):
                 if value.role < self.__data__[value.parent_id].role:
                     value.role = self.__data__[value.parent_id].role
@@ -132,8 +144,8 @@ class Decore_pool(object):
             setattr(p_value,'class', p_value.__class__.__name__)
             for key, value in p_value.__dict__.items():
                 t_return[key] = self.serialize(value)
-        # TODO - depricated - Decore_list wird nicht mehr benötigt - entferne aus dem gesamten Framework
         
+        # TODO - depricated - Decore_list wird nicht mehr benötigt - entferne aus dem gesamten Framework
         elif Decore_list in inspect.getmro(p_value.__class__):
             t_list = []
             for value in p_value:
