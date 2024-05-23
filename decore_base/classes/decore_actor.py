@@ -9,6 +9,7 @@ from playhouse.shortcuts import update_model_from_dict, model_to_dict, dict_to_m
 
 from .decore_action import Decore_action
 from .decore_base import Decore_base
+from .decore_object import Decore_object
 
 
 class Decore_actor(Model):
@@ -72,15 +73,20 @@ class Decore_actor(Model):
         return r_item
    
     @classmethod
-    def fire(cls, p_base:Decore_base, p_action:Decore_action, p_request):
+    def fire(cls, p_base:Decore_base, p_action:Decore_action, p_object:Decore_object, p_request):
         t_active = cls.create_active(p_action.title, p_action.desc)
 
+        t_sender = None
+        t_event = None
         t_data = dict()
         t_item = None
         t_select_s = []
         
         if p_action.type == 'standard':
-            t_data.update(json.loads(p_request.data))
+            t_request_data = json.loads(p_request.data)
+            t_sender = t_request_data['sender']
+            t_event = t_request_data['event']
+            t_data.update(t_request_data['data'])
             t_item = cls.get_item(p_base.model, t_data[p_action.parent_id]['item'])
             t_select_s = t_data[p_action.parent_id]['select_s']
 
@@ -112,12 +118,12 @@ class Decore_actor(Model):
         else:
             # TODO: Kann abgebaut werden und direkt beim Funktionsdekoriren auf den type geprüft werden. Wenn nicht im literal dann Fehlermeldung 
             t_active.finish(False, 'Action type ('+ p_action.type +') not supported')
-            return {'success': False, 'result': 'Action type ('+ p_action.type +') not supported', 'errors':{}}, 200
+            return {'success': False, 'result': 'Action type ('+ p_action.type +') not supported', 'token': None, 'errors':{}}, 200
 
-        t_return = p_action.func(p_base, data=t_data, item=t_item, select_s=t_select_s, active=t_active)
+        t_return = p_action.func(p_base, object=p_object, sender=t_sender, event=t_event, data=t_data, item=t_item, select_s=t_select_s, active=t_active)
         t_token = t_return[2] if len(t_return) == 3 else None
         t_active.finish(t_return[0], str(t_return[1]))
-        return {'success': t_return[0], 'result': str(t_return[1]), 'token': t_token, 'errors':{}}, 200
+        return {'success': t_return[0], 'result': str(t_return[1]), 'object':t_object.export(), 'token': t_token, 'errors':{}}, 200
 
     def finish(self, p_success, p_result):
         self.success = p_success

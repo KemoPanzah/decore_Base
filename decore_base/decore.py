@@ -326,7 +326,7 @@ class Decore(object):
             self.pool.register(Decore_hook(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, func))
         return wrapper
 
-    l_action_type = Literal['standard', 'submit', 'hook']
+    l_action_type = Literal['standard', 'submit']
     l_action_activator = Literal['default', 'context', 'click']
 
     def action(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_action_type = 'standard', activator: l_action_activator = 'none', errors=True):
@@ -483,7 +483,8 @@ class Decore(object):
 
     def post_action(self, p_action_id):
         t_action = self.pool.__data__[p_action_id]
-        return self.actor.fire(self.pool.__data__[t_action.source_id], t_action, request)
+        t_object = self.pool.__data__[t_action.parent_id]
+        return self.actor.fire(self.pool.__data__[t_action.source_id], t_action, t_object, request)
 
         # t_data = dict()
         # if request.data:
