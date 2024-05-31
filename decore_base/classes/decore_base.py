@@ -14,7 +14,7 @@ class Decore_base(Decore_object):
         self.navigation = p_navigation
         self.model = p_model.register()
         self.field_s = p_model.field_s
-        self.rel_field_s = p_model.rel_field_s
+        self.rel_field_s = p_model.rel_field_s 
         self.schema = p_model.build_schema()
         self.function_s = []
 

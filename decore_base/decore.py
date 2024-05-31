@@ -81,7 +81,7 @@ class Decore(object):
         api.add_url_rule('/get_actor_active_s', 'get_actor_active_s', self.get_actor_active_s)
         api.add_url_rule('/get_actor_item_s', 'get_actor_item_s', self.get_actor_item_s)
         api.add_url_rule('/get_template/<p_template_id>', 'get_template', self.get_template)
-        api.add_url_rule('/post_hook/<p_hook_id>', 'post_hook', self.post_hook, methods=['POST'])
+        api.add_url_rule('/get_hook/<p_hook_id>', 'post_hook', self.get_hook)
         return api
 
     def start_api(self):
@@ -481,10 +481,13 @@ class Decore(object):
         t_return = json.dumps(t_option_s, default=str)
         return t_return, 200
 
+    @jwt_required()
     def post_action(self, p_action_id):
         t_action = self.pool.__data__[p_action_id]
+        # TODO - t_object > t_parent
         t_object = self.pool.__data__[t_action.parent_id]
-        return self.actor.fire(self.pool.__data__[t_action.source_id], t_action, t_object, request)
+        t_user = Mayor.get_account_from_identity(get_jwt_identity())
+        return self.actor.fire(self.pool.__data__[t_action.source_id], t_action, t_object, t_user, request)
 
         # t_data = dict()
         # if request.data:
@@ -624,8 +627,15 @@ class Decore(object):
         return t_return, 200
     
     @jwt_required()
-    def post_hook(self, p_hook_id):
-        pass
+    def get_hook(self, p_hook_id):
+        t_hook:Decore_hook = self.pool.__data__[p_hook_id]
+        t_base = self.pool.__data__[t_hook.source_id]
+        t_identity = get_jwt_identity()
+        t_user = Mayor.get_account_from_identity(t_identity)
+        t_hook.func(t_base, user=t_user, pool=self.pool.__data__)
+        t_return = json.dumps(self.pool.export(t_user.role, 'changed'), default=str)
+        return t_return, 200
+
         
 decore = Decore()
 

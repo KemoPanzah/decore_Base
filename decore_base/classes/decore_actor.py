@@ -73,7 +73,7 @@ class Decore_actor(Model):
         return r_item
    
     @classmethod
-    def fire(cls, p_base:Decore_base, p_action:Decore_action, p_object:Decore_object, p_request):
+    def fire(cls, p_base:Decore_base, p_action:Decore_action, p_object:Decore_object, p_user, p_request):
         t_active = cls.create_active(p_action.title, p_action.desc)
 
         t_sender = None
@@ -120,10 +120,10 @@ class Decore_actor(Model):
             t_active.finish(False, 'Action type ('+ p_action.type +') not supported')
             return {'success': False, 'result': 'Action type ('+ p_action.type +') not supported', 'token': None, 'errors':{}}, 200
 
-        t_return = p_action.func(p_base, object=p_object, sender=t_sender, event=t_event, data=t_data, item=t_item, select_s=t_select_s, active=t_active)
+        t_return = p_action.func(p_base, object=p_object, user=p_user, sender=t_sender, event=t_event, data=t_data, item=t_item, select_s=t_select_s, active=t_active)
         t_token = t_return[2] if len(t_return) == 3 else None
         t_active.finish(t_return[0], str(t_return[1]))
-        return {'success': t_return[0], 'result': str(t_return[1]), 'object':t_object.export(), 'token': t_token, 'errors':{}}, 200
+        return {'success': t_return[0], 'result': str(t_return[1]), 'object':p_object.export(), 'token': t_token, 'errors':{}}, 200
 
     def finish(self, p_success, p_result):
         self.success = p_success
