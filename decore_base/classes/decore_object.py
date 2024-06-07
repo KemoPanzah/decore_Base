@@ -8,8 +8,11 @@ from peewee import Field, BackrefAccessor, ManyToManyField
 class Decore_object(object):
 
     t_ro_attr_s = [
+        '_locked',
         'id',
         'parent_id',
+        'role',
+        'source_id',
     ]
 
     t_attr_s = [
@@ -19,6 +22,7 @@ class Decore_object(object):
         'display',
         'errors',
         'filter_s',
+        'hide',
         'icon',
         'id',
         'kind',
@@ -30,14 +34,15 @@ class Decore_object(object):
         'parent_kind',
         'private',
         'query',
-        'role',
-        'source_id',
         'stretch',
         'title',
         'type',
     ]
 
     def __init__(self, p_kind, p_id, p_parent_id, p_source_id, p_icon, p_title, p_desc, p_role):
+        self._locked = False
+        self._mutated = True
+
         self.kind = p_kind
         self.parent_kind = None
         self.id = p_id
@@ -47,19 +52,20 @@ class Decore_object(object):
         self.title = p_title
         self.desc = p_desc
         self.role = p_role
-        self.changed = True
+        self.child_id_s = []
 
     def __setattr__(self, name, value):
-        
-        if name in self.t_ro_attr_s and hasattr(self, name) and not getattr(self, name) is None:
+
+        if hasattr(self, '_locked') and self._locked and name in self.t_ro_attr_s:
             raise Exception(name + ' is not changeable')
 
-        if not name == 'changed' and name in self.t_attr_s and hasattr(self, name):
-            self.changed = True
+        if not name == '_mutated' and name in self.t_attr_s:
+            self._mutated = True
+
         super().__setattr__(name, value)
 
     def export(self):
-        self.changed = False
+        self._mutated = False
         return self.serialize(self)
 
     def serialize(self, p_value):

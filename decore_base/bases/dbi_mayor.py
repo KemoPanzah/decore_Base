@@ -28,9 +28,9 @@ class dbi_mayor:
     def dbi_accounts_view():
         pass
     
-@decore.base(title='Mayor private', model=Mayor, private=True, stretch=True, navigation='hide')
+@decore.base(title='Mayor private', model=Mayor, private=True, stretch=True, navigation='hide', role=0)
 class dbi_mayor_priv:
-    @decore.dialog(parent_id='app', icon='mdi-account-settings' ,activator='last', role=1)
+    @decore.dialog(parent_id='app', icon='mdi-account-settings' ,activator='last', role=2)
     def dbi_account_dialog():
         @decore.widget(title='Account Info', type='info', fields=[Mayor.title, Mayor.username, Mayor.desc, Mayor.role])
         def dbi_account_info():
@@ -38,13 +38,13 @@ class dbi_mayor_priv:
             def dbi_logout_action(self, item, **kwargs):
                 return True, 'Loging out ' + item.username, 'remove'
 
-    @decore.view(title='Login', type='empty')
-    def bi_login_view():
-        @decore.dialog(title='Login', type='standard', display="draw-half", activator='empty')
+    @decore.view(title='Login', type='empty', role=0)
+    def dbi_login_view():
+        @decore.dialog(title='Login', type='standard', display="draw-half", activator='empty', role=0)
         def dbi_login_dialog():
-            @decore.widget(title='Login', type='form', fields=[Mayor.username, Mayor.password])
+            @decore.widget(title='Login', type='form', fields=[Mayor.username, Mayor.password], role=0)
             def dbi_login_form():
-                @decore.action(title='Login', icon='mdi-login', type='submit', errors=False)
+                @decore.action(title='Login', icon='mdi-login', type='submit', errors=False, role=0)
                 def dbi_login_action(self, item, **kwargs):
                     t_token = Mayor.get_token(item.username, item.password)
                     if t_token:

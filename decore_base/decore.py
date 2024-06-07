@@ -14,6 +14,7 @@ from .classes.decore_hook import Decore_hook
 from .classes.decore_prompt import Decore_prompt
 from .classes.decore_mayor import Decore_mayor as Mayor
 from .classes.decore_actor import Decore_actor
+from .classes.decore_route import Decore_route
 
 from . import globals
 
@@ -103,7 +104,8 @@ class Decore(object):
         else:
             self.api.run(HOST, PORT)
 
-    def app(self, title, desc=None, allow_guest=True):
+    # TODO - allow_guest gegen role tauschen role=1 ist allow_guest
+    def app(self, title, desc=None, role=1, allow_guest=True):
         '''
         Eine Funktion zum eröffnen einer GUI-Dashboard-Anwendung. Sie wird als "Decorator" verwendet.
 
@@ -117,8 +119,11 @@ class Decore(object):
                 pass
         '''
         def wrapper(func):
-            self.pool.register(Decore_app(title, desc, allow_guest))
+            self.pool.register(Decore_app(title, desc, role, allow_guest))
             self.pool.extend()
+            self.pool.set_roles(self.pool.__data__['app'])
+            self.pool.lock_objects()
+            
             i_base: Decore_base
             for i_base in self.pool.base_s:
                 i_base.rel_field_s = i_base.model.rel_field_s
@@ -128,7 +133,7 @@ class Decore(object):
         return wrapper
 
     l_base_navigation = Literal['hide', 'main-top', 'main-bottom']
-    def base(self, icon=None, title=None, desc=None, role=0, model=Decore_model, private=False, stretch=False, navigation: l_base_navigation='main-top'):
+    def base(self, icon=None, title=None, desc=None, role=1, model=Decore_model, private=False, stretch=False, navigation: l_base_navigation='main-top'):
         '''
         Eine Funktion zum registrieren einer Basis in der GUI-Dashboard-Anwendung. Sie wird als "Decorator" verwendet.
 
@@ -156,7 +161,7 @@ class Decore(object):
     l_view_type = Literal['default', 'table']
     l_view_pag_type = Literal['client']
 
-    def view(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_view_type = 'default', fields=[], filters=[], query={}, pag_type: l_view_pag_type = 'client', pag_recs=16):
+    def view(self, parent_id=None, icon=None, title=None, desc=None, role=1, type: l_view_type = 'default', fields=[], filters=[], query={}, pag_type: l_view_pag_type = 'client', pag_recs=16):
         '''
         Eine Funktion zur Registrierung einer Ansicht. Sie wird als "Decorator" verwendet.
 
@@ -197,7 +202,7 @@ class Decore(object):
     l_dialog_activator = Literal['empty', 'first', 'last', 'default', 'context', 'click']
 
     # TODO - Überprüfen ob element mit gleicher ID schon vorhanden ist und Execption
-    def dialog(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_dialog_type = 'standard', display: l_dialog_display = 'draw-half', activator: l_dialog_activator = 'empty'):
+    def dialog(self, parent_id=None, icon=None, title=None, desc=None, role=1, type: l_dialog_type = 'standard', display: l_dialog_display = 'draw-half', activator: l_dialog_activator = 'empty'):
         '''
         Eine Funktion zur Registrierung eines Dialogs. Sie wird als "Decorator" verwendet.
 
@@ -234,7 +239,7 @@ class Decore(object):
 
     l_widget_type = Literal['default', 'info', 'form', 'table']
 
-    def widget(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_widget_type = 'default', layout='ceta', fields=[]):
+    def widget(self, parent_id=None, icon=None, title=None, desc=None, role=1, type: l_widget_type = 'default', layout='ceta', fields=[]):
         '''
         Eine Funktion zur Registrierung eines Widgets. Sie wird als "Decorator" verwendet.
 
@@ -270,7 +275,7 @@ class Decore(object):
             func()
         return wrapper
 
-    def template(self, parent_id=None, icon=None, title=None, desc=None, role=0):
+    def template(self, parent_id=None, icon=None, title=None, desc=None, role=1):
         '''
         Eine Funktion zur Registrierung einer Vorlage. Sie wird als "Decorator" verwendet.
 
@@ -298,7 +303,7 @@ class Decore(object):
             self.pool.register(Decore_template(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, func))
         return wrapper
     
-    def hook(self, parent_id=None, icon=None, title=None, desc=None, role=0):
+    def hook(self, parent_id=None, icon=None, title=None, desc=None, role=1):
         '''
         Eine Funktion zur Registrierung eines "Hakens". Sie wird als "Decorator" verwendet. 
 
@@ -329,7 +334,7 @@ class Decore(object):
     l_action_type = Literal['standard', 'submit']
     l_action_activator = Literal['default', 'context', 'click']
 
-    def action(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_action_type = 'standard', activator: l_action_activator = 'none', errors=True):
+    def action(self, parent_id=None, icon=None, title=None, desc=None, role=1, type: l_action_type = 'standard', activator: l_action_activator = 'none', errors=True):
         '''
         Eine Funktion zur Registrierung einer Aktion. Sie wird als "Decorator" verwendet.
 
@@ -630,25 +635,12 @@ class Decore(object):
     def get_hook(self, p_hook_id):
         t_hook:Decore_hook = self.pool.__data__[p_hook_id]
         t_base = self.pool.__data__[t_hook.source_id]
+        t_parent = self.pool.__data__[t_hook.parent_id]
         t_identity = get_jwt_identity()
         t_user = Mayor.get_account_from_identity(t_identity)
-        t_hook.func(t_base, user=t_user, pool=self.pool.__data__)
-        t_return = json.dumps(self.pool.export(t_user.role, 'changed'), default=str)
+        t_hook.func(t_base, user=t_user, pool=self.pool.__data__, route=Decore_route())
+        t_return = json.dumps(self.pool.export(t_user.role, 'mutated'), default=str)
         return t_return, 200
 
         
 decore = Decore()
-
-# @api.route('/get_uniform')
-# def get_uniform():
-#     t_uniform = uniform.export()
-#     t_uniform['csrf_token'] = generate_csrf()
-#     return jsonify(t_uniform), 200
-
-# @api.route('/element/<p_widget_id>/<p_element_id>', methods=['POST'])
-# def element(p_widget_id, p_element_id):
-#     t_widget = uniform.widget_s.get_by_id(p_widget_id)
-#     t_element = t_widget.element_s.get_by_id(p_element_id)
-#     t_data = json.loads(request.data)
-#     t_return = t_element.func(uniform.get_base_by_module(t_element.func.__module__), t_data)
-#     return json.dumps(t_return)
