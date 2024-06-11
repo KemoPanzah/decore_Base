@@ -88,7 +88,8 @@ class Decore(object):
     def start_api(self):
         import os, sys
         from waitress import serve
-        HOST = os.environ.get('SERVER_HOST', 'localhost')
+        # HOST = os.environ.get('SERVER_HOST', 'localhost')
+        HOST = '0.0.0.0'
         try:
             PORT = int(os.environ.get('SERVER_PORT', str(globals.config.app_port)))
         except ValueError:
