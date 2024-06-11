@@ -28,15 +28,16 @@ class dbi_mayor:
     def dbi_accounts_view():
         pass
     
-@decore.base(title='Mayor private', model=Mayor, private=True, stretch=True, navigation='hide', role=0)
+@decore.base(title='Mayor private', model=Mayor, private=True, stretch=True, hide=True, role=0)
 class dbi_mayor_priv:
     @decore.dialog(parent_id='app', icon='mdi-account-settings' ,activator='last', role=2)
     def dbi_account_dialog():
         @decore.widget(title='Account Info', type='info', fields=[Mayor.title, Mayor.username, Mayor.desc, Mayor.role])
         def dbi_account_info():
             @decore.action(title='Logout', icon='mdi-logout' , type='standard', activator='default')
-            def dbi_logout_action(self, item, **kwargs):
-                return True, 'Loging out ' + item.username, 'remove'
+            def dbi_logout_action(self, item, token, **kwargs):
+                token = 'remove'
+                return True, 'Loging out ' + item.username
 
     @decore.view(title='Login', type='empty', role=0)
     def dbi_login_view():

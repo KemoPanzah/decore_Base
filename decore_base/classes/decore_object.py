@@ -39,7 +39,7 @@ class Decore_object(object):
         'type',
     ]
 
-    def __init__(self, p_kind, p_id, p_parent_id, p_source_id, p_icon, p_title, p_desc, p_role):
+    def __init__(self, p_kind, p_id, p_parent_id, p_source_id, p_icon, p_title, p_desc, p_hide, p_role):
         self._locked = False
         self._mutated = True
 
@@ -51,6 +51,7 @@ class Decore_object(object):
         self.icon = p_icon
         self.title = p_title
         self.desc = p_desc
+        self.hide = p_hide
         self.role = p_role
         self.child_id_s = []
 

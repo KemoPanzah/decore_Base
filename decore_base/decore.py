@@ -105,7 +105,7 @@ class Decore(object):
             self.api.run(HOST, PORT)
 
     # TODO - allow_guest gegen role tauschen role=1 ist allow_guest
-    def app(self, title, desc=None, role=1, allow_guest=True):
+    def app(self, title, desc=None, role=1):
         '''
         Eine Funktion zum eröffnen einer GUI-Dashboard-Anwendung. Sie wird als "Decorator" verwendet.
 
@@ -119,11 +119,11 @@ class Decore(object):
                 pass
         '''
         def wrapper(func):
-            self.pool.register(Decore_app(title, desc, role, allow_guest))
+            self.pool.register(Decore_app(title, desc, role))
             self.pool.extend()
             self.pool.set_roles(self.pool.__data__['app'])
             self.pool.lock_objects()
-            
+
             i_base: Decore_base
             for i_base in self.pool.base_s:
                 i_base.rel_field_s = i_base.model.rel_field_s
@@ -132,8 +132,8 @@ class Decore(object):
             self.start_api()
         return wrapper
 
-    l_base_navigation = Literal['hide', 'main-top', 'main-bottom']
-    def base(self, icon=None, title=None, desc=None, role=1, model=Decore_model, private=False, stretch=False, navigation: l_base_navigation='main-top'):
+    l_base_navigation = Literal['main-top', 'main-bottom']
+    def base(self, icon=None, title=None, desc=None, hide=False, role=1, model=Decore_model, private=False, stretch=False, navigation: l_base_navigation='main-top'):
         '''
         Eine Funktion zum registrieren einer Basis in der GUI-Dashboard-Anwendung. Sie wird als "Decorator" verwendet.
 
@@ -151,7 +151,7 @@ class Decore(object):
                 pass
         '''
         def wrapper(cls):
-            t_base = Decore_base(cls.__name__, icon, title, desc, role, model, private, stretch, navigation)
+            t_base = Decore_base(cls.__name__, icon, title, desc, hide, role, model, private, stretch, navigation)
             t_base.__class__ = type(cls.__name__, (Decore_base, cls), {
                 '__init__': cls.__init__(t_base),
             })
@@ -161,7 +161,7 @@ class Decore(object):
     l_view_type = Literal['default', 'table']
     l_view_pag_type = Literal['client']
 
-    def view(self, parent_id=None, icon=None, title=None, desc=None, role=1, type: l_view_type = 'default', fields=[], filters=[], query={}, pag_type: l_view_pag_type = 'client', pag_recs=16):
+    def view(self, parent_id=None, icon=None, title=None, desc=None, hide=False, role=1, type: l_view_type = 'default', fields=[], filters=[], query={}, pag_type: l_view_pag_type = 'client', pag_recs=16):
         '''
         Eine Funktion zur Registrierung einer Ansicht. Sie wird als "Decorator" verwendet.
 
@@ -193,7 +193,7 @@ class Decore(object):
             else:
                 t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_view(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, type, fields, filters, query, pag_type, pag_recs))
+            self.pool.register(Decore_view(func.__name__, t_parent_id, t_source_id, icon, title, desc, hide, role, type, fields, filters, query, pag_type, pag_recs))
             func()
         return wrapper
 
@@ -202,7 +202,7 @@ class Decore(object):
     l_dialog_activator = Literal['empty', 'first', 'last', 'default', 'context', 'click']
 
     # TODO - Überprüfen ob element mit gleicher ID schon vorhanden ist und Execption
-    def dialog(self, parent_id=None, icon=None, title=None, desc=None, role=1, type: l_dialog_type = 'standard', display: l_dialog_display = 'draw-half', activator: l_dialog_activator = 'empty'):
+    def dialog(self, parent_id=None, icon=None, title=None, desc=None, hide=False, role=1, type: l_dialog_type = 'standard', display: l_dialog_display = 'draw-half', activator: l_dialog_activator = 'empty'):
         '''
         Eine Funktion zur Registrierung eines Dialogs. Sie wird als "Decorator" verwendet.
 
@@ -233,13 +233,13 @@ class Decore(object):
             else:
                 t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_dialog(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, type, display, activator))
+            self.pool.register(Decore_dialog(func.__name__, t_parent_id, t_source_id, icon, title, desc, hide, role, type, display, activator))
             func()
         return wrapper
 
     l_widget_type = Literal['default', 'info', 'form', 'table']
 
-    def widget(self, parent_id=None, icon=None, title=None, desc=None, role=1, type: l_widget_type = 'default', layout='ceta', fields=[]):
+    def widget(self, parent_id=None, icon=None, title=None, desc=None, hide=False, role=1, type: l_widget_type = 'default', layout='ceta', fields=[]):
         '''
         Eine Funktion zur Registrierung eines Widgets. Sie wird als "Decorator" verwendet.
 
@@ -271,11 +271,11 @@ class Decore(object):
             else:
                 t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_widget(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, type, layout, fields))
+            self.pool.register(Decore_widget(func.__name__, t_parent_id, t_source_id, icon, title, desc, hide, role, type, layout, fields))
             func()
         return wrapper
 
-    def template(self, parent_id=None, icon=None, title=None, desc=None, role=1):
+    def template(self, parent_id=None, icon=None, title=None, desc=None, hide=False, role=1):
         '''
         Eine Funktion zur Registrierung einer Vorlage. Sie wird als "Decorator" verwendet.
 
@@ -300,7 +300,7 @@ class Decore(object):
             else:
                 t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_template(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, func))
+            self.pool.register(Decore_template(func.__name__, t_parent_id, t_source_id, icon, title, desc, hide, role, func))
         return wrapper
     
     def hook(self, parent_id=None, icon=None, title=None, desc=None, role=1):
@@ -334,7 +334,7 @@ class Decore(object):
     l_action_type = Literal['standard', 'submit']
     l_action_activator = Literal['default', 'context', 'click']
 
-    def action(self, parent_id=None, icon=None, title=None, desc=None, role=1, type: l_action_type = 'standard', activator: l_action_activator = 'none', errors=True):
+    def action(self, parent_id=None, icon=None, title=None, desc=None, hide=False, role=1, type: l_action_type = 'standard', activator: l_action_activator = 'none', errors=True):
         '''
         Eine Funktion zur Registrierung einer Aktion. Sie wird als "Decorator" verwendet.
 
@@ -366,21 +366,21 @@ class Decore(object):
             else:
                 t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_action(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, type, activator, errors, func))
+            self.pool.register(Decore_action(func.__name__, t_parent_id, t_source_id, icon, title, desc, hide, role, type, activator, errors, func))
         return wrapper
 
-    l_element_type = Literal['p', 'checkbox']
+    # l_element_type = Literal['p', 'checkbox']
 
-    def element(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_element_type = 'text', default=None, disable=False, schema=None):
-        def wrapper(func):
-            t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
-            if not parent_id:
-                t_parent_id = t_parent_s[-2]
-            else:
-                t_parent_id = parent_id
-            t_source_id = t_parent_s[0]
-            self.pool.register(Decore_element(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, type, default, disable, schema, func))
-        return wrapper
+    # def element(self, parent_id=None, icon=None, title=None, desc=None, role=0, type: l_element_type = 'text', default=None, disable=False, schema=None):
+    #     def wrapper(func):
+    #         t_parent_s = func.__qualname__.replace('.<locals>', '').rsplit('.')
+    #         if not parent_id:
+    #             t_parent_id = t_parent_s[-2]
+    #         else:
+    #             t_parent_id = parent_id
+    #         t_source_id = t_parent_s[0]
+    #         self.pool.register(Decore_element(func.__name__, t_parent_id, t_source_id, icon, title, desc, role, type, default, disable, schema, func))
+    #     return wrapper
 
     l_function_type = Literal['shot', 'work']
   
@@ -633,14 +633,12 @@ class Decore(object):
     
     @jwt_required()
     def get_hook(self, p_hook_id):
-        t_hook:Decore_hook = self.pool.__data__[p_hook_id]
+        t_hook = self.pool.__data__[p_hook_id]
         t_base = self.pool.__data__[t_hook.source_id]
-        t_parent = self.pool.__data__[t_hook.parent_id]
         t_identity = get_jwt_identity()
         t_user = Mayor.get_account_from_identity(t_identity)
-        t_hook.func(t_base, user=t_user, pool=self.pool.__data__, route=Decore_route())
-        t_return = json.dumps(self.pool.export(t_user.role, 'mutated'), default=str)
-        return t_return, 200
+        t_route = Decore_route()
+        t_hook.func(t_base, user=t_user, pool=self.pool.__data__, route=t_route)
+        return {'meta': self.pool.export(t_user.role, 'mutated'), 'route': t_route.get()}, 200
 
-        
 decore = Decore()
