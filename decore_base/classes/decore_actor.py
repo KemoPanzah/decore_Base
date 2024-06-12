@@ -129,7 +129,7 @@ class Decore_actor(Model):
         t_return = p_action.func(p_base, object=p_object, user=p_user, sender=t_sender, event=t_event,
                                  data=t_data, item=t_item, select_s=t_select_s, active=t_active, token=t_token, route=t_route)
         t_active.finish(t_return[0], str(t_return[1]))
-        return {'success': t_return[0], 'result': str(t_return[1]), 'object': p_object.export(), 'token': t_token, 'errors': {}, 'route': t_route}, 200
+        return {'success': t_return[0], 'result': str(t_return[1]), 'object': p_object.export(), 'token': t_token, 'errors': {}, 'route': t_route.get()}, 200
 
     def finish(self, p_success, p_result):
         self.success = p_success
