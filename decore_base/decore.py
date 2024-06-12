@@ -91,9 +91,9 @@ class Decore(object):
         # HOST = os.environ.get('SERVER_HOST', 'localhost')
         HOST = '0.0.0.0'
         try:
-            PORT = int(os.environ.get('SERVER_PORT', str(globals.config.app_port)))
+            PORT = int(os.environ.get('SERVER_PORT', str(globals.config.port)))
         except ValueError:
-            PORT = globals.config.app_port
+            PORT = globals.config.port
         
         if not globals.flags.dev_mode:
             logger = logging.getLogger('waitress')
@@ -103,7 +103,7 @@ class Decore(object):
             serve(self.api, host=HOST, port=PORT, threads=32)
             
         else:
-            self.api.run(HOST, PORT)
+            self.api.run('localhost', '5555')
 
     # TODO - allow_guest gegen role tauschen role=1 ist allow_guest
     def app(self, title, desc=None, role=1):
@@ -428,7 +428,10 @@ class Decore(object):
     #### Api methods ####
 
     def index(self, p_path):
-        return render_template('index.html', port=globals.config.app_port)
+        if globals.flags.dev_mode:
+            return render_template('index.html', fqdn='localhost', port='5555')
+        else:
+            return render_template('index.html', fqdn=globals.config.fqdn, port=globals.config.port)
     
     def guest_login(self):
         t_username = request.json['username']

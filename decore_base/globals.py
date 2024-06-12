@@ -21,7 +21,7 @@ class Global_flags(object):
 class Global_config(object):
     def __init__(self):
         self.__data__ = {   
-                        'default': {'app_id': str(uuid4()), 'app_port': 5555, 'state_path': 'state'}, 
+                        'default': {'app_id': str(uuid4()), 'fqdn':'localhost', 'port': 5555, 'state_path': 'state'},
                         'remote': {'server_addr': '0.0.0.0', 'server_port': 51515}
                         }
         self.load()
@@ -39,8 +39,12 @@ class Global_config(object):
         return self.__data__['default']['app_id']
 
     @property
-    def app_port(self):
-        return self.__data__['default']['app_port']
+    def fqdn(self):
+        return self.__data__['default']['fqdn']
+
+    @property
+    def port(self):
+        return self.__data__['default']['port']
 
     @property
     def state_path(self):
