@@ -36,7 +36,7 @@ class dbi_mayor_priv:
         def dbi_account_info():
             @decore.action(title='Logout', icon='mdi-logout' , type='standard', activator='default')
             def dbi_logout_action(self, item, token, **kwargs):
-                token = 'remove'
+                token['value'] = 'remove'
                 return True, 'Loging out ' + item.username
 
     @decore.view(title='Login', type='empty', role=0)
@@ -46,10 +46,15 @@ class dbi_mayor_priv:
             @decore.widget(title='Login', type='form', fields=[Mayor.username, Mayor.password], role=0)
             def dbi_login_form():
                 @decore.action(title='Login', icon='mdi-login', type='submit', errors=False, role=0)
-                def dbi_login_action(self, item, **kwargs):
-                    t_token = Mayor.get_token(item.username, item.password)
-                    if t_token:
-                        return True, 'Loging in ' + item.username, t_token
+                def dbi_login_action(self, item, token, **kwargs):
+                    t_account = Mayor.get_account_from_identity(item.username)
+                    if t_account:
+                        t_account.set_token(item.password)
+                        if t_account.token:
+                            token['value'] = t_account.token
+                            return True, 'Loging in ' + t_account.username
+                        else:
+                            return False, 'Wrong password'
                     else:
-                        return False, 'Wrong username or password'
+                        return False, 'Wrong username'
         

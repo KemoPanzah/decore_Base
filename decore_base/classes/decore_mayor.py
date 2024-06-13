@@ -40,10 +40,21 @@ class Decore_mayor(Decore_model):
         else:
             return t_account
 
-    @classmethod
-    def get_token(cls, username, password, p_expires_delta=None):
-        t_account = cls.get_or_none(cls.username == username)
-        if t_account is None:
-            return None
-        elif cls.check_password(password, t_account.password):
-            return create_access_token(identity=t_account.username, expires_delta=p_expires_delta)
+    # @classmethod
+    # def get_token(cls, username, password, p_expires_delta=None):
+    #     t_account = cls.get_or_none(cls.username == username)
+ 
+    #     if not t_account is None and cls.check_password(password, t_account.password):
+    #         return create_access_token(identity=t_account.username, expires_delta=p_expires_delta)
+        
+    #     return None
+    
+    def __init__(self, *args, **kwargs):
+        Decore_model.__init__(self, *args, **kwargs)
+        self.token = None
+
+    def set_token(self, password, p_expires_delta=None):
+        if self.check_password(password, self.password):
+            self.token = create_access_token(identity=self.username, expires_delta=p_expires_delta)
+        else:
+            self.token = None

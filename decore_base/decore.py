@@ -69,7 +69,7 @@ class Decore(object):
         # print('TEMPLATE_FOLDER >> ' + str(api.template_folder))
         api.add_url_rule('/', 'index', self.index, defaults={'p_path': ''})
         api.add_url_rule('/<path:p_path>', 'index', self.index)
-        api.add_url_rule('/guest_login', 'guest_login', self.guest_login, methods=['POST'])
+        api.add_url_rule('/guest_login', 'guest_login', self.guest_login)
         api.add_url_rule('/get_meta', 'get_meta', self.get_meta)
         api.add_url_rule('/post_item/<p_source_id>/<p_item_id>', 'post_item', self.post_item, methods=['POST'])
         api.add_url_rule('/post_item_s/<p_source_id>', 'post_item_s', self.post_item_s, methods=['POST'])
@@ -434,11 +434,10 @@ class Decore(object):
             return render_template('index.html', fqdn=globals.config.fqdn, port=globals.config.port)
     
     def guest_login(self):
-        t_username = request.json['username']
-        t_password = request.json['password']
-        t_token = Mayor.get_token(t_username, t_password, False)
-        if t_token:
-            return {'success': True, 'result': 'Login successfully', 'token': t_token, 'errors':{}}, 200
+        t_account = Mayor.get_account_from_identity('guest@decore.base')
+        t_account.set_token('password')
+        if t_account.token:
+            return {'success': True, 'result': 'Login successfully', 'token': t_account.token, 'errors':{}}, 200
         else:
             return {'success': False, 'result':'Invalid username or password', 'token': None, 'errors':{}}, 401
 
