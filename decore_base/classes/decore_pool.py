@@ -39,6 +39,12 @@ class Decore_pool(object):
                 self.base_s.append(value)
                 value.parent_kind = self.__data__[value.parent_id].kind
                 self.__data__[value.parent_id].child_id_s.append(value.id)
+
+            elif value.kind == 'dialog':
+                value.parent_kind = self.__data__[value.parent_id].kind
+                self.__data__[value.parent_id].child_id_s.append(value.id)
+                if self.__data__[value.parent_id].kind == 'widget':
+                    value.kind = 'subdialog'
             
             elif value.kind == 'function':
                 self.__data__[value.parent_id].function_s.append(value)
