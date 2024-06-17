@@ -21,6 +21,7 @@ class Decore_prompt(object):
                 self.copy_launch()
                 self.copy_gitignore()
                 self.sync_spa()
+                self.sync_pwa()
                 self.create_base_dir()
                 self.create_model_dir()
                 exit()
@@ -28,6 +29,7 @@ class Decore_prompt(object):
                 globals.flags.purge_unused_database_cols = False
                 globals.flags.dev_mode = True
                 self.sync_spa()
+                self.sync_pwa()
             elif self.args.build:
                 PyInstaller.__main__.run([
                     '--paths="."',
@@ -60,6 +62,13 @@ class Decore_prompt(object):
         t_spa_destination = Path('spa')
         t_spa_destination.mkdir(parents=True, exist_ok=True)
         sync(str(t_spa_source.absolute()), str(t_spa_destination.absolute()), 'sync', purge=True)
+
+    def sync_pwa(self):
+        t_prepare_path = Path(__file__).parent.parent.joinpath('prepare')
+        t_pwa_source = t_prepare_path.joinpath('pwa')
+        t_pwa_destination = Path('pwa')
+        t_pwa_destination.mkdir(parents=True, exist_ok=True)
+        sync(str(t_pwa_source.absolute()), str(t_pwa_destination.absolute()), 'sync', purge=True)
 
     def create_base_dir(self):
         t_bases_init_path = Path('bases').joinpath('__init__.py')

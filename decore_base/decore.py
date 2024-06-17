@@ -103,7 +103,7 @@ class Decore(object):
             serve(self.api, host=HOST, port=PORT, threads=32)
             
         else:
-            self.api.run('localhost', '5555')
+            self.api.run('0.0.0.0', '5555')
 
     # TODO - allow_guest gegen role tauschen role=1 ist allow_guest
     def app(self, title, desc=None, role=1):
