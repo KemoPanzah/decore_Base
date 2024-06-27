@@ -10,8 +10,6 @@ from .decore_element import Decore_element
 from .decore_function import Decore_function
 
 
-import inspect
-
 class Decore_pool(object):
     def __init__(self):
         self.__data__ = dict()
