@@ -199,11 +199,10 @@ class Decore(object):
         return wrapper
 
     l_dialog_type = Literal['standard']
-    l_dialog_display = Literal['modal', 'draw-half', 'draw-full']
     l_dialog_activator = Literal['empty', 'first', 'last', 'default', 'context', 'click']
 
     # TODO - Überprüfen ob element mit gleicher ID schon vorhanden ist und Execption
-    def dialog(self, parent_id=None, icon=None, title=None, desc=None, hide=False, role=1, type: l_dialog_type = 'standard', display: l_dialog_display = 'draw-half', activator: l_dialog_activator = 'empty'):
+    def dialog(self, parent_id=None, icon=None, title=None, desc=None, hide=False, role=1, type: l_dialog_type = 'standard', activator: l_dialog_activator = 'empty'):
         '''
         Eine Funktion zur Registrierung eines Dialogs. Sie wird als "Decorator" verwendet.
 
@@ -234,7 +233,7 @@ class Decore(object):
             else:
                 t_parent_id = parent_id
             t_source_id = t_parent_s[0]
-            self.pool.register(Decore_dialog(func.__name__, t_parent_id, t_source_id, icon, title, desc, hide, role, type, display, activator))
+            self.pool.register(Decore_dialog(func.__name__, t_parent_id, t_source_id, icon, title, desc, hide, role, type, activator))
             func()
         return wrapper
 

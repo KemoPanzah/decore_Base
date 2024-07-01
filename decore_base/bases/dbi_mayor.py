@@ -41,7 +41,7 @@ class dbi_mayor_priv:
 
     @decore.view(title='Login', type='empty', role=0)
     def dbi_login_view():
-        @decore.dialog(title='Login', type='standard', display="draw-half", activator='empty', role=0)
+        @decore.dialog(title='Login', type='standard', activator='empty', role=0)
         def dbi_login_dialog():
             @decore.widget(title='Login', type='form', fields=[Mayor.username, Mayor.password], role=0)
             def dbi_login_form():
