@@ -323,7 +323,10 @@ class Decore_model(Model):
             if field.name in p_dict.keys():
                 if 'ForeignKeyField' in field.__class__.__name__:
                     if not p_dict[field.name] == None:
-                        setattr(self, field.name, p_dict[field.name]['id'])
+                        if 'id' in p_dict[field.name]:
+                            setattr(self, field.name, p_dict[field.name]['id'])
+                        else:
+                            setattr(self, field.name, p_dict[field.name])
                     else:
                         setattr(self, field.name, None)
                 else:

@@ -461,8 +461,7 @@ class Decore(object):
     @jwt_required()    
     def post_item_s(self, p_source_id):
         t_start = perf_counter()
-        # TODO - Umstellen auf request.json - Das ist viel schöner.
-        t_query = json.loads(request.data)
+        t_query = request.json
         t_source = self.pool.__data__[p_source_id]
         t_item_s = t_source.model.get_dict_s(t_query)
         t_end = perf_counter()
