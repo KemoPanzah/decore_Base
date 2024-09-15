@@ -307,7 +307,7 @@ class Decore(object):
         '''
         Eine Funktion zur Registrierung eines "Hakens". Sie wird als "Decorator" verwendet. 
 
-        Ein Haken ist eine Funktion zum abfangen von Ereignissen aus dem Frontend. Es wird immer dann ausgeführt, wenn ein beliebiges Ereignis eintritt, sofern sie definiert ist.
+        Ein Haken ist eine Funktion zum abfangen des Load-Ereignisses der übergeordneten Komponente. Er kann dazu genutzt werden um vor dem Laden einer Komponente Bedingungen im Backend zu prüfen und gegebenenfalls den Pool zu manipulieren oder die Route zu ändern. 
 
         :param str parent_id: Die ID des übergeordneten Elements. Nur zu setzen, wenn der Haken in einem Dialog einer anderen Basis gerendert werden soll.
         :param str icon: Das Symbol des Hakens.
@@ -318,6 +318,7 @@ class Decore(object):
         .. code-block:: python
             
             @decore.hook(icon='mdi-account', title='Person', desc='A hook to catch events')
+            def sample_hook(**kwargs):
                 pass
 
         '''
@@ -353,7 +354,7 @@ class Decore(object):
         .. code-block:: python
             
             @decore.action(icon='mdi-account', title='Person', desc='A action for managing personal data', type='submit')
-            def sample_action(item, **kwargs):
+            def sample_action(**kwargs):
                 pass
         
         Die Aktionen durchlaufen ein Modul, welches die erhaltenen Daten aufbereitet und als Keyword-Parameter an die dekorierte Funktion übergibt. Es ist alles in den ``kwargs`` zu finden und man macht sich diese einfach verfügbar. Der Parameter ``item`` ist ein Beispiel dafür und repräsentiert den vom Frontend zurückgegebenen Datensatz. Um herauszufinden, was alles noch in den ``kwargs`` steckt, bitte den Debugger benutzen.
