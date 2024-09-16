@@ -7,6 +7,7 @@ from peewee import Field, BackrefAccessor, ManyToManyField
 
 class Decore_object(object):
 
+    # TODO - t_ro_attr_s abbauen. __setattr__ soll nur nachfragen ob es in t_attr_s ist.
     t_ro_attr_s = [
         '_locked',
         'id',
