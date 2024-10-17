@@ -105,17 +105,16 @@ class Decore(object):
         else:
             self.api.run('0.0.0.0', '5555')
 
-    # TODO - allow_guest gegen role tauschen role=1 ist allow_guest
-    def app(self, title, desc=None, role=1):
+    # TODO - allow_guest gegen role tauschen role=0 ist allow_guest
+    def app(self, title, desc=None, role=0):
         '''
         Eine Funktion zum eröffnen einer GUI-Dashboard-Anwendung. Sie wird als "Decorator" verwendet.
 
         :param str title: Der Titel der App.
-        :param bool allow_guest: Gibt an, ob der Gastzugang (Anonynus) erlaubt ist. Der Wert ``True`` erlaubt den automatischen Login als Gast. Der Wert ``False`` verweigert das senden der Metadaten an das Frontend und verweist auf die Login-Seite.
 
         .. code-block:: python
 
-            @decore.app(title='My App', allow_guest=False)
+            @decore.app(title='My App', role=0)
             def main():
                 pass
         '''
@@ -134,7 +133,7 @@ class Decore(object):
         return wrapper
 
     l_base_navigation = Literal['main-top', 'main-bottom']
-    def base(self, icon=None, title=None, desc=None, hide=False, role=1, model=Decore_model, private=False, stretch=False, navigation: l_base_navigation='main-top'):
+    def base(self, icon=None, title=None, desc=None, hide=False, role=0, model=Decore_model, private=False, stretch=False, navigation: l_base_navigation='main-top'):
         '''
         Eine Funktion zum registrieren einer Basis in der GUI-Dashboard-Anwendung. Sie wird als "Decorator" verwendet.
 
@@ -162,7 +161,7 @@ class Decore(object):
     l_view_type = Literal['default', 'table']
     l_view_pag_type = Literal['client']
 
-    def view(self, parent_id=None, icon=None, title=None, desc=None, hide=False, role=1, type: l_view_type = 'default', fields=[], filters=[], query={}, pag_type: l_view_pag_type = 'client', pag_recs=16):
+    def view(self, parent_id=None, icon=None, title=None, desc=None, hide=False, role=0, type: l_view_type = 'default', fields=[], filters=[], query={}, pag_type: l_view_pag_type = 'client', pag_recs=16):
         '''
         Eine Funktion zur Registrierung einer Ansicht. Sie wird als "Decorator" verwendet.
 
@@ -202,7 +201,7 @@ class Decore(object):
     l_dialog_activator = Literal['empty', 'first', 'last', 'default', 'context', 'click']
 
     # TODO - Überprüfen ob element mit gleicher ID schon vorhanden ist und Execption
-    def dialog(self, parent_id=None, icon=None, title=None, desc=None, hide=False, role=1, type: l_dialog_type = 'standard', activator: l_dialog_activator = 'empty'):
+    def dialog(self, parent_id=None, icon=None, title=None, desc=None, hide=False, role=0, type: l_dialog_type = 'standard', activator: l_dialog_activator = 'empty'):
         '''
         Eine Funktion zur Registrierung eines Dialogs. Sie wird als "Decorator" verwendet.
 
@@ -239,7 +238,7 @@ class Decore(object):
 
     l_widget_type = Literal['default', 'info', 'form', 'table']
 
-    def widget(self, parent_id=None, icon=None, title=None, desc=None, hide=False, role=1, type: l_widget_type = 'default', layout='ceta', fields=[]):
+    def widget(self, parent_id=None, icon=None, title=None, desc=None, hide=False, role=0, type: l_widget_type = 'default', layout='ceta', fields=[]):
         '''
         Eine Funktion zur Registrierung eines Widgets. Sie wird als "Decorator" verwendet.
 
@@ -275,7 +274,7 @@ class Decore(object):
             func()
         return wrapper
 
-    def template(self, parent_id=None, icon=None, title=None, desc=None, hide=False, role=1):
+    def template(self, parent_id=None, icon=None, title=None, desc=None, hide=False, role=0):
         '''
         Eine Funktion zur Registrierung einer Vorlage. Sie wird als "Decorator" verwendet.
 
@@ -303,7 +302,7 @@ class Decore(object):
             self.pool.register(Decore_template(func.__name__, t_parent_id, t_source_id, icon, title, desc, hide, role, func))
         return wrapper
     
-    def hook(self, parent_id=None, icon=None, title=None, desc=None, role=1):
+    def hook(self, parent_id=None, icon=None, title=None, desc=None, role=0):
         '''
         Eine Funktion zur Registrierung eines "Hakens". Sie wird als "Decorator" verwendet. 
 
@@ -335,7 +334,7 @@ class Decore(object):
     l_action_type = Literal['standard', 'submit']
     l_action_activator = Literal['default', 'context', 'click']
 
-    def action(self, parent_id=None, icon=None, title=None, desc=None, hide=False, role=1, type: l_action_type = 'standard', activator: l_action_activator = 'none', errors=True):
+    def action(self, parent_id=None, icon=None, title=None, desc=None, hide=False, role=0, type: l_action_type = 'standard', activator: l_action_activator = 'none', errors=True):
         '''
         Eine Funktion zur Registrierung einer Aktion. Sie wird als "Decorator" verwendet.
 

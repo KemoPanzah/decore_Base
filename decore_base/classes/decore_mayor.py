@@ -10,7 +10,7 @@ class Decore_mayor(Decore_model):
 
     username = CharField(unique=True, verbose_name='Username')
     password = PasswordField(verbose_name='Password')
-    role = IntegerField(verbose_name='Role', default=1)
+    role = IntegerField(verbose_name='Role', default=0)
 
     class Meta:
         # TODO - diese Zeile wieder einsetzen

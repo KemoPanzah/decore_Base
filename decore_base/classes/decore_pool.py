@@ -60,7 +60,7 @@ class Decore_pool(object):
 
     def set_roles(self, p_object):
         if not p_object.kind == 'app':
-            if p_object.role < self.__data__[p_object.parent_id].role and not p_object.role == 0:
+            if p_object.role < self.__data__[p_object.parent_id].role:
                 p_object.role = self.__data__[p_object.parent_id].role
         for child_id in p_object.child_id_s:
             self.set_roles(self.__data__[child_id])
@@ -72,7 +72,7 @@ class Decore_pool(object):
     def export(self, p_role, p_mode='all'):
         t_return = {}
         for key, value in self.__data__.items():
-            if value.kind == 'app' or value.role == 0 or p_role >= value.role:
+            if value.kind == 'app'  or p_role >= value.role:
                 if p_mode == 'all':
                     t_return[key] = value.export()
                 elif p_mode == 'mutated' and value._mutated:
