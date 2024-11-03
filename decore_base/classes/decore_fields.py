@@ -193,9 +193,6 @@ class PasswordFieldAccessor(object):
 
 class BackrefMetaField(MetaField):
     ''' 
-    !!! warning
-        [[Der Name des `BackRefMetaField` muss mit dem Namen des angegebenen `backref` im `ForeignKey` oder `ManyToMany` Feld im Referenzmodell übereinstimmen]].
-
     [[Das BackrefMetaField wird benötigt damit **decore Front** Beziehungen zwischen Modellen darstellen kann. Es kann z.B. dem Filter oder einem Formular zugewiesen werden. Es ist ein MetaField und erhält keine Spalte in der Datenbank]].
 
     Parameters:
@@ -203,7 +200,10 @@ class BackrefMetaField(MetaField):
         help_text (str): Zusätzlicher Text, der in **decore Front** angezeigt wird.
         filter_fields (list): Eine Liste vom Typ String. Es werden nur die angegebenen Felder im Filter angezeigt. Wenn `empty`, werden alle Felder angezeigt.
         choice_query (dict): Ein `dictonary`, das eine Abfrage enthält, die beim laden von Optionen (z.B. in Auswahlfeldern im Frontend) berücksichtigt wird. Die Abfrage muss sich auf das Referenzmodell beziehen.
-        
+
+    !!! warning
+        [[Der Name des `BackRefMetaField` muss mit dem Wert des angegebenen `backref` Parameters im `ForeignKey` oder `ManyToMany` Feld im Referenzmodell übereinstimmen. Im folgendem Beispiel ist der Name des `BackRefMetaField` `accounts` und ebenso der Wert des ForeignKey `backref` Parameters.]]
+
     ```python
     class User(Conform_model):
         username = CharField(verbose_name='Username')
