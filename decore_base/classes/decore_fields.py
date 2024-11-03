@@ -193,27 +193,29 @@ class PasswordFieldAccessor(object):
 
 class BackrefMetaField(MetaField):
     ''' 
-    .. warning:: The BackRefMetaField's name must match the name of the specified backref in the ForeignKey or ManyToMany field in the reference model.
+    !!! warning
+        Der Name des BackRefMetaField muss mit dem Namen des angegebenen backref im ForeignKey oder ManyToMany Feld im Referenzmodell übereinstimmen.
 
-    The BackRefMetaField is used by the user to represent relationships in the **decore Front** application. For example, it can be assigned to the filter or to a form. It is a MetaField and does not get a column in the database.
+    Das BackrefMetaField wird benötigt damit **decore Front** Beziehungen zwischen Modellen darstellen kann. Es kann z.B. dem Filter oder einem Formular zugewiesen werden. Es ist ein MetaField und erhält keine Spalte in der Datenbank.
 
-    :param str verbose_name: A human-readable name for the field.
-    :param str help_text: Additional text to be displayed in **decore Front**.
-    :param list filter_fields: A List of type string. Only the speciefied fields will be displayed in the filter. If None, all fields will be displayed.
-    :param dict choice_query: A dictonary containing a query to be used when querying options (e.g. in selection fields in the frontend). The query always refers to the reference model.
+    Parameters:
+        verbose_name (str): Ein vom Benutzer lesbarer Name für das Feld.
+        help_text (str): Zusätzlicher Text, der in **decore Front** angezeigt wird.
+        filter_fields (list): Eine Liste vom Typ String. Es werden nur die angegebenen Felder im Filter angezeigt. Wenn `empty`, werden alle Felder angezeigt.
+        choice_query (dict): Ein `dictonary`, das eine Abfrage enthält, die beim laden von Optionen (z.B. in Auswahlfeldern im Frontend) berücksichtigt wird. Die Abfrage muss sich auf das Referenzmodell beziehen.
         
-    .. code-block:: python
+    ```python
+    class User(Conform_model):
+        username = CharField(verbose_name='Username')
+        accounts = BackRefMetaField(null=True, verbose_name='Accounts', choice_query={'domain__eq': 'example.com'}
+    ```
 
-        class User(Conform_model):
-            username = CharField(verbose_name='Username')
-            accounts = BackRefMetaField(null=True, verbose_name='Accounts', choice_query={'domain__eq': 'example.com'}
-    
-    .. code-block:: python
-
-        class Account(Conform_model):
-            user = ForeignKeyField(User, backref='accounts', null=True, verbose_name='User')
-            prefix = CharField(verbose_name='Mail prefix')
-            domain = CharField(verbose_name='Mail domain', default='example.com')
+    ```python
+    class Account(Conform_model):
+        user = ForeignKeyField(User, backref='accounts', null=True, verbose_name='User')
+        prefix = CharField(verbose_name='Mail prefix')
+        domain = CharField(verbose_name='Mail domain', default='example.com')
+    ```
 
     '''
     def __init__(self, help_text=None, verbose_name=None, filter_fields=[], choice_query={}):
@@ -294,7 +296,7 @@ class FloatField(FloatField):
 
 class PasswordField(Field):
     '''
-    .. warning:: 
+    :warning 
         The keybase is a KeePass file and should be protected by setting the correct access rights (ACL).
 
     A field to store passwords in the keybase and to use them again.
