@@ -202,7 +202,7 @@ class BackrefMetaField(MetaField):
         choice_query (dict): Ein `dictonary`, das eine Abfrage enthält, die beim laden von Optionen (z.B. in Auswahlfeldern im Frontend) berücksichtigt wird. Die Abfrage muss sich auf das Referenzmodell beziehen.
 
     !!! warning
-        [[Der Name des `BackRefMetaField` muss mit dem Wert des angegebenen `backref` Parameters im `ForeignKey` oder `ManyToMany` Feld im Referenzmodell übereinstimmen.]] [[Im folgendem Beispiel ist der Name des `BackRefMetaField` `accounts` und ebenso der Wert des ForeignKey `backref` Parameters.]]
+        [[Der Name des `BackRefMetaField` muss mit dem Wert des angegebenen `backref` Parameters im *ForeignKey* oder *ManyToMany* Feldes im Referenzmodell übereinstimmen.]] [[Im folgendem Beispiel ist der Name des `BackRefMetaField` gleich `accounts` und ebenso der Wert des *ForeignKey* `backref` Parameters.]]
 
     ```python
     class User(Conform_model):
