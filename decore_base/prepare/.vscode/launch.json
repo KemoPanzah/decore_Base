@@ -6,7 +6,6 @@
             "type": "debugpy",
             "request": "launch",
             "program": "app.py",
-            "args": ["--dev"],
             "console": "integratedTerminal"
         }
     ]

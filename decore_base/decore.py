@@ -12,6 +12,7 @@ from .classes.decore_widget import Decore_widget
 from .classes.decore_template import Decore_template
 from .classes.decore_hook import Decore_hook
 from .classes.decore_prompt import Decore_prompt
+from .classes.decore_prepare import Decore_prepare
 from .classes.decore_mayor import Decore_mayor as Mayor
 from .classes.decore_actor import Decore_actor
 from .classes.decore_route import Decore_route
@@ -28,22 +29,21 @@ from flask_wtf import CSRFProtect
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 
-import json, logging
 from str2type import str2type
 from pathlib import Path
 from collections import OrderedDict
 
 
+import json, logging, importlib
+
 class Decore(object):
-    '''
-    Objekt der Klasse Decore ist die Hauptklasse des Frameworks. Sie ist für die Registrierung der Elemente zuständig und stellt die API zur Verfügung.
-    '''
     def __init__(self):
-        if not globals.flags.production_mode:
-            self.prompt = Decore_prompt()
+        # if not globals.flags.production_mode:
+        #     self.prompt = Decore_prompt()
+        self.prepare = Decore_prepare()
         self.pool = Decore_pool()
         self.actor = Decore_actor.register()
-        self.api = self.get_api()
+        self.api = None
         Decore_query.create_table(safe=True)
         
     def get_api(self):
@@ -83,6 +83,7 @@ class Decore(object):
         api.add_url_rule('/get_actor_item_s', 'get_actor_item_s', self.get_actor_item_s)
         api.add_url_rule('/get_template/<p_template_id>', 'get_template', self.get_template)
         api.add_url_rule('/get_hook/<p_hook_id>', 'post_hook', self.get_hook)
+        
         return api
 
     def start_api(self):
@@ -106,19 +107,32 @@ class Decore(object):
             self.api.run('0.0.0.0', '5555')
 
     # TODO - allow_guest gegen role tauschen role=0 ist allow_guest
-    def app(self, title, desc=None, role=0):
+    def app(self, title, desc=None, role=0, dev=True):
         '''
-        Eine Funktion zum eröffnen einer GUI-Dashboard-Anwendung. Sie wird als "Decorator" verwendet.
+        [[Eine Funktion zum eröffnen einer GUI-Dashboard-Anwendung. Sie wird als "Decorator" verwendet.]]
 
-        :param str title: Der Titel der App.
+        Parameters:
+            title (str): [[Der Titel der App.]]
+            desc (str): [[Die Beschreibung der App.]]
+            role (int): [[Die Rollenangabe dient dazu, nur berechtigte Elemente ans Framework zu liefern. Rolle 0 ermöglicht es dem Gast-Account, sofort auf die App zuzugreifen. Alles über 0 erfordert eine Anmeldung.]]
+            dev (bool): [[Der Entwicklungsmodus aktiviert die CORS-Header, bereitet die Anwendung beim ersten Lauf vor, aktiviert weitere Dev-Features und ermöglicht es, die App auf einem lokalen Server zu testen.]]
 
-        .. code-block:: python
+        ```python
 
-            @decore.app(title='My App', role=0)
+            @decore.app(title='decore Sample', role=0)
             def main():
                 pass
+        ```
         '''
+
         def wrapper(func):
+            
+            if dev:
+                globals.flags.dev_mode = True
+
+            self.prepare.run()
+            importlib.import_module('bases')
+
             self.pool.register(Decore_app(title, desc, role))
             self.pool.extend()
             self.pool.set_roles(self.pool.__data__['app'])
@@ -129,6 +143,8 @@ class Decore(object):
                 i_base.rel_field_s = i_base.model.rel_field_s
                 i_base.start_shot()
                 i_base.start_work()
+            
+            self.api = self.get_api()
             self.start_api()
         return wrapper
 
