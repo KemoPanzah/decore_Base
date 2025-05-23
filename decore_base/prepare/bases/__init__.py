@@ -1,1 +1,1 @@
-from welcome_base import Welcome_base
+from .welcome_base import Welcome_base
