@@ -29,6 +29,7 @@ class Decore_prepare:
         t_spa_source = t_prepare_path.joinpath('spa')
         t_spa_destination = Path('spa')
         t_spa_destination.mkdir(parents=True, exist_ok=True)
+        #TODO - exclude .gitignore
         sync(str(t_spa_source.absolute()), str(t_spa_destination.absolute()), 'sync', purge=True)
         self.set_gitignore(t_spa_destination)
 
@@ -37,6 +38,7 @@ class Decore_prepare:
         t_pwa_source = t_prepare_path.joinpath('pwa')
         t_pwa_destination = Path('pwa')
         t_pwa_destination.mkdir(parents=True, exist_ok=True)
+        #TODO - exclude .gitignore
         sync(str(t_pwa_source.absolute()), str(t_pwa_destination.absolute()), 'sync', purge=True)
         self.set_gitignore(t_pwa_destination)
 
